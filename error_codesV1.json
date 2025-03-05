@@ -1,6 +1,6 @@
 {
     "$0101": {
-        "description": "Data link is dead—no signal reaching the diagnostic tool, indicating a complete communication breakdown.",
+        "description": "Data link is dead no signal reaching the diagnostic tool, indicating a complete communication breakdown.",
         "cause": "Most likely, the USB cable is unplugged, damaged, or fried. Alternatively, the PC’s USB port might be malfunctioning, or there could be a hardware glitch in the device or truck’s OBD system.",
         "action": "Start by visually inspecting the USB cable for damage and ensure it’s securely plugged into both the PC and the device. Try a different USB port on your computer, preferably a USB 2.0 port for stability. If the issue persists, test with a known working cable. Reboot the PC and the diagnostic tool to reset any glitches. If still dead, check the truck’s OBD port for bent pins or debris.",
         "files": []
