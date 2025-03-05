@@ -1,0 +1,254 @@
+{
+    "$0101": {
+        "description": "Data link is dead—no signal reaching the diagnostic tool, indicating a complete communication breakdown.",
+        "cause": "Most likely, the USB cable is unplugged, damaged, or fried. Alternatively, the PC’s USB port might be malfunctioning, or there could be a hardware glitch in the device or truck’s OBD system.",
+        "action": "Start by visually inspecting the USB cable for damage and ensure it’s securely plugged into both the PC and the device. Try a different USB port on your computer, preferably a USB 2.0 port for stability. If the issue persists, test with a known working cable. Reboot the PC and the diagnostic tool to reset any glitches. If still dead, check the truck’s OBD port for bent pins or debris.",
+        "files": []
+    },
+    "$0280": {
+        "description": "OBD system is offline—vehicle isn’t establishing a connection with the scan tool, leaving diagnostics in the dark.",
+        "cause": "The truck’s OBD port may be unpowered or faulty, possibly due to a blown fuse, a disconnected wiring harness, or an issue with the vehicle’s power supply.",
+        "action": "Confirm the truck’s ignition is fully on (not just accessory mode). Locate and inspect the OBD-II fuse in the vehicle’s fuse box (consult the truck manual for its location) and replace if blown. Test with a different OBD cable to rule out a cable fault. If no luck, use a multimeter to check the OBD port for 12V power on pin 16.",
+        "files": []
+    },
+    "$0281": {
+        "description": "No data is coming from the truck—complete silence from the ECM, halting all diagnostic efforts.",
+        "cause": "This could stem from a disconnected or faulty cable, a dead OBD port, or an ECM issue within the truck, possibly due to a power failure or internal fault.",
+        "action": "Inspect all cable connections between the scan tool and truck, ensuring they’re tight and undamaged. Verify the truck engine is running or at least in the ‘on’ position. Restart the Scan and Tune software and retry the connection. If the problem continues, check the ECM power supply with a multimeter (pins 16 for power, 4/5 for ground) or consult a mechanic for an ECM diagnostic.",
+        "files": []
+    },
+    "$0311": {
+        "description": "OBD mode is locked—diagnostic mode won’t activate, restricting access to vehicle data.",
+        "cause": "The truck’s OBD system might be restricted due to a security lockout, misconfigured settings, or an incompatible scan tool profile.",
+        "action": "Check the truck’s OBD settings via the owner’s manual or dealership to ensure no diagnostic mode is disabled. Verify the scan tool’s configuration matches the truck’s ECM (e.g., correct protocol). If locked, update the scan tool firmware to the latest version and retry. Contact PPEI support if a VIN-specific lock is suspected.",
+        "files": []
+    },
+    "$0312": {
+        "description": "Sub-function is blocked—OBD refuses to perform a specific diagnostic task.",
+        "cause": "This sub-function may be locked by the truck’s ECM due to a security feature, or it might not be supported by the vehicle’s OBD system.",
+        "action": "Confirm the truck’s compatibility with the requested sub-function using the vehicle manual or PPEI’s compatibility list. Update the scan tool firmware to ensure all functions are unlocked. If still blocked, perform a factory reset on the scan tool (if supported) and retry, or reach out to support for a workaround.",
+        "files": []
+    },
+    "$0333": {
+        "description": "Security is tight—ECM access is shut down, preventing tuning or diagnostics.",
+        "cause": "The ECM is locked down, likely due to a security protocol, an expired license, or a VIN mismatch restricting permissions.",
+        "action": "Verify your license status with PPEI and renew if expired. Check for a VIN lock by comparing the truck’s VIN with the licensed ECM. Unlock the ECM using the correct authorization key via [F5: BBX]->[Program] in V8, or contact PPEI support with your VIN and license details for assistance.",
+        "files": []
+    },
+    "$0340": {
+        "description": "Download is stalled—the flash process won’t complete, leaving the tune incomplete.",
+        "cause": "The flash transfer is hung up, possibly due to a loose cable, unstable power supply, or a corrupted file during transmission.",
+        "action": "Reboot the PC and scan tool to clear any hang-ups. Ensure all cables are securely connected and try a different USB port with a high-quality cable. Verify a stable power source (e.g., truck battery at 12-14V) and avoid running other power-hungry devices. Retry the flash process and monitor for errors.",
+        "files": []
+    },
+    "$0380": {
+        "description": "Diagnostic service crashed—the scan tool’s diagnostic mode failed unexpectedly.",
+        "cause": "A software glitch in the Scan and Tune program or a hardware issue with the scan tool could have caused the crash.",
+        "action": "Close and restart the Scan and Tune software to reset the session. Update the software to the latest version from the PPEI website. If the crash persists, test the scan tool on another PC or with a different cable to isolate the hardware issue.",
+        "files": []
+    },
+    "$0482": {
+        "description": "The *.pmm file is mismatched—the parameter file doesn’t sync with the tune or controller.",
+        "cause": "The loaded *.pmm file version doesn’t match the tune file or the controller’s configuration, causing a compatibility error.",
+        "action": "Open the tune file in V8 and verify the *.pmm file matches the tune’s version and controller type. Reload the correct *.pmm file from the original tune package and reapply the tune via [F3: Tune]. If unsure, download the latest *.pmm from PPEI’s support page.",
+        "files": []
+    },
+    "$0502": {
+        "description": "The most common EFI error code, Simply put, the autocal needs to be reconfigured using our BBX file.",
+        "cause": "The *.obj file is not present on the device, likely due to a failed installation or incomplete programming.",
+        "action": "Check the BBX configuration in V8 to confirm the *.obj file path. Reinstall V8 software and reprogram the controller using [F5: BBX]->[Program]. Download the fix file below, follow the ‘program autocal step by step.pdf’ guide, and watch the video tutorial for detailed steps.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$0503": {
+        "description": "Likley needs to update the EFI live software and then update the firmware on the autocal",
+        "cause": "The *.obj file has been corrupted, possibly from an interrupted download or a storage error on the device.",
+        "action": "Redowload the EFI live software directly from www.efilive.com/download-efilive [Check Firmware] in V8. Use the clean file provided below, consult the ‘program autocal step by step.pdf’ guide, and review the video tutorial for a step-by-step recovery.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$0504": {
+        "description": "Bootloader is gone—the *.bix file is missing, preventing the device from loading.",
+        "cause": "The *.bix file was not installed on the device, likely due to a skipped step during setup.",
+        "action": "Fix the BBX setup by reinstalling V8. Push the *.bix file via [F5: BBX]->[Program]. Use the file below, refer to the ‘program autocal step by step.pdf’ guide, and watch the tutorial video for a complete setup process.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$0505": {
+        "description": "Tune file is absent—the controller has no tune loaded, rendering it inoperable.",
+        "cause": "No tune file has been uploaded to the controller, possibly due to a skipped step or file deletion.",
+        "action": "Load the tune file using [F3: Tune] in V8. Verify the file path points to the correct tune and retry the upload. If the file is missing, download it from PPEI’s support site using your license details.",
+        "files": []
+    },
+    "$050B": {
+        "description": "Script is ahead—the firmware is outdated and incompatible with the script’s requirements.",
+        "cause": "The device’s firmware version is too old to support the current script’s specifications.",
+        "action": "Reinstall V8 to ensure a clean base. Update the BBX firmware via [F5: BBX]->[Program] with the latest version. Use the file below, review the ‘program autocal step by step.pdf’ guide, and watch the video tutorial for update instructions.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$0525": {
+        "description": "Tune file is unrecognized—the system can’t process the tune due to an incompatible format.",
+        "cause": "The tune file’s format or version doesn’t match the controller’s expected configuration.",
+        "action": "Verify the tune file’s compatibility with your controller model using PPEI’s compatibility chart. Reload the correct tune file and update the firmware if needed. If the issue persists, contact support with the file details.",
+        "files": []
+    },
+    "$0526": {
+        "description": "Tune layout is unreadable—the system can’t interpret the tune file’s structure.",
+        "cause": "The tune file’s layout is corrupted or uses an incompatible structure for the controller.",
+        "action": "Reinstall the tune file from a fresh download to ensure integrity. Check the file with V8’s file validator tool (if available) and update the software to the latest version to support the layout.",
+        "files": []
+    },
+    "$0527": {
+        "description": "Checksum has failed—the flash won’t run due to data corruption in the tune file.",
+        "cause": "The tune file’s checksum doesn’t match, indicating corrupted data from a bad download or transfer.",
+        "action": "Redownload the tune file from the original source. Verify its integrity using Scan and Tune’s checksum tool, then retry the flash process. Ensure a stable connection during the transfer.",
+        "files": []
+    },
+    "$0530": {
+        "description": "License conflict—the tune is tied to another device or VIN, blocking this controller.",
+        "cause": "The tune’s license is registered to a different device or VIN, triggering a security lock.",
+        "action": "Check your license details with PPEI and clear any conflicts by unregistering the old device. Verify the VIN matches the licensed truck, and retry the flash. Contact support if the license needs reassignment.",
+        "files": []
+    },
+    "$0531": {
+        "description": "Serial is off—the tune doesn’t match the device’s serial number.",
+        "cause": "A mismatch between the tune file’s serial number and the device’s hardware serial.",
+        "action": "Check the device’s serial number in V8 under device settings. Reload the tune file with the correct serial number and retry. If mismatched, request a new tune file from PPEI with the correct serial.",
+        "files": []
+    },
+    "$0532": {
+        "description": "Controller is unlicensed—the flash is stopped due to missing authorization.",
+        "cause": "The controller lacks a valid license for the specific tune being applied.",
+        "action": "Acquire a license from PPEI for the controller and tune combination. Verify the VIN and controller serial match the license, then retry the flash process.",
+        "files": []
+    },
+    "$0533": {
+        "description": "VIN slots are full—no room for a new tune due to maxed-out capacity.",
+        "cause": "The controller’s VIN slots are fully occupied, preventing a new tune from being stored.",
+        "action": "Clear old VINs from the controller using V8’s [F5: BBX]->[Clear VINs] option. Update the license to accommodate more slots if needed, then retry the tune.",
+        "files": []
+    },
+    "$0534": {
+        "description": "Serial is corrupt—the device’s serial number data is invalid or garbled.",
+        "cause": "The device’s serial number has been corrupted, possibly from a failed update or hardware fault.",
+        "action": "Reset the device to factory settings via V8 (if supported) and recheck the serial. If still corrupt, contact PPEI support with the device details for a replacement or repair.",
+        "files": []
+    },
+    "$0535": {
+        "description": "AutoCal is unlinked—no bond with the FlashScan device.",
+        "cause": "The AutoCal device isn’t paired with the FlashScan, breaking the communication link.",
+        "action": "Link AutoCal to FlashScan using the pairing wizard in V8 under [F5: BBX]. Check cable connections and settings, then retry the process.",
+        "files": []
+    },
+    "$0536": {
+        "description": "Tune rejects this AutoCal—compatibility mismatch detected.",
+        "cause": "The tune file isn’t designed for the specific AutoCal device being used.",
+        "action": "Verify the tune file matches the AutoCal model and firmware version. Reload the correct tune file tailored for your AutoCal, and update the device if necessary.",
+        "files": []
+    },
+    "$0537": {
+        "description": "This is a common code for 01-04 Duramax. It occurs due to modules on the truck communicating during a tune flash, interrupting the process.",
+        "cause": "generally people will say you need a custom key... this is rarely the case, its just a know issue with these ECMs when flashing with EFI.",
+        "action": "I recommend charging the truck for 2 hours, below there is a document that will tell you what fuses under the hood you need to disconnect, this is a crucial step.\n\nOther tricks that have worked is leaving the key in the run position for 5 minutes before attempting a full flash.\n\nIf you still are getting 0537, you can attempt to Pass thru flash the truck. This will require the autocal plugged into the truck and the laptop simultaneously. If all of these suggestions fail, The ECM will need to come out of the truck and be sent in for a bench flash.",
+        "files": ["lb7 and lly's.docx"]
+    },
+    "$0538": {
+        "description": "DSP OS blocks reading—flash mode is the only option.",
+        "cause": "The DSP operating system prevents read operations, restricting to flash-only mode.",
+        "action": "Switch to flash mode in V8 and proceed with the update. Install the latest DSP OS version to potentially unlock read functionality, then retry.",
+        "files": []
+    },
+    "$0539": {
+        "description": "Tune requires full-flash only—calibration updates are locked.",
+        "cause": "The tune mandates a complete flash, disallowing partial calibration updates.",
+        "action": "Perform a full flash operation via [F5: BBX]->[Program] in V8. Check the tune specs to confirm full-flash requirements, and ensure stable power during the process.",
+        "files": []
+    },
+    "$053A": {
+        "description": "License is unsupported—the controller’s license doesn’t support this tune.",
+        "cause": "The controller’s current license version is incompatible with the tune’s requirements.",
+        "action": "Update the license through PPEI’s licensing portal with your VIN and controller details. Verify compatibility, then retry the flash. Contact support if issues persist.",
+        "files": []
+    },
+    "$053B": {
+        "description": "Tune serial mismatch—the device’s serial doesn’t match the tune.",
+        "cause": "The tune file’s serial number differs from the device’s hardware serial.",
+        "action": "Compare the device serial in V8 with the tune file’s serial. Reload the tune with the correct serial number, or request a new tune from PPEI matching your device.",
+        "files": []
+    },
+    "$053C": {
+        "description": "Tune cal-blocked—full-flash is required before calibration.",
+        "cause": "The tune blocks calibration updates until a full flash is completed.",
+        "action": "Execute a full flash using [F5: BBX]->[Program], then attempt the calibration update. Ensure the tune file supports the process.",
+        "files": []
+    },
+    "$053E": {
+        "description": "VIN mismatch—the tune’s VIN doesn’t sync with the ECM.",
+        "cause": "The tune file’s VIN data doesn’t match the ECM’s recorded VIN.",
+        "action": "Verify the VIN on the truck (dashboard or door jamb) against the tune file. Reload the correct tune file with the matching VIN, or reflash with the proper VIN data.",
+        "files": []
+    },
+    "$0540": {
+        "description": "OS clash—the tune is out of sync with the controller’s operating system.",
+        "cause": "A mismatch between the tune’s required OS and the controller’s current OS version.",
+        "action": "Update the controller’s OS to the version specified by the tune using V8’s [Check Firmware] tool. Reload the tune afterward and retry the flash.",
+        "files": []
+    },
+    "$0542": {
+        "description": "E35 tune lacks OS—full-flash stalls without the required system.",
+        "cause": "The E35 tune requires an OS that’s not installed on the controller.",
+        "action": "Install the required OS for E35 controllers via V8, then perform a full flash. Download the OS from PPEI’s support site if needed.",
+        "files": []
+    },
+    "$0544": {
+        "description": "Serial is garbled—repeated failures due to corrupt data.",
+        "cause": "The device’s serial number data is unreadable, likely from a hardware or update error.",
+        "action": "Reset the device to factory settings in V8 (if available) and recheck the serial. If still garbled, contact PPEI support for a device check or replacement.",
+        "files": []
+    },
+    "$0548": {
+        "description": "Flash checksum is bad—data is trashed, preventing a valid flash.",
+        "cause": "The flash data’s checksum failed, indicating corruption during transfer or storage.",
+        "action": "Redownload the flash file from the original source. Use Scan and Tune to verify the file’s integrity before retrying the flash with a stable connection.",
+        "files": []
+    },
+    "$0549": {
+        "description": "Ignition is off—system is dead without power.",
+        "cause": "The truck’s ignition isn’t on, cutting off communication with the scan tool.",
+        "action": "Turn the ignition to the ‘on’ position (engine off is fine) and retry the connection. Ensure the battery is charged (12-14V) to avoid power drops.",
+        "files": []
+    },
+    "$054A": {
+        "description": "BBX flash failed—process stalled halfway, leaving the system in limbo.",
+        "cause": "The Black Box Flash operation was interrupted, possibly due to a power loss or connection drop.",
+        "action": "Keep the truck’s power on to avoid further issues. Retry the BBX flash using the recovery file below. Follow the ‘program autocal step by step.pdf’ guide and watch the video tutorial for recovery steps to complete the process.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$054C": {
+        "description": "Tune lacks OS—full-flash won’t work without the required system.",
+        "cause": "The tune requires an OS that isn’t present on the controller.",
+        "action": "Install the necessary OS using V8’s [Check Firmware] tool, then perform a full flash. Download the OS from PPEI’s support if it’s missing.",
+        "files": []
+    },
+    "$054D": {
+        "description": "Cal-only is blocked—full flash is needed before calibration.",
+        "cause": "The system requires a full flash before allowing calibration updates.",
+        "action": "Run a full flash operation via [F5: BBX]->[Program] in V8, then attempt the calibration update. Ensure the tune file is fully compatible.",
+        "files": []
+    },
+    "$0552": {
+        "description": "Controller is unauthorized—flash halted due to missing permissions.",
+        "cause": "The controller isn’t authorized for the specific tune, likely due to a license issue.",
+        "action": "Verify authorization with PPEI and update the license if needed. Confirm the VIN and controller match the license, then retry the flash.",
+        "files": []
+    },
+    "$0A03": {
+        "description": "Logging is empty—no controllers are set for data capture.",
+        "cause": "The Options.txt file’s PID section is blank, preventing data logging due to no configured controllers.",
+        "action": "Set a controller in [F5: BBX] using V8. Download the config file below, follow the ‘program autocal step by step.pdf’ guide, and watch the video tutorial for setup instructions.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$0A04": {
+        "description": "PIDs are missing—no log output due to absent parameters.",
+        "cause": "The Options.txt file lacks PIDs for the selected controller, stopping data logging.",
+        "action": "Add the necessary PIDs in [F5: BBX] using V8. Use the config file below if needed, consult the ‘program autocal step by step.pdf’ guide, and review the video tutorial for setup.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    }
+}

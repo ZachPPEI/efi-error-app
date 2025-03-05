@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPEI ERROR CODE FINDER</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+        body { font-family: Arial, sans-serif; margin: 0; background: #0a0a0a; color: #fff; }
+        .container { max-width: 900px; margin: 20px auto; background: #1c1c1c; padding: 30px; border-radius: 8px; box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+        .header { display: flex; align-items: flex-start; justify-content: flex-start; margin-bottom: 5px; padding-left: 20px; }
+        .header-buttons { display: flex; flex-direction: row; gap: 10px; align-items: flex-start; }
+        .home-button a, .feedback-button a { padding: 6px 15px; font-size: 14px; background: #fff; color: #333; border: 2px solid #333; border-radius: 4px; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; transition: background-color 0.3s, transform 0.2s; }
+        .home-button a:hover, .feedback-button a:hover { background: #e6e6e6; transform: scale(1.05); }
+        .header-content { display: flex; align-items: center; gap: 20px; margin-left: 10px; }
+        .header-gif img { max-width: 150px; border-radius: 4px; }
+        h1 { text-align: left; color: #fff; font-family: 'Orbitron', sans-serif; font-size: 38px; margin: 0; text-transform: uppercase; letter-spacing: 3px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+        .description { text-align: center; color: #fff; font-size: 16px; margin-bottom: 20px; padding: 10px; background: #2d2d2d; border-radius: 4px; }
+        .efi-error-codes, .additional-info, .truck-box { margin-top: 30px; padding: 20px; background: #2d2d2d; border-left: 5px solid #fff; border-radius: 4px; }
+        .efi-error-codes h3, .additional-info h3, .truck-box h2 { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 24px; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); cursor: pointer; transition: color 0.3s; }
+        .efi-error-codes h3:hover, .additional-info h3:hover, .truck-box h2:hover { color: #e6e6e6; }
+        .efi-content, .additional-content, .truck-info { max-height: 0; overflow: hidden; transition: max-height 1.2s ease; }
+        .efi-error-codes.expanded .efi-content, .additional-info.expanded .additional-content, .truck-box.expanded .truck-info { max-height: 600px; }
+        form { text-align: center; margin-bottom: 20px; position: relative; }
+        label { font-weight: bold; margin-right: 15px; color: #fff; font-size: 16px; }
+        input[type="text"] { padding: 10px; font-size: 16px; width: 250px; border: 1px solid #fff; border-radius: 4px; background: #2d2d2d; color: #fff; outline: none; text-transform: uppercase; }
+        button { padding: 10px 20px; font-size: 16px; background: #fff; color: #0a0a0a; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; }
+        button:hover { background: #e6e6e6; transform: scale(1.05); }
+        .result { margin-top: 20px; padding: 20px 30px; background: #2d2d2d; border-left: 5px solid #fff; border-radius: 4px; max-width: 100%; overflow-wrap: break-word; }
+        .result p { margin: 10px 0; color: #fff; word-wrap: break-word; max-width: 100%; }
+        .result a {
+            color: #ffcc00;
+            text-decoration: underline;
+            padding: 4px 8px;
+            display: inline-block;
+            max-width: 100%;
+            font-size: 18px;
+            line-height: 1.5;
+            white-space: normal;
+        }
+        .result ul {
+            margin: 0;
+            padding-left: 25px;
+            list-style-type: disc;
+            max-width: 100%;
+        }
+        .result li {
+            margin-bottom: 15px;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            white-space: normal;
+            max-width: 100%;
+        }
+        .support-link { text-align: center; margin-top: 20px; }
+        .support-link a { color: #fff; text-decoration: none; font-size: 14px; font-weight: bold; }
+        .support-link a:hover { text-decoration: underline; color: #e6e6e6; }
+        .truck-column { float: left; width: 100%; padding: 0 10px; }
+        .truck-row { display: flex; justify-content: space-between; }
+        .truck-section { width: 30%; margin-right: 10px; }
+        .truck-section:last-child { margin-right: 0; }
+        .truck-section h3 { color: #fff; font-size: 18px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; font-family: 'Orbitron', sans-serif; }
+        .truck-section p { color: #fff; font-size: 14px; margin: 5px 0; line-height: 1.4; }
+        .pids-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .pids-section { width: 30%; text-align: center; }
+        .pids-section h4 { color: #fff; font-size: 16px; margin-bottom: 10px; font-weight: bold; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        .pids-section a { color: #fff; text-decoration: none; font-weight: bold; display: block; margin-bottom: 5px; }
+        .pids-section a:hover { text-decoration: underline; color: #e6e6e6; }
+        .l5p-instructions { width: 100%; text-align: left; margin-top: 10px; }
+        .read-file-instructions { list-style-type: none; }
+        @media (max-width: 600px) {
+            .container { width: 100%; padding: 10px; }
+            .header { flex-direction: column; text-align: center; padding-left: 0; }
+            .header-buttons { flex-direction: column; gap: 5px; align-items: center; }
+            .header-content { flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; margin-left: 0; }
+            .header-gif { margin-bottom: 0; }
+            input[type="text"], button { width: 100%; margin-bottom: 10px; }
+            .truck-row, .pids-row { flex-direction: column; }
+            .truck-section, .pids-section { width: 100%; margin-right: 0; margin-bottom: 20px; text-align: left; }
+            .efi-error-codes, .additional-info { margin-top: 20px; }
+            .l5p-instructions { text-align: center; }
+            .result { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-buttons">
+                <div class="home-button"><a href="/">HOME</a></div>
+                <div class="feedback-button"><a href="mailto:zach@ppei.com?subject=PPEI%20Code%20Killer%20Feedback&body=Hi%20PPEI%20team,%20I%20have%20some%20suggestions%20to%20improve%20the%20PPEI%20Code%20Killer%20app:%0D%0A%0D%0A[Your%20suggestions%20here]">FEEDBACK</a></div>
+            </div>
+            <div class="header-content">
+                <div class="header-gif"><img src="{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}" alt="PPEI Performance GIF"></div>
+                <h1>PPEI ERROR CODE FINDER</h1>
+            </div>
+        </div>
+        <div class="description">
+            Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.
+        </div>
+        <div class="efi-error-codes" id="efiErrorCodes">
+            <h3 onclick="toggleEfiErrorCodes()">EFI Error Codes</h3>
+            <div class="efi-content" id="efiContent">
+                <form id="errorForm">
+                    <label for="error_code">Enter Error Code (e.g., 0502 or $0502):</label>
+                    <input type="text" id="error_code" name="error_code" required autocomplete="off">
+                    <button type="submit">Crush It</button>
+                </form>
+                <div id="resultContainer"></div>
+                <div class="support-link">
+                    <a href="mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(%20INSERT_CODE_HERE).%20Can%20you%20help?" id="supportLink">Not seeing your code? Contact the PPEI team!</a>
+                </div>
+            </div>
+        </div>
+        <div class="additional-info" id="additionalInfo">
+            <h3 onclick="toggleAdditionalInfo()">HP Tuners Help</h3>
+            <div class="additional-content" id="additionalContent">
+                <div class="pids-row">
+                    <div class="pids-section">
+                        <h4>Duramax</h4>
+                        <a href="{{ url_for('download_file', filename='L5P PIDS.Channels.xml') }}">PID List - L5P</a>
+                        <a href="{{ url_for('download_file', filename='lml channels hpt.Channels.xml') }}">PID List - LML</a>
+                    </div>
+                    <div class="pids-section">
+                        <h4>Cummins</h4>
+                        <a href="{{ url_for('download_file', filename='2019-2022 Ram 2500-5500 6.7L Cummins_DMRs_General_Derates_SOTF Slot.Channels.xml') }}">PID List - 2019-2022 Ram</a>
+                        <a href="{{ url_for('download_file', filename='early 5.9 channels.Channels.xml') }}">PID List - 5.9L Cummins</a>
+                    </div>
+                    <div class="pids-section">
+                        <h4>Ford</h4>
+                        <a href="{{ url_for('download_file', filename='6.7 ford channels2.Channels.Channels (1).xml') }}">PID List - Ford</a>
+                    </div>
+                </div>
+                <div class="pids-row">
+                    <div class="pids-section" style="width: 100%; text-align: center;">
+                        <h4>Additional Resources</h4>
+                    </div>
+                </div>
+                <div class="pids-row">
+                    <div class="pids-section" style="width: 50%; text-align: left; margin-top: 10px;">
+                        <h4>L5P TCM Instructions</h4>
+                        <div class="l5p-instructions">
+                            <a href="{{ url_for('download_file', filename='T87A-T93-Installation-Steps.pdf') }}">L5P TCM Tuning Guide</a>
+                        </div>
+                    </div>
+                    <div class="pids-section" style="width: 50%; text-align: center; margin-top: 10px;">
+                        <h4>Read file and infolog</h4>
+                        <div class="read-file-instructions">
+                            <a href="{{ url_for('download_file', filename='MPVI3 Read and Infolog Instructions.pdf') }}">PDF guide</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="truck-box">
+            <h2 onclick="toggleTruckInfo()">What Truck Do I Have?</h2>
+            <div class="truck-info">
+                <div class="truck-column">
+                    <div class="truck-row">
+                        <div class="truck-section">
+                            <h3>Duramax</h3>
+                            <p>01-04 - LB7 (E54)</p>
+                            <p>04-05 - LLY (E60)</p>
+                            <p>06-07 - LBZ (E35A)</p>
+                            <p>07-10 - LMM (E35B)</p>
+                            <p>11-14 - LML (E86A)</p>
+                            <p>15-16 - LML (E86B)</p>
+                        </div>
+                        <div class="truck-section">
+                            <h3>Cummins</h3>
+                            <p>03-07 - 5.9L (CMB)</p>
+                            <p>07-09 - 6.7L (CMC)</p>
+                            <p>10-12 - 6.7L (CMD)</p>
+                            <p>13-18 - 6.7L (CME)</p>
+                        </div>
+                        <div class="truck-section">
+                            <h3>FAQs</h3>
+                            <p><strong>Q: How do I find my truck’s ECM type?</strong><br>A: Check the service parts identification sticker in your glovebox or use a scan tool like EFILive to read the ECM ID.</p>
+                            <p><strong>Q: Can I tune a locked ECM?</strong><br>A: Some locked ECMs require a bench flash—see error $0333 for steps or contact PPEI support.</p>
+                            <p><strong>Q: What if my truck isn’t listed?</strong><br>A: Email <a href="mailto:zach@ppei.com">zach@ppei.com</a> with your VIN for compatibility info.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('errorForm').onsubmit = function(event) {
+            event.preventDefault();
+            let code = document.getElementById('error_code').value.trim();
+            const efiSection = document.getElementById('efiErrorCodes');
+            const efiContent = document.getElementById('efiContent');
+            efiSection.classList.add('expanded');
+            efiContent.style.transition = 'none';
+            efiContent.style.maxHeight = '600px';
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'error_code=' + encodeURIComponent(code)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Fetch response:', data);
+                document.getElementById('error_code').value = data.error_code.replace('$', '');
+                const resultContainer = document.getElementById('resultContainer');
+                resultContainer.innerHTML = '';
+
+                if (data.result) {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'result';
+                    resultDiv.innerHTML = `
+                        <h2>Error: ${data.error_code}</h2>
+                        <p><strong>Description:</strong> ${data.result.description}</p>
+                        <p><strong>Cause:</strong> ${data.result.cause}</p>
+                        <p><strong>Action:</strong> ${data.result.action}</p>
+                        <p><strong>Files:</strong> ${data.result.files.length ? 
+                            '<ul>' + data.result.files.map(file => 
+                                file.startsWith('http') ? 
+                                `<li><a href="${file}" target="_blank" class="file-link">Watch Video Tutorial</a></li>` : 
+                                `<li><a href="/download/Files/${file}" title="${file}" class="file-link">${file}</a></li>`
+                            ).join('') + '</ul>' : 'None'}
+                        </p>
+                    `;
+                    resultContainer.appendChild(resultDiv);
+                } else {
+                    resultContainer.innerHTML = '<p>No result found for this code.</p>';
+                }
+
+                const supportLink = document.getElementById('supportLink');
+                supportLink.href = `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help?`;
+
+                requestAnimationFrame(() => {
+                    efiContent.style.transition = 'max-height 1.2s ease';
+                    efiContent.style.maxHeight = '';
+                });
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                document.getElementById('resultContainer').innerHTML = '<p>Error loading result. Please try again.</p>';
+                requestAnimationFrame(() => {
+                    efiContent.style.transition = 'max-height 1.2s ease';
+                    efiContent.style.maxHeight = '';
+                });
+            });
+        };
+
+        function toggleEfiErrorCodes() {
+            document.getElementById('efiErrorCodes').classList.toggle('expanded');
+        }
+
+        function toggleAdditionalInfo() {
+            document.getElementById('additionalInfo').classList.toggle('expanded');
+        }
+
+        function toggleTruckInfo() {
+            document.querySelector('.truck-box').classList.toggle('expanded');
+        }
+
+        window.onload = function() {
+            if (document.querySelector('.result')) {
+                document.getElementById('efiErrorCodes').classList.add('expanded');
+            }
+        };
+    </script>
+</body>
+</html>
