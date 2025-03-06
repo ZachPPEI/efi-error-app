@@ -18,7 +18,7 @@
         "files": []
     },
     "$0311": {
-        "description": "OBD mode is locked—diagnostic mode won’t activate, restricting access to vehicle data.",
+        "description": "OBD mode is locked diagnostic mode won’t activate, restricting access to vehicle data.",
         "cause": "The truck’s OBD system might be restricted due to a security lockout, misconfigured settings, or an incompatible scan tool profile.",
         "action": "Check the truck’s OBD settings via the owner’s manual or dealership to ensure no diagnostic mode is disabled. Verify the scan tool’s configuration matches the truck’s ECM (e.g., correct protocol). If locked, update the scan tool firmware to the latest version and retry. Contact PPEI support if a VIN-specific lock is suspected.",
         "files": []
