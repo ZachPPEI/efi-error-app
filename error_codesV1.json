@@ -90,7 +90,7 @@
         "files": []
     },
     "$0526": {
-        "description": "Tune layout is unreadable—the system can’t interpret the tune file’s structure.",
+        "description": "Tune layout is unreadable the system can’t interpret the tune file’s structure.",
         "cause": "The tune file’s layout is corrupted or uses an incompatible structure for the controller.",
         "action": "Reinstall the tune file from a fresh download to ensure integrity. Check the file with V8’s file validator tool (if available) and update the software to the latest version to support the layout.",
         "files": []
