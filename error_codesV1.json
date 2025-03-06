@@ -102,7 +102,7 @@
         "files": []
     },
     "$0530": {
-        "description": "License conflict—the tune is tied to another device or VIN, blocking this controller.",
+        "description": "License conflict the tune is tied to another device or VIN, blocking this controller.",
         "cause": "The tune’s license is registered to a different device or VIN, triggering a security lock.",
         "action": "Check your license details with PPEI and clear any conflicts by unregistering the old device. Verify the VIN matches the licensed truck, and retry the flash. Contact support if the license needs reassignment.",
         "files": []
