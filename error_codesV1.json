@@ -36,7 +36,7 @@
         "files": []
     },
     "$0340": {
-        "description": "Download is stalled—the flash process won’t complete, leaving the tune incomplete.",
+        "description": "Download is stalled the flash process won’t complete, leaving the tune incomplete.",
         "cause": "The flash transfer is hung up, possibly due to a loose cable, unstable power supply, or a corrupted file during transmission.",
         "action": "Reboot the PC and scan tool to clear any hang-ups. Ensure all cables are securely connected and try a different USB port with a high-quality cable. Verify a stable power source (e.g., truck battery at 12-14V) and avoid running other power-hungry devices. Retry the flash process and monitor for errors.",
         "files": []
