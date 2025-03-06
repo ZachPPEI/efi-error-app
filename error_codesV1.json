@@ -96,7 +96,7 @@
         "files": []
     },
     "$0527": {
-        "description": "Checksum has failed—the flash won’t run due to data corruption in the tune file.",
+        "description": "Checksum has failed the flash won’t run due to data corruption in the tune file.",
         "cause": "The tune file’s checksum doesn’t match, indicating corrupted data from a bad download or transfer.",
         "action": "Redownload the tune file from the original source. Verify its integrity using Scan and Tune’s checksum tool, then retry the flash process. Ensure a stable connection during the transfer.",
         "files": []
