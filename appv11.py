@@ -33,28 +33,31 @@ def submit():
         'result': result
     })
 
-@app.route('/download/<path:filename>')
+@app.route('/download/Files/<path:filename>')
 def download_file(filename):
     try:
-        print(f"Attempting to download file: {filename}")
+        # Log the raw filename from the URL
+        print(f"Raw filename from URL: {filename}")
+        # Resolve the full file path
         static_path = app.static_folder
-        file_path = os.path.join(static_path, filename)
-        if os.path.exists(file_path):
-            print(f"File found in root static folder: {file_path}")
-            return send_from_directory(static_path, filename, as_attachment=True)
         files_path = os.path.join(static_path, 'Files', filename)
+        print(f"Checking file at: {files_path}")  # Debug log
+        # List directory contents for debugging
+        dir_contents = os.listdir(os.path.join(static_path, 'Files'))
+        print(f"Directory contents of static/Files/: {dir_contents}")
         if os.path.exists(files_path):
-            print(f"File found in static/Files/: {files_path}")
+            print(f"File found at: {files_path}")  # Debug log
             return send_from_directory(os.path.join(static_path, 'Files'), filename, as_attachment=True)
         else:
-            print(f"File not found in static/Files/ or root static: {filename}")
+            print(f"File not found at: {files_path}")  # Debug log
             return "File not found", 404
     except FileNotFoundError:
-        print(f"File not found in either location for: {filename}")
+        print(f"File not found error for: {filename}")  # Debug log
         return "File not found", 404
     except Exception as e:
-        print(f"Error downloading file {filename}: {str(e)}")
+        print(f"Error downloading file {filename}: {str(e)}")  # Debug log
         return f"Error downloading file: {str(e)}", 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    print("Starting Flask app...")
+    app.run(debug=True, host='0.0.0.0', port=5000)
