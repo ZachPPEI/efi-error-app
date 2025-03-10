@@ -16,8 +16,34 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Open+Sans:wght@400;600&display=swap');
         :root { --bg-dark: #1a1a1a; --bg-container: rgba(28, 28, 28, 0.9); --bg-section: rgba(45, 45, 45, 0.85); --bg-card: rgba(51, 51, 51, 0.9); --text-primary: #fff; --accent-color: #00cc66; --accent-hover: #00b359; --border-color: #00cc66; --shadow-color: rgba(0, 204, 102, 0.5); --glow-color: rgba(0, 204, 102, 0.3); }
         html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow-x: hidden; }
-        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; background: var(--bg-dark) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><path d="M10 10h80v80H10zM20 20h60v60H20z" stroke="%2300cc66" stroke-width="2" fill="none"/></svg>') repeat; color: var(--text-primary); position: relative; animation: circuitPulse 30s infinite linear; }
-        @keyframes circuitPulse { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
+        body { 
+            font-family: 'Open Sans', Arial, sans-serif; 
+            font-size: 16px; 
+            background: var(--bg-dark) url('/static/microchip.svg') repeat; 
+            color: var(--text-primary); 
+            position: relative; 
+            animation: circuitPulse 60s infinite linear; 
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            animation: circuitGlow 5s infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+        }
+        @keyframes circuitPulse { 
+            0% { background-position: 0 0; } 
+            100% { background-position: 100px 100px; } 
+        }
+        @keyframes circuitGlow { 
+            0% { opacity: 0.08; } 
+            100% { opacity: 0.10; } 
+        }
         .container { max-width: 900px; margin: 20px auto; background: var(--bg-container); padding: 30px; border-radius: 8px; box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--glow-color); backdrop-filter: blur(5px); min-height: calc(100vh - 40px); box-sizing: border-box; position: relative; overflow: hidden; }
         .header { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px; padding: 20px; background: linear-gradient(to right, rgba(28, 28, 28, 0.95), rgba(45, 45, 45, 0.85)); border-radius: 8px; border: 2px solid var(--glow-color); box-shadow: 0 0 15px var(--shadow-color), inset 0 0 10px var(--glow-color); min-height: 100px; position: sticky; top: 0; z-index: 1000; }
         .header-buttons { display: flex; flex-direction: row; gap: 15px; align-items: center; margin-bottom: 15px; }
@@ -28,7 +54,7 @@
         .header-gif img { width: 100%; height: auto; animation: turboPulse 2s infinite ease-in-out; }
         @keyframes turboPulse { 0%, 100% { box-shadow: 0 0 15px var(--glow-color); } 50% { box-shadow: 0 0 25px var(--shadow-color); } }
         h1 { text-align: left; color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 10px var(--shadow-color); }
-        .description { text-align: center; color: var(--text-primary); font-size: 16px; margin-bottom: 20px; padding: 15px; background: var(--bg-section); border-radius: 4px; line-height: 1.6; border: 1px solid var(--glow-color); box-shadow: inset 0 0 5px var(--glow-color); }
+        .description { text-align: center; color: var(--text-primary); font-size: 16px; margin-bottom: 20px; padding: 15px; background: var(--bg-section); border-radius: 4px; line-height: 1.5; border: 1px solid var(--glow-color); box-shadow: inset 0 0 5px var(--glow-color); }
         .efi-error-codes, .additional-info, .truck-box { margin-top: 30px; padding: 20px; background: var(--bg-section); border-left: 5px solid var(--border-color); border-radius: 4px; position: relative; transition: box-shadow 0.3s; }
         .efi-error-codes:hover, .additional-info:hover, .truck-box:hover { box-shadow: 0 0 15px var(--glow-color); }
         .efi-error-codes h3, .additional-info h3, .truck-box h2 { color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 24px; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 8px var(--shadow-color); cursor: pointer; transition: color 0.3s; position: relative; }
@@ -43,10 +69,6 @@
         input[type="text"]:focus { border-color: var(--accent-hover); box-shadow: 0 0 15px var(--shadow-color); animation: scanline 1.5s infinite linear; }
         @keyframes scanline { 0% { box-shadow: 0 0 15px var(--shadow-color); } 50% { box-shadow: 0 0 20px var(--accent-color), inset 0 0 5px var(--glow-color); } 100% { box-shadow: 0 0 15px var(--shadow-color); } }
         input[type="text"]::placeholder { color: #ccc; font-style: italic; }
-        #suggestions { list-style: none; padding: 0; margin: 0; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: var(--bg-section); border: 1px solid var(--border-color); border-radius: 4px; width: 250px; max-height: 200px; overflow-y: auto; z-index: 1000; display: none; box-shadow: 0 0 10px var(--glow-color); }
-        #suggestions li { padding: 8px; cursor: pointer; color: var(--text-primary); animation: flickerIn 0.2s ease; }
-        #suggestions li:hover { background: var(--accent-hover); color: #0a0a0a; }
-        @keyframes flickerIn { 0% { opacity: 0; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         button { padding: 10px 20px; font-size: 16px; background: var(--accent-color); color: #0a0a0a; border: 2px solid var(--accent-color); border-radius: 6px; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px var(--glow-color); position: relative; overflow: hidden; margin-left: 10px; }
         button:hover { background: var(--accent-hover); transform: scale(1.05); box-shadow: 0 0 15px var(--shadow-color); }
         button:active { transform: scale(0.98); }
@@ -102,7 +124,170 @@
         .loader { text-align: center; color: var(--accent-color); font-size: 18px; font-style: italic; text-shadow: 0 0 5px var(--glow-color); }
         .grok-signature { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-primary); text-shadow: 0 0 5px var(--glow-color); animation: glitch 2s infinite step-end; }
         @keyframes glitch { 0%, 100% { opacity: 1; } 10%, 30%, 50%, 70%, 90% { opacity: 0.8; } 20%, 40%, 60%, 80% { opacity: 0.9; } }
-        @media (max-width: 600px) { .container { width: 90%; padding: 10px; margin: 20px auto; } .header { padding: 15px; min-height: 80px; } .header-buttons { flex-direction: row; gap: 10px; margin-bottom: 10px; } .header-content { flex-direction: row; gap: 15px; } .header-gif { width: 120px; margin-left: 15px; } .header-gif img { max-width: 100%; } h1 { font-size: 24px; } .home-button a, .feedback-button a { padding: 6px 12px; font-size: 12px; } input[type="text"], button { width: 100%; margin-bottom: 10px; font-size: 16px; } #suggestions { width: 100%; left: 0; transform: none; } button { padding: 12px 20px; } .truck-row, .pids-row { flex-direction: column; gap: 15px; } .truck-section, .pids-section { width: 100%; margin-right: 0; margin-bottom: 20px; text-align: left; } .efi-error-codes, .additional-info { margin-top: 20px; } .l5p-instructions { text-align: center; } .result { padding: 15px; } .additional-resources { padding: 10px; } .additional-resources h4 { font-size: 18px; } .turbo-container { width: 150px; height: 150px; } .turbo-icon { width: 90px; height: 90px; } .turbo-text { font-size: 18px; bottom: -40px; } }
+        @media (max-width: 600px) {
+            .container { 
+                width: 100%; 
+                margin: 0; 
+                padding: 15px; 
+                border-radius: 0; 
+                min-height: 100vh; 
+            }
+            .header { 
+                padding: 10px; 
+                min-height: auto; 
+                position: relative; 
+                border: 1px solid var(--glow-color); 
+            }
+            .header-buttons { 
+                flex-direction: column; 
+                gap: 8px; 
+                margin-bottom: 10px; 
+                width: 100%; 
+            }
+            .home-button a, .feedback-button a { 
+                padding: 10px 20px; 
+                font-size: 14px; 
+                width: 100%; 
+                text-align: center; 
+                box-sizing: border-box; 
+            }
+            .header-content { 
+                flex-direction: column; 
+                gap: 10px; 
+                align-items: center; 
+            }
+            .header-gif { 
+                width: 100px; 
+                margin: 0 auto; 
+            }
+            .header-gif img { 
+                max-width: 100%; 
+            }
+            h1 { 
+                font-size: 20px; 
+                text-align: center; 
+                letter-spacing: 2px; 
+            }
+            .description { 
+                font-size: 14px; 
+                padding: 10px; 
+                line-height: 1.5; 
+            }
+            form { 
+                padding: 10px; 
+                display: flex; 
+                flex-direction: column; 
+                gap: 10px; 
+                align-items: center; 
+            }
+            label { 
+                font-size: 14px; 
+                margin-right: 0; 
+                margin-bottom: 5px; 
+                text-align: center; 
+            }
+            input[type="text"] { 
+                width: 100%; 
+                max-width: 300px; 
+                font-size: 16px; 
+                padding: 12px; 
+                box-sizing: border-box; 
+            }
+            button { 
+                width: 100%; 
+                max-width: 300px; 
+                padding: 12px 20px; 
+                font-size: 16px; 
+                margin-left: 0; 
+                margin-top: 10px; 
+            }
+            .efi-error-codes, .additional-info, .truck-box { 
+                margin-top: 15px; 
+                padding: 15px; 
+            }
+            .efi-error-codes h3, .additional-info h3, .truck-box h2 { 
+                font-size: 18px; 
+                letter-spacing: 1px; 
+            }
+            .result { 
+                padding: 15px; 
+                font-size: 14px; 
+            }
+            .result h2 { 
+                font-size: 18px; 
+            }
+            .result p { 
+                line-height: 1.5; 
+            }
+            .result a { 
+                font-size: 16px; 
+                word-break: break-word; 
+            }
+            .support-link a { 
+                font-size: 14px; 
+            }
+            .additional-resources { 
+                padding: 10px; 
+            }
+            .additional-resources h4 { 
+                font-size: 16px; 
+            }
+            .resources-content li { 
+                font-size: 14px; 
+                line-height: 1.5; 
+            }
+            .truck-row, .pids-row { 
+                flex-direction: column; 
+                gap: 15px; 
+            }
+            .truck-section, .pids-section { 
+                width: 100%; 
+                margin-right: 0; 
+                margin-bottom: 15px; 
+                text-align: left; 
+            }
+            .truck-section h3, .pids-section h4 { 
+                font-size: 16px; 
+            }
+            .truck-section p { 
+                font-size: 14px; 
+                line-height: 1.5; 
+            }
+            .l5p-instructions { 
+                text-align: center; 
+            }
+            .turbo-container { 
+                width: 120px; 
+                height: 120px; 
+            }
+            .turbo-icon { 
+                width: 70px; 
+                height: 70px; 
+            }
+            .turbo-text { 
+                font-size: 16px; 
+                bottom: -30px; 
+            }
+            .grok-signature { 
+                font-size: 12px; 
+            }
+            /* Reduce animation intensity for better mobile performance */
+            body { 
+                animation: none; 
+            }
+            body::before { 
+                animation: none; 
+            }
+            .header-gif img { 
+                animation: turboPulse 3s infinite ease-in-out; 
+            }
+            .turbo-ring { 
+                animation: spin 2s linear infinite; 
+            }
+            .turbo-icon { 
+                animation: turboSpin 1s linear infinite; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -126,7 +311,6 @@
                 <form id="errorForm">
                     <label for="error_code">Enter Error Code (e.g., 0502 or $0502):</label>
                     <input type="text" id="error_code" name="error_code" placeholder="e.g., 0502 or $0502" required autocomplete="off">
-                    <ul id="suggestions"></ul>
                     <button type="submit">Crush It</button>
                 </form>
                 <div id="resultContainer"></div>
@@ -138,7 +322,7 @@
                     <div class="resources-content" id="resourcesContentEFI">
                         <ul>
                             <li><a href="https://ppei.com/pages/contact" target="_blank">PPEI Support Page</a> - Official support and documentation.</li>
-                            <li><a href="{{ url_for('download_file', filename='2001-2010_Duramax_ECM_Flash.pdf') }}">2001 - 2010 Duramax ECM flashing instructions</a> - Guide for ECM flashing.</li>
+                            <li><a href="{{ url_for('download_file', filename='2001 – 2010 Duramax EFILive V3 AutoCal ECM Flash Install Instructions.pdf') }}">2001 - 2010 Duramax ECM flashing instructions</a> - Guide for ECM flashing.</li>
                             <li><a href="{{ url_for('download_file', filename='TCM Stock File Instructions - 01-10.pdf') }}">2001 - 2010 Duramax TCM read file instructions</a> - Instructions for TCM read files.</li>
                             <li><a href="{{ url_for('download_file', filename='Aisin Transmission Tuning Install Instructions - EFILive.pdf') }}">Aisin TCM tuning instructions</a> - Guide for Aisin TCM tuning.</li>
                             <li><a href="{{ url_for('download_file', filename='EFILive Autocal V3 Datalogging.pdf') }}">V3 autocal datalogging instructions</a> - Instructions for V3 autocal datalogging.</li>
@@ -235,7 +419,6 @@
                 const $turboHud = $('#turboHud');
 
                 $turboHud.addClass('active');
-                $('#suggestions').hide();
 
                 if (!efiSection.hasClass('expanded')) {
                     efiSection.addClass('expanded');
@@ -253,7 +436,13 @@
 
                         if (data.result) {
                             const resultDiv = $('<div class="result"></div>');
-                            const filesHtml = data.result.files.length ? '<ul>' + data.result.files.map(file => `<li><a href="/download/Files/${file}" title="${file}">${file}</a></li>`).join('') + '</ul>' : 'None';
+                            const filesHtml = data.result.files.length 
+                                ? '<ul>' + data.result.files.map(file => 
+                                    file.startsWith('http') 
+                                        ? `<li><a href="${file}" target="_blank">YouTube Tutorial</a></li>` 
+                                        : `<li><a href="/download/Files/${file}" title="${file}">${file}</a></li>`
+                                ).join('') + '</ul>' 
+                                : 'None';
                             resultDiv.html(`
                                 <h2>Error: ${data.error_code}</h2>
                                 <p><strong>Description:</strong> ${data.result.description}</p>
@@ -278,29 +467,6 @@
                         }, 500);
                     });
                 }, 1000);
-            });
-
-            $('#error_code').on('input', function() {
-                const query = $(this).val().trim();
-                if (query.length < 1) {
-                    $('#suggestions').empty().hide();
-                    return;
-                }
-                $.get('/autocomplete', { q: query }, function(data) {
-                    const $ul = $('#suggestions').empty();
-                    if (data.length) {
-                        data.forEach(code => $ul.append(`<li>${code}</li>`));
-                        $ul.show();
-                    } else {
-                        $ul.hide();
-                    }
-                }, 'json');
-            });
-
-            $('#suggestions').on('click', 'li', function() {
-                $('#error_code').val($(this).text().replace('$', ''));
-                $('#suggestions').hide();
-                $('#errorForm').submit();
             });
         });
 
