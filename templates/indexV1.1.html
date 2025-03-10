@@ -13,36 +13,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPEI ERROR CODE FINDER</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Open+Sans:wght@400;600&display=swap');
 
-        /* Define a consistent color scheme with CSS variables */
         :root {
             --bg-dark: #1a1a1a;
-            --bg-container: rgba(28, 28, 28, 0.9); /* Semi-transparent for readability */
+            --bg-container: rgba(28, 28, 28, 0.9);
             --bg-section: rgba(45, 45, 45, 0.85);
             --bg-card: rgba(51, 51, 51, 0.9);
             --text-primary: #fff;
-            --accent-color: #00cc66; /* Shifted to a green shade */
-            --accent-hover: #00b359; /* Darker green for hover */
-            --border-color: #00cc66; /* Green border */
-            --shadow-color: rgba(0, 204, 102, 0.3); /* Green-tinted shadow */
+            --accent-color: #00cc66;
+            --accent-hover: #00b359;
+            --border-color: #00cc66;
+            --shadow-color: rgba(0, 204, 102, 0.5);
+            --glow-color: rgba(0, 204, 102, 0.3);
         }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-
+        html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow-x: hidden; }
         body {
             font-family: 'Open Sans', Arial, sans-serif;
             font-size: 16px;
-            background-color: var(--bg-dark); /* Use dark background instead of circuit board */
+            background: var(--bg-dark) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><path d="M10 10h80v80H10zM20 20h60v60H20z" stroke="%2300cc66" stroke-width="2" fill="none"/></svg>') repeat;
             color: var(--text-primary);
             position: relative;
+            animation: circuitPulse 30s infinite linear;
+        }
+
+        @keyframes circuitPulse {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
         }
 
         .container {
@@ -51,31 +51,40 @@
             background: var(--bg-container);
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 20px var(--shadow-color);
-            backdrop-filter: blur(5px); /* Adds a subtle blur effect for modern browsers */
-            min-height: calc(100vh - 40px); /* Ensure it stretches to fill viewport height minus margins */
+            box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--glow-color);
+            backdrop-filter: blur(5px);
+            min-height: calc(100vh - 40px);
             box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
 
         .header {
             display: flex;
-            align-items: center; /* Align items vertically centered */
-            justify-content: space-between; /* Space out buttons and content */
-            margin-bottom: 5px;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
             padding: 20px;
-            background: linear-gradient(to right, rgba(28, 28, 28, 0.9), rgba(45, 45, 45, 0.9));
+            background: linear-gradient(to right, rgba(28, 28, 28, 0.95), rgba(45, 45, 45, 0.85));
             border-radius: 8px;
+            border: 2px solid var(--glow-color);
+            box-shadow: 0 0 15px var(--shadow-color), inset 0 0 10px var(--glow-color);
+            min-height: 100px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-buttons {
             display: flex;
             flex-direction: row;
-            gap: 10px;
+            gap: 15px;
             align-items: center;
+            margin-bottom: 15px;
         }
 
         .home-button a, .feedback-button a {
-            padding: 8px 18px;
+            padding: 8px 16px;
             font-size: 14px;
             background: var(--accent-color);
             color: #0a0a0a;
@@ -86,34 +95,51 @@
             letter-spacing: 2px;
             text-decoration: none;
             transition: all 0.3s;
-            box-shadow: 0 2px 4px var(--shadow-color);
+            box-shadow: 0 0 10px var(--glow-color);
         }
 
         .home-button a:hover, .feedback-button a:hover {
             background: var(--accent-hover);
             transform: scale(1.05);
+            box-shadow: 0 0 15px var(--shadow-color), inset 0 0 5px var(--accent-color);
         }
 
         .header-content {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-gif {
+            width: 180px;
+            margin-left: 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 4px;
+            box-shadow: 0 0 15px var(--glow-color);
+            overflow: hidden;
         }
 
         .header-gif img {
-            max-width: 150px;
-            border-radius: 4px;
+            width: 100%;
+            height: auto;
+            animation: turboPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes turboPulse {
+            0%, 100% { box-shadow: 0 0 15px var(--glow-color); }
+            50% { box-shadow: 0 0 25px var(--shadow-color); }
         }
 
         h1 {
             text-align: left;
             color: var(--text-primary);
             font-family: 'Orbitron', sans-serif;
-            font-size: 42px;
+            font-size: 32px;
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 3px;
-            text-shadow: 2px 2px 4px var(--shadow-color);
+            text-shadow: 0 0 10px var(--shadow-color);
         }
 
         .description {
@@ -121,10 +147,12 @@
             color: var(--text-primary);
             font-size: 16px;
             margin-bottom: 20px;
-            padding: 10px;
+            padding: 15px;
             background: var(--bg-section);
             border-radius: 4px;
             line-height: 1.6;
+            border: 1px solid var(--glow-color);
+            box-shadow: inset 0 0 5px var(--glow-color);
         }
 
         .efi-error-codes, .additional-info, .truck-box {
@@ -133,6 +161,12 @@
             background: var(--bg-section);
             border-left: 5px solid var(--border-color);
             border-radius: 4px;
+            position: relative;
+            transition: box-shadow 0.3s;
+        }
+
+        .efi-error-codes:hover, .additional-info:hover, .truck-box:hover {
+            box-shadow: 0 0 15px var(--glow-color);
         }
 
         .efi-error-codes h3, .additional-info h3, .truck-box h2 {
@@ -142,7 +176,7 @@
             margin: 0 0 15px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px var(--shadow-color);
+            text-shadow: 0 0 8px var(--shadow-color);
             cursor: pointer;
             transition: color 0.3s;
             position: relative;
@@ -155,7 +189,8 @@
         .efi-error-codes h3::before, .additional-info h3::before, .truck-box h2::before {
             content: "▶ ";
             display: inline-block;
-            transition: transform 0.3s;
+            transition: transform 0.5s ease;
+            color: var(--accent-color);
         }
 
         .efi-error-codes h3.expanded::before, .additional-info h3.expanded::before, .truck-box h2.expanded::before {
@@ -165,7 +200,11 @@
         .efi-content, .additional-content, .truck-info {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.8s ease;
+            transition: max-height 0.5s ease;
+        }
+
+        .efi-content.expanded, .additional-content.expanded, .truck-info.expanded {
+            max-height: none;
         }
 
         form {
@@ -175,7 +214,7 @@
             background: var(--bg-card);
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 0 10px var(--shadow-color);
+            box-shadow: 0 0 10px var(--glow-color);
         }
 
         label {
@@ -183,23 +222,76 @@
             margin-right: 15px;
             color: var(--text-primary);
             font-size: 16px;
+            text-shadow: 0 0 5px var(--glow-color);
         }
 
         input[type="text"] {
             padding: 10px;
             font-size: 16px;
             width: 250px;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             border-radius: 4px;
             background: var(--bg-section);
             color: var(--text-primary);
             outline: none;
             text-transform: uppercase;
+            transition: box-shadow 0.3s, border-color 0.3s;
+            box-shadow: 0 0 5px var(--glow-color);
+            position: relative;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 15px var(--shadow-color);
+            animation: scanline 1.5s infinite linear;
+        }
+
+        @keyframes scanline {
+            0% { box-shadow: 0 0 15px var(--shadow-color); }
+            50% { box-shadow: 0 0 20px var(--accent-color), inset 0 0 5px var(--glow-color); }
+            100% { box-shadow: 0 0 15px var(--shadow-color); }
         }
 
         input[type="text"]::placeholder {
             color: #ccc;
             font-style: italic;
+        }
+
+        #suggestions {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-section);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            width: 250px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        #suggestions li {
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text-primary);
+            animation: flickerIn 0.2s ease;
+        }
+
+        #suggestions li:hover {
+            background: var(--accent-hover);
+            color: #0a0a0a;
+        }
+
+        @keyframes flickerIn {
+            0% { opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         button {
@@ -211,16 +303,120 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 2px 4px var(--shadow-color);
+            box-shadow: 0 0 10px var(--glow-color);
+            position: relative;
+            overflow: hidden;
+            margin-left: 10px;
         }
 
         button:hover {
             background: var(--accent-hover);
             transform: scale(1.05);
+            box-shadow: 0 0 15px var(--shadow-color);
         }
 
         button:active {
             transform: scale(0.98);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateY(-50%);
+            transition: left 0.5s;
+        }
+
+        button:hover::after {
+            left: 100%;
+        }
+
+        /* Turbo-Charged Progress HUD */
+        .turbo-hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+        }
+
+        .turbo-hud.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .turbo-hud.exiting {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+
+        .turbo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .turbo-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-color) 0% 75%, transparent 75% 100%);
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .turbo-icon {
+            width: 120px;
+            height: 120px;
+            background: url('{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}') no-repeat center;
+            background-size: contain;
+            animation: turboSpin 0.5s linear infinite;
+        }
+
+        @keyframes turboSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .turbo-text {
+            position: absolute;
+            bottom: -50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--glow-color);
+            animation: glitchText 0.1s infinite;
+        }
+
+        @keyframes glitchText {
+            0% { transform: translate(0, 0); opacity: 1; }
+            20% { transform: translate(-2px, 2px); opacity: 0.8; }
+            40% { transform: translate(2px, -2px); opacity: 0.9; }
+            60% { transform: translate(-2px, 0); opacity: 0.7; }
+            80% { transform: translate(2px, 2px); opacity: 0.9; }
+            100% { transform: translate(0, 0); opacity: 1; }
         }
 
         .result {
@@ -231,12 +427,33 @@
             border-radius: 8px;
             max-width: 100%;
             overflow-wrap: break-word;
+            position: relative;
+            box-shadow: 0 0 15px var(--glow-color);
+            animation: hudBoot 0.5s ease;
+        }
+
+        @keyframes hudBoot {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 204, 102, 0.2) 10px, rgba(0, 204, 102, 0.2) 20px);
+            opacity: 0.3;
+            pointer-events: none;
         }
 
         .result h2 {
             font-family: 'Orbitron', sans-serif;
             font-size: 22px;
             margin-bottom: 15px;
+            text-shadow: 0 0 5px var(--glow-color);
         }
 
         .result p {
@@ -256,6 +473,11 @@
             font-size: 18px;
             line-height: 1.5;
             white-space: normal;
+            transition: text-shadow 0.3s;
+        }
+
+        .result a:hover {
+            text-shadow: 0 0 5px var(--shadow-color);
         }
 
         .result ul {
@@ -273,6 +495,12 @@
             max-width: 100%;
         }
 
+        .result em {
+            color: #e6e6e6;
+            font-style: italic;
+            text-shadow: 0 0 3px var(--glow-color);
+        }
+
         .support-link {
             text-align: center;
             margin-top: 20px;
@@ -283,11 +511,12 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 600;
+            transition: text-shadow 0.3s;
         }
 
         .support-link a:hover {
             text-decoration: underline;
-            color: #e6e6e6;
+            text-shadow: 0 0 5px var(--shadow-color);
         }
 
         .additional-resources {
@@ -296,6 +525,7 @@
             background: var(--bg-section);
             border-left: 5px solid var(--border-color);
             border-radius: 4px;
+            box-shadow: 0 0 10px var(--glow-color);
         }
 
         .additional-resources h4 {
@@ -305,7 +535,7 @@
             margin: 0 0 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px var(--shadow-color);
+            text-shadow: 0 0 8px var(--shadow-color);
             cursor: pointer;
             transition: color 0.3s;
         }
@@ -317,7 +547,8 @@
         .additional-resources h4::before {
             content: "▶ ";
             display: inline-block;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
+            color: var(--accent-color);
         }
 
         .additional-resources h4.expanded::before {
@@ -327,7 +558,11 @@
         .resources-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.8s ease;
+            transition: max-height 0.3s ease;
+        }
+
+        .resources-content.expanded {
+            max-height: none;
         }
 
         .resources-content ul {
@@ -345,33 +580,17 @@
         .resources-content a {
             color: var(--accent-color);
             text-decoration: underline;
-            transition: color 0.3s;
+            transition: text-shadow 0.3s;
         }
 
         .resources-content a:hover {
-            color: #e6e6e6;
+            text-shadow: 0 0 5px var(--shadow-color);
         }
 
-        .truck-column {
-            float: left;
-            width: 100%;
-            padding: 0 10px;
-        }
-
-        .truck-row {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .truck-section {
-            width: 30%;
-            margin-right: 10px;
-        }
-
-        .truck-section:last-child {
-            margin-right: 0;
-        }
-
+        .truck-column { float: left; width: 100%; padding: 0 10px; }
+        .truck-row { display: flex; justify-content: space-between; }
+        .truck-section { width: 30%; margin-right: 10px; }
+        .truck-section:last-child { margin-right: 0; }
         .truck-section h3 {
             color: var(--text-primary);
             font-size: 18px;
@@ -379,8 +598,8 @@
             margin-bottom: 10px;
             text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 5px var(--glow-color);
         }
-
         .truck-section p {
             color: var(--text-primary);
             font-size: 14px;
@@ -388,17 +607,8 @@
             line-height: 1.4;
         }
 
-        .pids-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .pids-section {
-            width: 30%;
-            text-align: center;
-        }
-
+        .pids-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .pids-section { width: 30%; text-align: center; }
         .pids-section h4 {
             color: var(--text-primary);
             font-size: 16px;
@@ -407,97 +617,62 @@
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0 0 5px var(--glow-color);
         }
-
         .pids-section a {
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
             display: block;
             margin-bottom: 5px;
+            transition: text-shadow 0.3s;
         }
-
         .pids-section a:hover {
             text-decoration: underline;
-            color: #e6e6e6;
+            text-shadow: 0 0 5px var(--shadow-color);
         }
 
-        .l5p-instructions {
-            width: 100%;
-            text-align: left;
-            margin-top: 10px;
-        }
+        .l5p-instructions { width: 100%; text-align: left; margin-top: 10px; }
+        .read-file-instructions { list-style-type: none; }
+        .loader { text-align: center; color: var(--accent-color); font-size: 18px; font-style: italic; text-shadow: 0 0 5px var(--glow-color); }
 
-        .read-file-instructions {
-            list-style-type: none;
-        }
-
-        .loader {
+        .grok-signature {
             text-align: center;
-            color: var(--accent-color);
-            font-size: 18px;
-            font-style: italic;
+            margin-top: 30px;
+            font-size: 12px;
+            color: var(--text-primary);
+            text-shadow: 0 0 5px var(--glow-color);
+            animation: glitch 2s infinite step-end;
+        }
+
+        @keyframes glitch {
+            0%, 100% { opacity: 1; }
+            10%, 30%, 50%, 70%, 90% { opacity: 0.8; }
+            20%, 40%, 60%, 80% { opacity: 0.9; }
         }
 
         @media (max-width: 600px) {
-            .container {
-                width: 90%; /* Slightly narrower to show some margin */
-                padding: 10px;
-                margin: 20px auto;
-            }
-            .header {
-                flex-direction: column;
-                text-align: center;
-                padding: 10px;
-            }
-            .header-buttons {
-                flex-direction: column;
-                gap: 5px;
-                align-items: center;
-            }
-            .header-content {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                margin-top: 10px;
-                margin-left: 0;
-            }
-            .header-gif img {
-                max-width: 120px;
-            }
-            input[type="text"], button {
-                width: 100%;
-                margin-bottom: 10px;
-                font-size: 16px;
-            }
-            button {
-                padding: 12px 20px;
-            }
-            .truck-row, .pids-row {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .truck-section, .pids-section {
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 20px;
-                text-align: left;
-            }
-            .efi-error-codes, .additional-info {
-                margin-top: 20px;
-            }
-            .l5p-instructions {
-                text-align: center;
-            }
-            .result {
-                padding: 15px;
-            }
-            .additional-resources {
-                padding: 10px;
-            }
-            .additional-resources h4 {
-                font-size: 18px;
-            }
+            .container { width: 90%; padding: 10px; margin: 20px auto; }
+            .header { padding: 15px; min-height: 80px; }
+            .header-buttons { flex-direction: row; gap: 10px; margin-bottom: 10px; }
+            .header-content { flex-direction: row; gap: 15px; }
+            .header-gif { width: 120px; margin-left: 15px; }
+            .header-gif img { max-width: 100%; }
+            h1 { font-size: 24px; }
+            .home-button a, .feedback-button a { padding: 6px 12px; font-size: 12px; }
+            input[type="text"], button { width: 100%; margin-bottom: 10px; font-size: 16px; }
+            #suggestions { width: 100%; left: 0; transform: none; }
+            button { padding: 12px 20px; }
+            .truck-row, .pids-row { flex-direction: column; gap: 15px; }
+            .truck-section, .pids-section { width: 100%; margin-right: 0; margin-bottom: 20px; text-align: left; }
+            .efi-error-codes, .additional-info { margin-top: 20px; }
+            .l5p-instructions { text-align: center; }
+            .result { padding: 15px; }
+            .additional-resources { padding: 10px; }
+            .additional-resources h4 { font-size: 18px; }
+            .turbo-container { width: 150px; height: 150px; }
+            .turbo-icon { width: 90px; height: 90px; }
+            .turbo-text { font-size: 18px; bottom: -40px; }
         }
     </style>
 </head>
@@ -509,19 +684,20 @@
                 <div class="feedback-button"><a href="mailto:zach@ppei.com?subject=PPEI%20Code%20Killer%20Feedback&body=Hi%20PPEI%20team,%20I%20have%20some%20suggestions%20to%20improve%20the%20PPEI%20Code%20Killer%20app:%0D%0A%0D%0A[Your%20suggestions%20here]">FEEDBACK</a></div>
             </div>
             <div class="header-content">
-                <div class="header-gif"><img src="{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}" alt="PPEI Performance GIF"></div>
                 <h1>PPEI ERROR CODE FINDER</h1>
+                <div class="header-gif"><img src="{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}" alt="PPEI Performance GIF"></div>
             </div>
         </div>
         <div class="description">
             Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.
         </div>
         <div class="efi-error-codes" id="efiErrorCodes">
-            <h3 onclick="toggleEfiErrorCodes()" aria-expanded="false">EFI Error Codes</h3>
+            <h3 onclick="toggleSection('efiErrorCodes', 'efiContent')">EFI ERROR CODES</h3>
             <div class="efi-content" id="efiContent">
                 <form id="errorForm">
                     <label for="error_code">Enter Error Code (e.g., 0502 or $0502):</label>
                     <input type="text" id="error_code" name="error_code" placeholder="e.g., 0502 or $0502" required autocomplete="off">
+                    <ul id="suggestions"></ul>
                     <button type="submit">Crush It</button>
                 </form>
                 <div id="resultContainer"></div>
@@ -529,7 +705,7 @@
                     <a href="mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(%20INSERT_CODE_HERE).%20Can%20you%20help?" id="supportLink">Not seeing your code? Contact the PPEI team!</a>
                 </div>
                 <div class="additional-resources" id="additionalResourcesEFI">
-                    <h4 onclick="toggleAdditionalResourcesEFI()" aria-expanded="false">Additional Resources</h4>
+                    <h4 onclick="toggleSection('additionalResourcesEFI', 'resourcesContentEFI')">Additional Resources</h4>
                     <div class="resources-content" id="resourcesContentEFI">
                         <ul>
                             <li><a href="https://ppei.com/pages/contact" target="_blank">PPEI Support Page</a> - Official support and documentation.</li>
@@ -543,7 +719,7 @@
             </div>
         </div>
         <div class="additional-info" id="additionalInfo">
-            <h3 onclick="toggleAdditionalInfo()" aria-expanded="false">HP Tuners Help</h3>
+            <h3 onclick="toggleSection('additionalInfo', 'additionalContent')">HP TUNERS HELP</h3>
             <div class="additional-content" id="additionalContent">
                 <div class="pids-row">
                     <div class="pids-section">
@@ -563,7 +739,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="additionalResourcesHP">
-                    <h4 onclick="toggleAdditionalResourcesHP()" aria-expanded="false">Additional Resources</h4>
+                    <h4 onclick="toggleSection('additionalResourcesHP', 'resourcesContentHP')">Additional Resources</h4>
                     <div class="resources-content" id="resourcesContentHP">
                         <ul>
                             <li><a href="{{ url_for('download_file', filename='T87A-T93-Installation-Steps.pdf') }}">L5P TCM Tuning Guide</a> - Instructions for L5P TCM tuning.</li>
@@ -577,9 +753,9 @@
                 </div>
             </div>
         </div>
-        <div class="truck-box">
-            <h2 onclick="toggleTruckInfo()" aria-expanded="false">What Truck Do I Have?</h2>
-            <div class="truck-info">
+        <div class="truck-box" id="truckBox">
+            <h2 onclick="toggleSection('truckBox', 'truckInfo')">WHAT TRUCK DO I HAVE?</h2>
+            <div class="truck-info" id="truckInfo">
                 <div class="truck-column">
                     <div class="truck-row">
                         <div class="truck-section">
@@ -608,165 +784,161 @@
                 </div>
             </div>
         </div>
+        <div class="grok-signature">Powered by Grok, xAI</div>
+    </div>
+
+    <!-- Turbo HUD Element -->
+    <div class="turbo-hud" id="turboHud">
+        <div class="turbo-container">
+            <div class="turbo-ring"></div>
+            <div class="turbo-icon"></div>
+            <div class="turbo-text">Crunching Gears...</div>
+        </div>
     </div>
 
     <script>
-        document.getElementById('errorForm').onsubmit = function(event) {
-            event.preventDefault();
-            let code = document.getElementById('error_code').value.trim();
-            const efiSection = document.getElementById('efiErrorCodes');
-            const efiContent = document.getElementById('efiContent');
-            const resultContainer = document.getElementById('resultContainer');
+        $(document).ready(function() {
+            console.log("jQuery loaded successfully");
 
-            // Show loading spinner
-            resultContainer.innerHTML = '<div class="loader">Loading...</div>';
+            $('#errorForm').submit(function(event) {
+                event.preventDefault();
+                const code = $('#error_code').val().trim();
+                const efiSection = $('#efiErrorCodes');
+                const efiContent = $('#efiContent');
+                const resultContainer = $('#resultContainer');
+                const $turboHud = $('#turboHud');
 
-            // Ensure the section is expanded
-            if (!efiSection.classList.contains('expanded')) {
-                efiSection.classList.add('expanded');
-                efiSection.querySelector('h3').setAttribute('aria-expanded', 'true');
-                efiContent.style.maxHeight = calculateTotalHeight(efiContent) + 'px';
-            }
+                // Show turbo HUD
+                $turboHud.addClass('active');
+                $('#suggestions').hide();
 
-            fetch('/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'error_code=' + encodeURIComponent(code)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Fetch response:', data);
-                document.getElementById('error_code').value = data.error_code.replace('$', '');
-                resultContainer.innerHTML = '';
-
-                if (data.result) {
-                    const resultDiv = document.createElement('div');
-                    resultDiv.className = 'result';
-                    resultDiv.innerHTML = `
-                        <h2>Error: ${data.error_code}</h2>
-                        <p><strong>Description:</strong> ${data.result.description}</p>
-                        <p><strong>Cause:</strong> ${data.result.cause}</p>
-                        <p><strong>Action:</strong> ${data.result.action}</p>
-                        <p><strong>Files:</strong> ${data.result.files.length ? 
-                            '<ul>' + data.result.files.map(file => 
-                                file.startsWith('http') ? 
-                                `<li><a href="${file}" target="_blank" class="file-link">Watch Video Tutorial</a></li>` : 
-                                `<li><a href="/download/Files/${file}" title="${file}" class="file-link">${file}</a></li>`
-                            ).join('') + '</ul>' : 'None'}
-                        </p>
-                    `;
-                    resultContainer.appendChild(resultDiv);
-                } else {
-                    resultContainer.innerHTML = '<p>No result found for this code.</p>';
+                if (!efiSection.hasClass('expanded')) {
+                    efiSection.addClass('expanded');
+                    efiContent.addClass('expanded');
+                    efiSection.find('h3').attr('aria-expanded', 'true');
+                    efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
                 }
 
-                const supportLink = document.getElementById('supportLink');
-                supportLink.href = `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help?`;
+                // Simulate a delay for badass effect (remove if live server is slower)
+                setTimeout(() => {
+                    $.post('/submit', { error_code: code }, function(data) {
+                        console.log('Fetch response:', data);
+                        $('#error_code').val(data.error_code.replace('$', ''));
+                        resultContainer.empty();
 
-                // Adjust max-height after content changes
-                requestAnimationFrame(() => {
-                    efiContent.style.maxHeight = calculateTotalHeight(efiContent) + 'px';
-                });
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-                resultContainer.innerHTML = '<p>Error loading result. Please try again.</p>';
-                // Adjust max-height after content changes
-                requestAnimationFrame(() => {
-                    efiContent.style.maxHeight = calculateTotalHeight(efiContent) + 'px';
-                });
+                        // Exit turbo HUD with explosion effect
+                        $turboHud.addClass('exiting');
+                        setTimeout(() => {
+                            $turboHud.removeClass('active exiting');
+                        }, 500); // Matches CSS transition
+
+                        if (data.result) {
+                            const resultDiv = $('<div class="result"></div>');
+                            const filesHtml = data.result.files.length ? 
+                                '<ul>' + data.result.files.map(file => 
+                                    file.startsWith('http') ? 
+                                    `<li><a href="${file}" target="_blank" class="file-link">Watch Video Tutorial</a></li>` : 
+                                    `<li><a href="/download/Files/${file}" title="${file}" class="file-link">${file}</a></li>`
+                                ).join('') + '</ul>' : 'None';
+                            resultDiv.html(`
+                                <h2>Error: ${data.error_code}</h2>
+                                <p><strong>Description:</strong> ${data.result.description}</p>
+                                <p><strong>Cause:</strong> ${data.result.cause}</p>
+                                <p><strong>Action:</strong> ${data.result.action.replace(/\n/g, '<br>')}</p>
+                                <p><strong>Files:</strong> ${filesHtml}</p>
+                                ${data.result.grok_note ? `<p><em>${data.result.grok_note}</em></p>` : ''}
+                            `);
+                            resultContainer.append(resultDiv);
+                        } else {
+                            resultContainer.html('<p>No result found for this code.</p>');
+                        }
+
+                        $('#supportLink').attr('href', `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help?`);
+
+                        setTimeout(() => {
+                            efiContent.addClass('expanded');
+                            efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
+                        }, 100);
+                    }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
+                        console.error('Fetch error:', textStatus, errorThrown);
+                        $turboHud.addClass('exiting');
+                        setTimeout(() => {
+                            $turboHud.removeClass('active exiting');
+                            resultContainer.html('<p>Error loading result. Try again, gearhead!</p>');
+                            setTimeout(() => {
+                                efiContent.addClass('expanded');
+                                efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
+                            }, 100);
+                        }, 500);
+                    });
+                }, 1000); // 1s delay for effect—adjust or remove as needed
             });
-        };
 
-        function calculateTotalHeight(element) {
-            let height = element.scrollHeight;
-            // Recursively calculate height of nested expandable content
-            element.querySelectorAll('.resources-content').forEach(nested => {
-                if (nested.closest('.additional-resources').classList.contains('expanded')) {
-                    height += nested.scrollHeight;
+            $('#error_code').on('input', function() {
+                const query = $(this).val().trim();
+                if (query.length < 1) {
+                    $('#suggestions').empty().hide();
+                    return;
                 }
+                $.get('/autocomplete', { q: query }, function(data) {
+                    const $ul = $('#suggestions').empty();
+                    if (data.length) {
+                        data.forEach(code => $ul.append(`<li>${code}</li>`));
+                        $ul.show();
+                    } else {
+                        $ul.hide();
+                    }
+                }, 'json');
             });
-            return height;
-        }
+
+            $('#suggestions').on('click', 'li', function() {
+                $('#error_code').val($(this).text().replace('$', ''));
+                $('#suggestions').hide();
+                $('#errorForm').submit();
+            });
+        });
 
         function toggleSection(sectionId, contentId) {
-            const section = document.getElementById(sectionId);
-            const content = document.getElementById(contentId);
-            const isExpanded = section.classList.contains('expanded');
-            const header = section.querySelector('h3, h4');
+            const section = $('#' + sectionId);
+            const content = $('#' + contentId);
+            const isExpanded = section.hasClass('expanded');
+            const header = section.find('h3, h4, h2').first();
+            const parentContent = content.closest('.efi-content, .additional-content, .truck-info');
 
             if (isExpanded) {
-                content.style.maxHeight = calculateTotalHeight(content) + 'px';
-                setTimeout(() => {
-                    content.style.maxHeight = '0';
-                    section.classList.remove('expanded');
-                    if (header) header.setAttribute('aria-expanded', 'false');
-                }, 10);
+                content.removeClass('expanded');
+                section.removeClass('expanded');
+                header.attr('aria-expanded', 'false');
+                content.css('max-height', '0');
+                if (parentContent.length && parentContent.hasClass('expanded')) {
+                    parentContent.css('max-height', parentContent[0].scrollHeight - content[0].scrollHeight + 'px');
+                }
             } else {
-                section.classList.add('expanded');
-                if (header) header.setAttribute('aria-expanded', 'true');
-                content.style.maxHeight = calculateTotalHeight(content) + 'px';
-            }
-        }
-
-        function toggleEfiErrorCodes() {
-            toggleSection('efiErrorCodes', 'efiContent');
-        }
-
-        function toggleAdditionalInfo() {
-            toggleSection('additionalInfo', 'additionalContent');
-        }
-
-        function toggleTruckInfo() {
-            const section = document.querySelector('.truck-box');
-            const content = document.querySelector('.truck-info');
-            const isExpanded = section.classList.contains('expanded');
-            const header = section.querySelector('h2');
-
-            if (isExpanded) {
-                content.style.maxHeight = calculateTotalHeight(content) + 'px';
-                setTimeout(() => {
-                    content.style.maxHeight = '0';
-                    section.classList.remove('expanded');
-                    header.setAttribute('aria-expanded', 'false');
-                }, 10);
-            } else {
-                section.classList.add('expanded');
-                header.setAttribute('aria-expanded', 'true');
-                content.style.maxHeight = calculateTotalHeight(content) + 'px';
-            }
-        }
-
-        function toggleAdditionalResourcesEFI() {
-            toggleSection('additionalResourcesEFI', 'resourcesContentEFI');
-            // Update parent height after nested toggle
-            const efiContent = document.getElementById('efiContent');
-            if (document.getElementById('efiErrorCodes').classList.contains('expanded')) {
-                efiContent.style.maxHeight = calculateTotalHeight(efiContent) + 'px';
-            }
-        }
-
-        function toggleAdditionalResourcesHP() {
-            toggleSection('additionalResourcesHP', 'resourcesContentHP');
-            // Update parent height after nested toggle
-            const additionalContent = document.getElementById('additionalContent');
-            if (document.getElementById('additionalInfo').classList.contains('expanded')) {
-                additionalContent.style.maxHeight = calculateTotalHeight(additionalContent) + 'px';
+                const contentHeight = content[0].scrollHeight;
+                const parentHeight = parentContent.length ? parentContent[0].scrollHeight : 0;
+                
+                section.addClass('expanded');
+                content.addClass('expanded');
+                header.attr('aria-expanded', 'true');
+                content.css('max-height', contentHeight + 'px');
+                
+                if (parentContent.length && parentContent.hasClass('expanded')) {
+                    parentContent.css('max-height', (parentHeight + contentHeight) + 'px');
+                }
             }
         }
 
         window.onload = function() {
-            if (document.querySelector('.result')) {
-                const efiSection = document.getElementById('efiErrorCodes');
-                const efiContent = document.getElementById('efiContent');
-                efiSection.classList.add('expanded');
-                efiSection.querySelector('h3').setAttribute('aria-expanded', 'true');
-                efiContent.style.maxHeight = calculateTotalHeight(efiContent) + 'px';
+            console.log("Window onload triggered");
+
+            if ($('.result').length) {
+                const efiSection = $('#efiErrorCodes');
+                const efiContent = $('#efiContent');
+                efiSection.addClass('expanded');
+                efiContent.addClass('expanded');
+                efiSection.find('h3').attr('aria-expanded', 'true');
+                efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
+                console.log('EFI ERROR CODES expanded due to result with height ' + efiContent[0].scrollHeight + 'px');
             }
         };
     </script>
