@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-P3YKE5RLB4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -9,671 +8,101 @@
       gtag('js', new Date());
       gtag('config', 'G-B8P8JF9HZX');
     </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPEI ERROR CODE FINDER</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Open+Sans:wght@400;600&display=swap');
-
-        :root {
-            --bg-dark: #1a1a1a;
-            --bg-container: rgba(28, 28, 28, 0.9);
-            --bg-section: rgba(45, 45, 45, 0.85);
-            --bg-card: rgba(51, 51, 51, 0.9);
-            --text-primary: #fff;
-            --accent-color: #00cc66;
-            --accent-hover: #00b359;
-            --border-color: #00cc66;
-            --shadow-color: rgba(0, 204, 102, 0.5);
-            --glow-color: rgba(0, 204, 102, 0.3);
-        }
-
+        :root { --bg-dark: #1a1a1a; --bg-container: rgba(28, 28, 28, 0.9); --bg-section: rgba(45, 45, 45, 0.85); --bg-card: rgba(51, 51, 51, 0.9); --text-primary: #fff; --accent-color: #00cc66; --accent-hover: #00b359; --border-color: #00cc66; --shadow-color: rgba(0, 204, 102, 0.5); --glow-color: rgba(0, 204, 102, 0.3); }
         html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow-x: hidden; }
-        body {
-            font-family: 'Open Sans', Arial, sans-serif;
-            font-size: 16px;
-            background: var(--bg-dark) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><path d="M10 10h80v80H10zM20 20h60v60H20z" stroke="%2300cc66" stroke-width="2" fill="none"/></svg>') repeat;
-            color: var(--text-primary);
-            position: relative;
-            animation: circuitPulse 30s infinite linear;
-        }
-
-        @keyframes circuitPulse {
-            0% { background-position: 0 0; }
-            100% { background-position: 100px 100px; }
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            background: var(--bg-container);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--glow-color);
-            backdrop-filter: blur(5px);
-            min-height: calc(100vh - 40px);
-            box-sizing: border-box;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 20px;
-            background: linear-gradient(to right, rgba(28, 28, 28, 0.95), rgba(45, 45, 45, 0.85));
-            border-radius: 8px;
-            border: 2px solid var(--glow-color);
-            box-shadow: 0 0 15px var(--shadow-color), inset 0 0 10px var(--glow-color);
-            min-height: 100px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-buttons {
-            display: flex;
-            flex-direction: row;
-            gap: 15px;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .home-button a, .feedback-button a {
-            padding: 8px 16px;
-            font-size: 14px;
-            background: var(--accent-color);
-            color: #0a0a0a;
-            border: 2px solid var(--accent-color);
-            border-radius: 6px;
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .home-button a:hover, .feedback-button a:hover {
-            background: var(--accent-hover);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--shadow-color), inset 0 0 5px var(--accent-color);
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .header-gif {
-            width: 180px;
-            margin-left: 20px;
-            border: 2px solid var(--accent-color);
-            border-radius: 4px;
-            box-shadow: 0 0 15px var(--glow-color);
-            overflow: hidden;
-        }
-
-        .header-gif img {
-            width: 100%;
-            height: auto;
-            animation: turboPulse 2s infinite ease-in-out;
-        }
-
-        @keyframes turboPulse {
-            0%, 100% { box-shadow: 0 0 15px var(--glow-color); }
-            50% { box-shadow: 0 0 25px var(--shadow-color); }
-        }
-
-        h1 {
-            text-align: left;
-            color: var(--text-primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--shadow-color);
-        }
-
-        .description {
-            text-align: center;
-            color: var(--text-primary);
-            font-size: 16px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: var(--bg-section);
-            border-radius: 4px;
-            line-height: 1.6;
-            border: 1px solid var(--glow-color);
-            box-shadow: inset 0 0 5px var(--glow-color);
-        }
-
-        .efi-error-codes, .additional-info, .truck-box {
-            margin-top: 30px;
-            padding: 20px;
-            background: var(--bg-section);
-            border-left: 5px solid var(--border-color);
-            border-radius: 4px;
-            position: relative;
-            transition: box-shadow 0.3s;
-        }
-
-        .efi-error-codes:hover, .additional-info:hover, .truck-box:hover {
-            box-shadow: 0 0 15px var(--glow-color);
-        }
-
-        .efi-error-codes h3, .additional-info h3, .truck-box h2 {
-            color: var(--text-primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            margin: 0 0 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 8px var(--shadow-color);
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .efi-error-codes h3:hover, .additional-info h3:hover, .truck-box h2:hover {
-            color: #e6e6e6;
-        }
-
-        .efi-error-codes h3::before, .additional-info h3::before, .truck-box h2::before {
-            content: "▶ ";
-            display: inline-block;
-            transition: transform 0.5s ease;
-            color: var(--accent-color);
-        }
-
-        .efi-error-codes h3.expanded::before, .additional-info h3.expanded::before, .truck-box h2.expanded::before {
-            transform: rotate(90deg);
-        }
-
-        .efi-content, .additional-content, .truck-info {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-
-        .efi-content.expanded, .additional-content.expanded, .truck-info.expanded {
-            max-height: none;
-        }
-
-        form {
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-            background: var(--bg-card);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        label {
-            font-weight: 600;
-            margin-right: 15px;
-            color: var(--text-primary);
-            font-size: 16px;
-            text-shadow: 0 0 5px var(--glow-color);
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            width: 250px;
-            border: 2px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--bg-section);
-            color: var(--text-primary);
-            outline: none;
-            text-transform: uppercase;
-            transition: box-shadow 0.3s, border-color 0.3s;
-            box-shadow: 0 0 5px var(--glow-color);
-            position: relative;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--accent-hover);
-            box-shadow: 0 0 15px var(--shadow-color);
-            animation: scanline 1.5s infinite linear;
-        }
-
-        @keyframes scanline {
-            0% { box-shadow: 0 0 15px var(--shadow-color); }
-            50% { box-shadow: 0 0 20px var(--accent-color), inset 0 0 5px var(--glow-color); }
-            100% { box-shadow: 0 0 15px var(--shadow-color); }
-        }
-
-        input[type="text"]::placeholder {
-            color: #ccc;
-            font-style: italic;
-        }
-
-        #suggestions {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-section);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            width: 250px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        #suggestions li {
-            padding: 8px;
-            cursor: pointer;
-            color: var(--text-primary);
-            animation: flickerIn 0.2s ease;
-        }
-
-        #suggestions li:hover {
-            background: var(--accent-hover);
-            color: #0a0a0a;
-        }
-
-        @keyframes flickerIn {
-            0% { opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background: var(--accent-color);
-            color: #0a0a0a;
-            border: 2px solid var(--accent-color);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 0 10px var(--glow-color);
-            position: relative;
-            overflow: hidden;
-            margin-left: 10px;
-        }
-
-        button:hover {
-            background: var(--accent-hover);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--shadow-color);
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: translateY(-50%);
-            transition: left 0.5s;
-        }
-
-        button:hover::after {
-            left: 100%;
-        }
-
-        /* Turbo-Charged Progress HUD */
-        .turbo-hud {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, transform 0.5s ease;
-        }
-
-        .turbo-hud.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .turbo-hud.exiting {
-            transform: scale(1.5);
-            opacity: 0;
-        }
-
-        .turbo-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .turbo-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(var(--accent-color) 0% 75%, transparent 75% 100%);
-            animation: spin 1s linear infinite;
-            box-shadow: 0 0 20px var(--glow-color);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .turbo-icon {
-            width: 120px;
-            height: 120px;
-            background: url('{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}') no-repeat center;
-            background-size: contain;
-            animation: turboSpin 0.5s linear infinite;
-        }
-
-        @keyframes turboSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .turbo-text {
-            position: absolute;
-            bottom: -50px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            text-shadow: 0 0 10px var(--glow-color);
-            animation: glitchText 0.1s infinite;
-        }
-
-        @keyframes glitchText {
-            0% { transform: translate(0, 0); opacity: 1; }
-            20% { transform: translate(-2px, 2px); opacity: 0.8; }
-            40% { transform: translate(2px, -2px); opacity: 0.9; }
-            60% { transform: translate(-2px, 0); opacity: 0.7; }
-            80% { transform: translate(2px, 2px); opacity: 0.9; }
-            100% { transform: translate(0, 0); opacity: 1; }
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 20px 30px;
-            background: rgba(42, 42, 42, 0.9);
-            border-left: 6px solid var(--accent-color);
-            border-radius: 8px;
-            max-width: 100%;
-            overflow-wrap: break-word;
-            position: relative;
-            box-shadow: 0 0 15px var(--glow-color);
-            animation: hudBoot 0.5s ease;
-        }
-
-        @keyframes hudBoot {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .result::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 204, 102, 0.2) 10px, rgba(0, 204, 102, 0.2) 20px);
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .result h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 5px var(--glow-color);
-        }
-
-        .result p {
-            margin: 15px 0;
-            color: var(--text-primary);
-            word-wrap: break-word;
-            max-width: 100%;
-            line-height: 1.6;
-        }
-
-        .result a {
-            color: var(--accent-color);
-            text-decoration: underline;
-            padding: 4px 8px;
-            display: inline-block;
-            max-width: 100%;
-            font-size: 18px;
-            line-height: 1.5;
-            white-space: normal;
-            transition: text-shadow 0.3s;
-        }
-
-        .result a:hover {
-            text-shadow: 0 0 5px var(--shadow-color);
-        }
-
-        .result ul {
-            margin: 10px 0;
-            padding-left: 25px;
-            list-style-type: disc;
-            max-width: 100%;
-        }
-
-        .result li {
-            margin-bottom: 15px;
-            word-break: break-all;
-            overflow-wrap: break-word;
-            white-space: normal;
-            max-width: 100%;
-        }
-
-        .result em {
-            color: #e6e6e6;
-            font-style: italic;
-            text-shadow: 0 0 3px var(--glow-color);
-        }
-
-        .support-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .support-link a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: text-shadow 0.3s;
-        }
-
-        .support-link a:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 5px var(--shadow-color);
-        }
-
-        .additional-resources {
-            margin-top: 20px;
-            padding: 15px;
-            background: var(--bg-section);
-            border-left: 5px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .additional-resources h4 {
-            color: var(--text-primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            margin: 0 0 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 8px var(--shadow-color);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .additional-resources h4:hover {
-            color: #e6e6e6;
-        }
-
-        .additional-resources h4::before {
-            content: "▶ ";
-            display: inline-block;
-            transition: transform 0.3s ease;
-            color: var(--accent-color);
-        }
-
-        .additional-resources h4.expanded::before {
-            transform: rotate(90deg);
-        }
-
-        .resources-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .resources-content.expanded {
-            max-height: none;
-        }
-
-        .resources-content ul {
-            list-style-type: disc;
-            padding-left: 25px;
-            margin: 0;
-        }
-
-        .resources-content li {
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .resources-content a {
-            color: var(--accent-color);
-            text-decoration: underline;
-            transition: text-shadow 0.3s;
-        }
-
-        .resources-content a:hover {
-            text-shadow: 0 0 5px var(--shadow-color);
-        }
-
+        body { font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; background: var(--bg-dark) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><path d="M10 10h80v80H10zM20 20h60v60H20z" stroke="%2300cc66" stroke-width="2" fill="none"/></svg>') repeat; color: var(--text-primary); position: relative; animation: circuitPulse 30s infinite linear; }
+        @keyframes circuitPulse { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
+        .container { max-width: 900px; margin: 20px auto; background: var(--bg-container); padding: 30px; border-radius: 8px; box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--glow-color); backdrop-filter: blur(5px); min-height: calc(100vh - 40px); box-sizing: border-box; position: relative; overflow: hidden; }
+        .header { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px; padding: 20px; background: linear-gradient(to right, rgba(28, 28, 28, 0.95), rgba(45, 45, 45, 0.85)); border-radius: 8px; border: 2px solid var(--glow-color); box-shadow: 0 0 15px var(--shadow-color), inset 0 0 10px var(--glow-color); min-height: 100px; position: sticky; top: 0; z-index: 1000; }
+        .header-buttons { display: flex; flex-direction: row; gap: 15px; align-items: center; margin-bottom: 15px; }
+        .home-button a, .feedback-button a { padding: 8px 16px; font-size: 14px; background: var(--accent-color); color: #0a0a0a; border: 2px solid var(--accent-color); border-radius: 6px; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; transition: all 0.3s; box-shadow: 0 0 10px var(--glow-color); }
+        .home-button a:hover, .feedback-button a:hover { background: var(--accent-hover); transform: scale(1.05); box-shadow: 0 0 15px var(--shadow-color), inset 0 0 5px var(--accent-color); }
+        .header-content { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .header-gif { width: 180px; margin-left: 20px; border: 2px solid var(--accent-color); border-radius: 4px; box-shadow: 0 0 15px var(--glow-color); overflow: hidden; }
+        .header-gif img { width: 100%; height: auto; animation: turboPulse 2s infinite ease-in-out; }
+        @keyframes turboPulse { 0%, 100% { box-shadow: 0 0 15px var(--glow-color); } 50% { box-shadow: 0 0 25px var(--shadow-color); } }
+        h1 { text-align: left; color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 10px var(--shadow-color); }
+        .description { text-align: center; color: var(--text-primary); font-size: 16px; margin-bottom: 20px; padding: 15px; background: var(--bg-section); border-radius: 4px; line-height: 1.6; border: 1px solid var(--glow-color); box-shadow: inset 0 0 5px var(--glow-color); }
+        .efi-error-codes, .additional-info, .truck-box { margin-top: 30px; padding: 20px; background: var(--bg-section); border-left: 5px solid var(--border-color); border-radius: 4px; position: relative; transition: box-shadow 0.3s; }
+        .efi-error-codes:hover, .additional-info:hover, .truck-box:hover { box-shadow: 0 0 15px var(--glow-color); }
+        .efi-error-codes h3, .additional-info h3, .truck-box h2 { color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 24px; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 8px var(--shadow-color); cursor: pointer; transition: color 0.3s; position: relative; }
+        .efi-error-codes h3:hover, .additional-info h3:hover, .truck-box h2:hover { color: #e6e6e6; }
+        .efi-error-codes h3::before, .additional-info h3::before, .truck-box h2::before { content: "▶ "; display: inline-block; transition: transform 0.5s ease; color: var(--accent-color); }
+        .efi-error-codes h3.expanded::before, .additional-info h3.expanded::before, .truck-box h2.expanded::before { transform: rotate(90deg); }
+        .efi-content, .additional-content, .truck-info { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+        .efi-content.expanded, .additional-content.expanded, .truck-info.expanded { max-height: none; }
+        form { text-align: center; margin-bottom: 20px; position: relative; background: var(--bg-card); padding: 15px; border-radius: 8px; box-shadow: 0 0 10px var(--glow-color); }
+        label { font-weight: 600; margin-right: 15px; color: var(--text-primary); font-size: 16px; text-shadow: 0 0 5px var(--glow-color); }
+        input[type="text"] { padding: 10px; font-size: 16px; width: 250px; border: 2px solid var(--border-color); border-radius: 4px; background: var(--bg-section); color: var(--text-primary); outline: none; text-transform: uppercase; transition: box-shadow 0.3s, border-color 0.3s; box-shadow: 0 0 5px var(--glow-color); position: relative; }
+        input[type="text"]:focus { border-color: var(--accent-hover); box-shadow: 0 0 15px var(--shadow-color); animation: scanline 1.5s infinite linear; }
+        @keyframes scanline { 0% { box-shadow: 0 0 15px var(--shadow-color); } 50% { box-shadow: 0 0 20px var(--accent-color), inset 0 0 5px var(--glow-color); } 100% { box-shadow: 0 0 15px var(--shadow-color); } }
+        input[type="text"]::placeholder { color: #ccc; font-style: italic; }
+        #suggestions { list-style: none; padding: 0; margin: 0; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: var(--bg-section); border: 1px solid var(--border-color); border-radius: 4px; width: 250px; max-height: 200px; overflow-y: auto; z-index: 1000; display: none; box-shadow: 0 0 10px var(--glow-color); }
+        #suggestions li { padding: 8px; cursor: pointer; color: var(--text-primary); animation: flickerIn 0.2s ease; }
+        #suggestions li:hover { background: var(--accent-hover); color: #0a0a0a; }
+        @keyframes flickerIn { 0% { opacity: 0; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        button { padding: 10px 20px; font-size: 16px; background: var(--accent-color); color: #0a0a0a; border: 2px solid var(--accent-color); border-radius: 6px; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px var(--glow-color); position: relative; overflow: hidden; margin-left: 10px; }
+        button:hover { background: var(--accent-hover); transform: scale(1.05); box-shadow: 0 0 15px var(--shadow-color); }
+        button:active { transform: scale(0.98); }
+        button::after { content: ''; position: absolute; top: 50%; left: -100%; width: 200%; height: 100%; background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent); transform: translateY(-50%); transition: left 0.5s; }
+        button:hover::after { left: 100%; }
+        .turbo-hud { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, transform 0.5s ease; }
+        .turbo-hud.active { opacity: 1; visibility: visible; }
+        .turbo-hud.exiting { transform: scale(1.5); opacity: 0; }
+        .turbo-container { position: relative; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center; }
+        .turbo-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--accent-color) 0% 75%, transparent 75% 100%); animation: spin 1s linear infinite; box-shadow: 0 0 20px var(--glow-color); }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .turbo-icon { width: 120px; height: 120px; background: url('{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}') no-repeat center; background-size: contain; animation: turboSpin 0.5s linear infinite; }
+        @keyframes turboSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .turbo-text { position: absolute; bottom: -50px; font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--accent-color); text-transform: uppercase; text-shadow: 0 0 10px var(--glow-color); animation: glitchText 0.1s infinite; }
+        @keyframes glitchText { 0% { transform: translate(0, 0); opacity: 1; } 20% { transform: translate(-2px, 2px); opacity: 0.8; } 40% { transform: translate(2px, -2px); opacity: 0.9; } 60% { transform: translate(-2px, 0); opacity: 0.7; } 80% { transform: translate(2px, 2px); opacity: 0.9; } 100% { transform: translate(0, 0); opacity: 1; } }
+        .result { margin-top: 20px; padding: 20px 30px; background: rgba(42, 42, 42, 0.9); border-left: 6px solid var(--accent-color); border-radius: 8px; max-width: 100%; overflow-wrap: break-word; position: relative; box-shadow: 0 0 15px var(--glow-color); animation: hudBoot 0.5s ease; }
+        @keyframes hudBoot { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        .result::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 204, 102, 0.2) 10px, rgba(0, 204, 102, 0.2) 20px); opacity: 0.3; pointer-events: none; }
+        .result h2 { font-family: 'Orbitron', sans-serif; font-size: 22px; margin-bottom: 15px; text-shadow: 0 0 5px var(--glow-color); }
+        .result p { margin: 15px 0; color: var(--text-primary); word-wrap: break-word; max-width: 100%; line-height: 1.6; }
+        .result a { color: var(--accent-color); text-decoration: underline; padding: 4px 8px; display: inline-block; max-width: 100%; font-size: 18px; line-height: 1.5; white-space: normal; transition: text-shadow 0.3s; }
+        .result a:hover { text-shadow: 0 0 5px var(--shadow-color); }
+        .result ul { margin: 10px 0; padding-left: 25px; list-style-type: disc; max-width: 100%; }
+        .result li { margin-bottom: 15px; word-break: break-all; overflow-wrap: break-word; white-space: normal; max-width: 100%; }
+        .result em { color: #e6e6e6; font-style: italic; text-shadow: 0 0 3px var(--glow-color); }
+        .support-link { text-align: center; margin-top: 20px; }
+        .support-link a { color: var(--text-primary); text-decoration: none; font-size: 14px; font-weight: 600; transition: text-shadow 0.3s; }
+        .support-link a:hover { text-decoration: underline; text-shadow: 0 0 5px var(--shadow-color); }
+        .additional-resources { margin-top: 20px; padding: 15px; background: var(--bg-section); border-left: 5px solid var(--border-color); border-radius: 4px; box-shadow: 0 0 10px var(--glow-color); }
+        .additional-resources h4 { color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 20px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 8px var(--shadow-color); cursor: pointer; transition: color 0.3s; }
+        .additional-resources h4:hover { color: #e6e6e6; }
+        .additional-resources h4::before { content: "▶ "; display: inline-block; transition: transform 0.3s ease; color: var(--accent-color); }
+        .additional-resources h4.expanded::before { transform: rotate(90deg); }
+        .resources-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .resources-content.expanded { max-height: none; }
+        .resources-content ul { list-style-type: disc; padding-left: 25px; margin: 0; }
+        .resources-content li { color: var(--text-primary); margin-bottom: 10px; line-height: 1.4; }
+        .resources-content a { color: var(--accent-color); text-decoration: underline; transition: text-shadow 0.3s; }
+        .resources-content a:hover { text-shadow: 0 0 5px var(--shadow-color); }
         .truck-column { float: left; width: 100%; padding: 0 10px; }
         .truck-row { display: flex; justify-content: space-between; }
         .truck-section { width: 30%; margin-right: 10px; }
         .truck-section:last-child { margin-right: 0; }
-        .truck-section h3 {
-            color: var(--text-primary);
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 5px var(--glow-color);
-        }
-        .truck-section p {
-            color: var(--text-primary);
-            font-size: 14px;
-            margin: 5px 0;
-            line-height: 1.4;
-        }
-
+        .truck-section h3 { color: var(--text-primary); font-size: 18px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px var(--glow-color); }
+        .truck-section p { color: var(--text-primary); font-size: 14px; margin: 5px 0; line-height: 1.4; }
         .pids-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
         .pids-section { width: 30%; text-align: center; }
-        .pids-section h4 {
-            color: var(--text-primary);
-            font-size: 16px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px var(--glow-color);
-        }
-        .pids-section a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 5px;
-            transition: text-shadow 0.3s;
-        }
-        .pids-section a:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 5px var(--shadow-color);
-        }
-
+        .pids-section h4 { color: var(--text-primary); font-size: 16px; margin-bottom: 10px; font-weight: bold; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 5px var(--glow-color); }
+        .pids-section a { color: var(--text-primary); text-decoration: none; font-weight: 600; display: block; margin-bottom: 5px; transition: text-shadow 0.3s; }
+        .pids-section a:hover { text-decoration: underline; text-shadow: 0 0 5px var(--shadow-color); }
         .l5p-instructions { width: 100%; text-align: left; margin-top: 10px; }
         .read-file-instructions { list-style-type: none; }
         .loader { text-align: center; color: var(--accent-color); font-size: 18px; font-style: italic; text-shadow: 0 0 5px var(--glow-color); }
-
-        .grok-signature {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: var(--text-primary);
-            text-shadow: 0 0 5px var(--glow-color);
-            animation: glitch 2s infinite step-end;
-        }
-
-        @keyframes glitch {
-            0%, 100% { opacity: 1; }
-            10%, 30%, 50%, 70%, 90% { opacity: 0.8; }
-            20%, 40%, 60%, 80% { opacity: 0.9; }
-        }
-
-        @media (max-width: 600px) {
-            .container { width: 90%; padding: 10px; margin: 20px auto; }
-            .header { padding: 15px; min-height: 80px; }
-            .header-buttons { flex-direction: row; gap: 10px; margin-bottom: 10px; }
-            .header-content { flex-direction: row; gap: 15px; }
-            .header-gif { width: 120px; margin-left: 15px; }
-            .header-gif img { max-width: 100%; }
-            h1 { font-size: 24px; }
-            .home-button a, .feedback-button a { padding: 6px 12px; font-size: 12px; }
-            input[type="text"], button { width: 100%; margin-bottom: 10px; font-size: 16px; }
-            #suggestions { width: 100%; left: 0; transform: none; }
-            button { padding: 12px 20px; }
-            .truck-row, .pids-row { flex-direction: column; gap: 15px; }
-            .truck-section, .pids-section { width: 100%; margin-right: 0; margin-bottom: 20px; text-align: left; }
-            .efi-error-codes, .additional-info { margin-top: 20px; }
-            .l5p-instructions { text-align: center; }
-            .result { padding: 15px; }
-            .additional-resources { padding: 10px; }
-            .additional-resources h4 { font-size: 18px; }
-            .turbo-container { width: 150px; height: 150px; }
-            .turbo-icon { width: 90px; height: 90px; }
-            .turbo-text { font-size: 18px; bottom: -40px; }
-        }
+        .grok-signature { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-primary); text-shadow: 0 0 5px var(--glow-color); animation: glitch 2s infinite step-end; }
+        @keyframes glitch { 0%, 100% { opacity: 1; } 10%, 30%, 50%, 70%, 90% { opacity: 0.8; } 20%, 40%, 60%, 80% { opacity: 0.9; } }
+        @media (max-width: 600px) { .container { width: 90%; padding: 10px; margin: 20px auto; } .header { padding: 15px; min-height: 80px; } .header-buttons { flex-direction: row; gap: 10px; margin-bottom: 10px; } .header-content { flex-direction: row; gap: 15px; } .header-gif { width: 120px; margin-left: 15px; } .header-gif img { max-width: 100%; } h1 { font-size: 24px; } .home-button a, .feedback-button a { padding: 6px 12px; font-size: 12px; } input[type="text"], button { width: 100%; margin-bottom: 10px; font-size: 16px; } #suggestions { width: 100%; left: 0; transform: none; } button { padding: 12px 20px; } .truck-row, .pids-row { flex-direction: column; gap: 15px; } .truck-section, .pids-section { width: 100%; margin-right: 0; margin-bottom: 20px; text-align: left; } .efi-error-codes, .additional-info { margin-top: 20px; } .l5p-instructions { text-align: center; } .result { padding: 15px; } .additional-resources { padding: 10px; } .additional-resources h4 { font-size: 18px; } .turbo-container { width: 150px; height: 150px; } .turbo-icon { width: 90px; height: 90px; } .turbo-text { font-size: 18px; bottom: -40px; } }
     </style>
 </head>
 <body>
@@ -709,7 +138,7 @@
                     <div class="resources-content" id="resourcesContentEFI">
                         <ul>
                             <li><a href="https://ppei.com/pages/contact" target="_blank">PPEI Support Page</a> - Official support and documentation.</li>
-                            <li><a href="{{ url_for('download_file', filename='2001 – 2010 Duramax EFILive V3 AutoCal ECM Flash Install Instructions.pdf') }}">2001 - 2010 Duramax ECM flashing instructions</a> - Guide for ECM flashing.</li>
+                            <li><a href="{{ url_for('download_file', filename='2001-2010_Duramax_ECM_Flash.pdf') }}">2001 - 2010 Duramax ECM flashing instructions</a> - Guide for ECM flashing.</li>
                             <li><a href="{{ url_for('download_file', filename='TCM Stock File Instructions - 01-10.pdf') }}">2001 - 2010 Duramax TCM read file instructions</a> - Instructions for TCM read files.</li>
                             <li><a href="{{ url_for('download_file', filename='Aisin Transmission Tuning Install Instructions - EFILive.pdf') }}">Aisin TCM tuning instructions</a> - Guide for Aisin TCM tuning.</li>
                             <li><a href="{{ url_for('download_file', filename='EFILive Autocal V3 Datalogging.pdf') }}">V3 autocal datalogging instructions</a> - Instructions for V3 autocal datalogging.</li>
@@ -787,7 +216,6 @@
         <div class="grok-signature">Powered by Grok, xAI</div>
     </div>
 
-    <!-- Turbo HUD Element -->
     <div class="turbo-hud" id="turboHud">
         <div class="turbo-container">
             <div class="turbo-ring"></div>
@@ -798,8 +226,6 @@
 
     <script>
         $(document).ready(function() {
-            console.log("jQuery loaded successfully");
-
             $('#errorForm').submit(function(event) {
                 event.preventDefault();
                 const code = $('#error_code').val().trim();
@@ -808,7 +234,6 @@
                 const resultContainer = $('#resultContainer');
                 const $turboHud = $('#turboHud');
 
-                // Show turbo HUD
                 $turboHud.addClass('active');
                 $('#suggestions').hide();
 
@@ -819,27 +244,16 @@
                     efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
                 }
 
-                // Simulate a delay for badass effect (remove if live server is slower)
                 setTimeout(() => {
                     $.post('/submit', { error_code: code }, function(data) {
-                        console.log('Fetch response:', data);
                         $('#error_code').val(data.error_code.replace('$', ''));
                         resultContainer.empty();
-
-                        // Exit turbo HUD with explosion effect
                         $turboHud.addClass('exiting');
-                        setTimeout(() => {
-                            $turboHud.removeClass('active exiting');
-                        }, 500); // Matches CSS transition
+                        setTimeout(() => $turboHud.removeClass('active exiting'), 500);
 
                         if (data.result) {
                             const resultDiv = $('<div class="result"></div>');
-                            const filesHtml = data.result.files.length ? 
-                                '<ul>' + data.result.files.map(file => 
-                                    file.startsWith('http') ? 
-                                    `<li><a href="${file}" target="_blank" class="file-link">Watch Video Tutorial</a></li>` : 
-                                    `<li><a href="/download/Files/${file}" title="${file}" class="file-link">${file}</a></li>`
-                                ).join('') + '</ul>' : 'None';
+                            const filesHtml = data.result.files.length ? '<ul>' + data.result.files.map(file => `<li><a href="/download/Files/${file}" title="${file}">${file}</a></li>`).join('') + '</ul>' : 'None';
                             resultDiv.html(`
                                 <h2>Error: ${data.error_code}</h2>
                                 <p><strong>Description:</strong> ${data.result.description}</p>
@@ -854,24 +268,16 @@
                         }
 
                         $('#supportLink').attr('href', `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help?`);
-
-                        setTimeout(() => {
-                            efiContent.addClass('expanded');
-                            efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
-                        }, 100);
-                    }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
-                        console.error('Fetch error:', textStatus, errorThrown);
+                        efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
+                    }, 'json').fail(function() {
                         $turboHud.addClass('exiting');
                         setTimeout(() => {
                             $turboHud.removeClass('active exiting');
                             resultContainer.html('<p>Error loading result. Try again, gearhead!</p>');
-                            setTimeout(() => {
-                                efiContent.addClass('expanded');
-                                efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
-                            }, 100);
+                            efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
                         }, 500);
                     });
-                }, 1000); // 1s delay for effect—adjust or remove as needed
+                }, 1000);
             });
 
             $('#error_code').on('input', function() {
@@ -916,12 +322,10 @@
             } else {
                 const contentHeight = content[0].scrollHeight;
                 const parentHeight = parentContent.length ? parentContent[0].scrollHeight : 0;
-                
                 section.addClass('expanded');
                 content.addClass('expanded');
                 header.attr('aria-expanded', 'true');
                 content.css('max-height', contentHeight + 'px');
-                
                 if (parentContent.length && parentContent.hasClass('expanded')) {
                     parentContent.css('max-height', (parentHeight + contentHeight) + 'px');
                 }
@@ -929,8 +333,6 @@
         }
 
         window.onload = function() {
-            console.log("Window onload triggered");
-
             if ($('.result').length) {
                 const efiSection = $('#efiErrorCodes');
                 const efiContent = $('#efiContent');
@@ -938,7 +340,6 @@
                 efiContent.addClass('expanded');
                 efiSection.find('h3').attr('aria-expanded', 'true');
                 efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
-                console.log('EFI ERROR CODES expanded due to result with height ' + efiContent[0].scrollHeight + 'px');
             }
         };
     </script>
