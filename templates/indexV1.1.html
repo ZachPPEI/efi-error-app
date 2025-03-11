@@ -69,20 +69,93 @@
         input[type="text"]:focus { border-color: var(--accent-hover); box-shadow: 0 0 15px var(--shadow-color); animation: scanline 1.5s infinite linear; }
         @keyframes scanline { 0% { box-shadow: 0 0 15px var(--shadow-color); } 50% { box-shadow: 0 0 20px var(--accent-color), inset 0 0 5px var(--glow-color); } 100% { box-shadow: 0 0 15px var(--shadow-color); } }
         input[type="text"]::placeholder { color: #ccc; font-style: italic; }
-        button { padding: 10px 20px; font-size: 16px; background: var(--accent-color); color: #0a0a0a; border: 2px solid var(--accent-color); border-radius: 6px; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 10px var(--glow-color); position: relative; overflow: hidden; margin-left: 10px; }
-        button:hover { background: var(--accent-hover); transform: scale(1.05); box-shadow: 0 0 15px var(--shadow-color); }
+        button { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            background: var(--accent-color); 
+            color: #0a0a0a; 
+            border: 2px solid var(--accent-color); 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 0 10px var(--glow-color); 
+            position: relative; 
+            overflow: hidden; 
+            margin-left: 10px; 
+            font-family: 'Orbitron', sans-serif; 
+            text-transform: uppercase; 
+        }
+        button:hover { 
+            background: var(--accent-hover); 
+            transform: scale(1.05); 
+            box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--accent-color); 
+        }
         button:active { transform: scale(0.98); }
-        button::after { content: ''; position: absolute; top: 50%; left: -100%; width: 200%; height: 100%; background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent); transform: translateY(-50%); transition: left 0.5s; }
-        button:hover::after { left: 100%; }
-        .turbo-hud { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, transform 0.5s ease; }
-        .turbo-hud.active { opacity: 1; visibility: visible; }
+        button::after { 
+            content: ''; 
+            position: absolute; 
+            top: 50%; 
+            left: -100%; 
+            width: 200%; 
+            height: 100%; 
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent); 
+            transform: translateY(-50%); 
+            transition: left 0.5s; 
+        }
+        button:hover::after { 
+            left: 100%; 
+        }
+        .turbo-hud { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.9); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: opacity 0.3s ease, transform 0.5s ease; 
+        }
+        .turbo-hud::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 204, 102, 0.3), rgba(0, 0, 0, 0));
+            opacity: 0;
+        }
+        .turbo-hud.active { 
+            opacity: 1; 
+            visibility: visible; 
+        }
+        .turbo-hud.active::before { 
+            animation: nebulaPulse 2s ease-in-out; 
+        }
         .turbo-hud.exiting { transform: scale(1.5); opacity: 0; }
-        .turbo-container { position: relative; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center; }
-        .turbo-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--accent-color) 0% 75%, transparent 75% 100%); animation: spin 1s linear infinite; box-shadow: 0 0 20px var(--glow-color); }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .turbo-icon { width: 120px; height: 120px; background: url('{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}') no-repeat center; background-size: contain; animation: turboSpin 0.5s linear infinite; }
-        @keyframes turboSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .turbo-text { position: absolute; bottom: -50px; font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--accent-color); text-transform: uppercase; text-shadow: 0 0 10px var(--glow-color); animation: glitchText 0.1s infinite; }
+        .turbo-container { position: relative; width: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .turbo-logo { width: 100%; height: auto; max-width: 300px; display: block; }
+        .turbo-logo.spinning { animation: zoomInOut 2s infinite ease-in-out, spin 2s linear; }
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes nebulaPulse { 
+            0% { opacity: 0; } 
+            50% { opacity: 1; } 
+            100% { opacity: 0; } 
+        }
+        .turbo-text { margin-top: 20px; font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--accent-color); text-transform: uppercase; text-shadow: 0 0 10px var(--glow-color); animation: glitchText 0.1s infinite; }
         @keyframes glitchText { 0% { transform: translate(0, 0); opacity: 1; } 20% { transform: translate(-2px, 2px); opacity: 0.8; } 40% { transform: translate(2px, -2px); opacity: 0.9; } 60% { transform: translate(-2px, 0); opacity: 0.7; } 80% { transform: translate(2px, 2px); opacity: 0.9; } 100% { transform: translate(0, 0); opacity: 1; } }
         .result { margin-top: 20px; padding: 20px 30px; background: rgba(42, 42, 42, 0.9); border-left: 6px solid var(--accent-color); border-radius: 8px; max-width: 100%; overflow-wrap: break-word; position: relative; box-shadow: 0 0 15px var(--glow-color); animation: hudBoot 0.5s ease; }
         @keyframes hudBoot { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -125,168 +198,44 @@
         .grok-signature { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-primary); text-shadow: 0 0 5px var(--glow-color); animation: glitch 2s infinite step-end; }
         @keyframes glitch { 0%, 100% { opacity: 1; } 10%, 30%, 50%, 70%, 90% { opacity: 0.8; } 20%, 40%, 60%, 80% { opacity: 0.9; } }
         @media (max-width: 600px) {
-            .container { 
-                width: 100%; 
-                margin: 0; 
-                padding: 15px; 
-                border-radius: 0; 
-                min-height: 100vh; 
-            }
-            .header { 
-                padding: 10px; 
-                min-height: auto; 
-                position: relative; 
-                border: 1px solid var(--glow-color); 
-            }
-            .header-buttons { 
-                flex-direction: column; 
-                gap: 8px; 
-                margin-bottom: 10px; 
-                width: 100%; 
-            }
-            .home-button a, .feedback-button a { 
-                padding: 10px 20px; 
-                font-size: 14px; 
-                width: 100%; 
-                text-align: center; 
-                box-sizing: border-box; 
-            }
-            .header-content { 
-                flex-direction: column; 
-                gap: 10px; 
-                align-items: center; 
-            }
-            .header-gif { 
-                width: 100px; 
-                margin: 0 auto; 
-            }
-            .header-gif img { 
-                max-width: 100%; 
-            }
-            h1 { 
-                font-size: 20px; 
-                text-align: center; 
-                letter-spacing: 2px; 
-            }
-            .description { 
-                font-size: 14px; 
-                padding: 10px; 
-                line-height: 1.5; 
-            }
-            form { 
-                padding: 10px; 
-                display: flex; 
-                flex-direction: column; 
-                gap: 10px; 
-                align-items: center; 
-            }
-            label { 
-                font-size: 14px; 
-                margin-right: 0; 
-                margin-bottom: 5px; 
-                text-align: center; 
-            }
-            input[type="text"] { 
-                width: 100%; 
-                max-width: 300px; 
-                font-size: 16px; 
-                padding: 12px; 
-                box-sizing: border-box; 
-            }
-            button { 
-                width: 100%; 
-                max-width: 300px; 
-                padding: 12px 20px; 
-                font-size: 16px; 
-                margin-left: 0; 
-                margin-top: 10px; 
-            }
-            .efi-error-codes, .additional-info, .truck-box { 
-                margin-top: 15px; 
-                padding: 15px; 
-            }
-            .efi-error-codes h3, .additional-info h3, .truck-box h2 { 
-                font-size: 18px; 
-                letter-spacing: 1px; 
-            }
-            .result { 
-                padding: 15px; 
-                font-size: 14px; 
-            }
-            .result h2 { 
-                font-size: 18px; 
-            }
-            .result p { 
-                line-height: 1.5; 
-            }
-            .result a { 
-                font-size: 16px; 
-                word-break: break-word; 
-            }
-            .support-link a { 
-                font-size: 14px; 
-            }
-            .additional-resources { 
-                padding: 10px; 
-            }
-            .additional-resources h4 { 
-                font-size: 16px; 
-            }
-            .resources-content li { 
-                font-size: 14px; 
-                line-height: 1.5; 
-            }
-            .truck-row, .pids-row { 
-                flex-direction: column; 
-                gap: 15px; 
-            }
-            .truck-section, .pids-section { 
-                width: 100%; 
-                margin-right: 0; 
-                margin-bottom: 15px; 
-                text-align: left; 
-            }
-            .truck-section h3, .pids-section h4 { 
-                font-size: 16px; 
-            }
-            .truck-section p { 
-                font-size: 14px; 
-                line-height: 1.5; 
-            }
-            .l5p-instructions { 
-                text-align: center; 
-            }
-            .turbo-container { 
-                width: 120px; 
-                height: 120px; 
-            }
-            .turbo-icon { 
-                width: 70px; 
-                height: 70px; 
-            }
-            .turbo-text { 
-                font-size: 16px; 
-                bottom: -30px; 
-            }
-            .grok-signature { 
-                font-size: 12px; 
-            }
-            /* Reduce animation intensity for better mobile performance */
-            body { 
-                animation: none; 
-            }
-            body::before { 
-                animation: none; 
-            }
-            .header-gif img { 
-                animation: turboPulse 3s infinite ease-in-out; 
-            }
-            .turbo-ring { 
-                animation: spin 2s linear infinite; 
-            }
-            .turbo-icon { 
-                animation: turboSpin 1s linear infinite; 
-            }
+            .container { width: 100%; margin: 0; padding: 15px; border-radius: 0; min-height: 100vh; }
+            .header { padding: 10px; min-height: auto; position: relative; border: 1px solid var(--glow-color); }
+            .header-buttons { flex-direction: column; gap: 8px; margin-bottom: 10px; width: 100%; }
+            .home-button a, .feedback-button a { padding: 10px 20px; font-size: 14px; width: 100%; text-align: center; box-sizing: border-box; }
+            .header-content { flex-direction: column; gap: 10px; align-items: center; }
+            .header-gif { width: 100px; margin: 0 auto; }
+            .header-gif img { max-width: 100%; }
+            h1 { font-size: 20px; text-align: center; letter-spacing: 2px; }
+            .description { font-size: 14px; padding: 10px; line-height: 1.5; }
+            form { padding: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+            label { font-size: 14px; margin-right: 0; margin-bottom: 5px; text-align: center; }
+            input[type="text"] { width: 100%; max-width: 300px; font-size: 16px; padding: 12px; box-sizing: border-box; }
+            button { width: 100%; max-width: 300px; padding: 12px 20px; font-size: 16px; margin-left: 0; margin-top: 10px; font-family: 'Orbitron', sans-serif; }
+            .efi-error-codes, .additional-info, .truck-box { margin-top: 15px; padding: 15px; }
+            .efi-error-codes h3, .additional-info h3, .truck-box h2 { font-size: 18px; letter-spacing: 1px; }
+            .result { padding: 15px; font-size: 14px; }
+            .result h2 { font-size: 18px; }
+            .result p { line-height: 1.5; }
+            .result a { font-size: 16px; word-break: break-word; }
+            .support-link a { font-size: 14px; }
+            .additional-resources { padding: 10px; }
+            .additional-resources h4 { font-size: 16px; }
+            .resources-content li { font-size: 14px; line-height: 1.5; }
+            .truck-row, .pids-row { flex-direction: column; gap: 15px; }
+            .truck-section, .pids-section { width: 100%; margin-right: 0; margin-bottom: 15px; text-align: left; }
+            .truck-section h3, .pids-section h4 { font-size: 16px; }
+            .truck-section p { font-size: 14px; line-height: 1.5; }
+            .l5p-instructions { text-align: center; }
+            .turbo-container { width: 200px; }
+            .turbo-logo { max-width: 200px; }
+            .turbo-hud { background: rgba(0, 0, 0, 0.9); }
+            .turbo-hud::before { background: radial-gradient(circle, rgba(0, 204, 102, 0.3), rgba(0, 0, 0, 0)); }
+            .turbo-hud.active::before { animation: nebulaPulse 2s ease-in-out; }
+            .turbo-text { font-size: 16px; margin-top: 10px; }
+            .grok-signature { font-size: 12px; }
+            body { animation: none; }
+            body::before { animation: none; }
+            .header-gif img { animation: turboPulse 3s infinite ease-in-out; }
         }
     </style>
 </head>
@@ -311,7 +260,7 @@
                 <form id="errorForm">
                     <label for="error_code">Enter Error Code (e.g., 0502 or $0502):</label>
                     <input type="text" id="error_code" name="error_code" placeholder="e.g., 0502 or $0502" required autocomplete="off">
-                    <button type="submit">Crush It</button>
+                    <button type="submit">Ask PPEI</button>
                 </form>
                 <div id="resultContainer"></div>
                 <div class="support-link">
@@ -402,9 +351,8 @@
 
     <div class="turbo-hud" id="turboHud">
         <div class="turbo-container">
-            <div class="turbo-ring"></div>
-            <div class="turbo-icon"></div>
-            <div class="turbo-text">Crunching Gears...</div>
+            <img src="{{ url_for('static', filename='PPEI logo.png') }}" alt="PPEI Loading Logo" class="turbo-logo" onerror="this.src='https://via.placeholder.com/200x200.png?text=PPEI+Logo'; console.log('Failed to load PPEI logo.png');">
+            <div class="turbo-text">Decoding Performance...</div>
         </div>
     </div>
 
@@ -417,7 +365,19 @@
                 const efiContent = $('#efiContent');
                 const resultContainer = $('#resultContainer');
                 const $turboHud = $('#turboHud');
+                const $turboLogo = $('.turbo-logo');
 
+                const humorText = [
+                    "Analyzing ECM... Smarter Than Your Buddy’s ‘Tuner’!",
+                    "Decoding Issues... Like a Mechanic With a Cheat Code!",
+                    "Processing ECM... Your Scan Tool’s Got Nothing on This!",
+                    "Scanning Errors... Faster Than a Boost Leak Fix!"
+                ];
+
+                const randomPhrase = humorText[Math.floor(Math.random() * humorText.length)];
+                $('.turbo-text').text(randomPhrase);
+
+                console.log("Form submitted, showing turbo-hud");
                 $turboHud.addClass('active');
 
                 if (!efiSection.hasClass('expanded')) {
@@ -427,8 +387,14 @@
                     efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
                 }
 
+                $turboLogo.addClass('spinning');
+                console.log("Animation started");
+
                 setTimeout(() => {
+                    console.log("Spin animation completed, triggering AJAX");
+                    $turboLogo.removeClass('spinning');
                     $.post('/submit', { error_code: code }, function(data) {
+                        console.log("AJAX success, hiding turbo-hud");
                         $('#error_code').val(data.error_code.replace('$', ''));
                         resultContainer.empty();
                         $turboHud.addClass('exiting');
@@ -436,11 +402,18 @@
 
                         if (data.result) {
                             const resultDiv = $('<div class="result"></div>');
-                            const filesHtml = data.result.files.length 
+                            const fileDisplayNames = {
+                                "18-21 Cummins Bypass Install Instructions.pdf": "Bypass cable instructions",
+                                "PPEI_BBX.bbx": "PPEI BBX File",
+                                "program autocal step by step.pdf": "Program AutoCal Guide",
+                                "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o": "YouTube Tutorial",
+                                "lb7 and lly's.docx": "LB7/LLY Fuse Guide"
+                            };
+                            const filesHtml = data.result.files && data.result.files.length 
                                 ? '<ul>' + data.result.files.map(file => 
                                     file.startsWith('http') 
-                                        ? `<li><a href="${file}" target="_blank">YouTube Tutorial</a></li>` 
-                                        : `<li><a href="/download/Files/${file}" title="${file}">${file}</a></li>`
+                                        ? `<li><a href="${file}" target="_blank">${fileDisplayNames[file] || 'YouTube Tutorial'}</a></li>` 
+                                        : `<li><a href="/download/Files/${file}" target="_blank" title="${file}">${fileDisplayNames[file] || file}</a></li>`
                                 ).join('') + '</ul>' 
                                 : 'None';
                             resultDiv.html(`
@@ -459,6 +432,7 @@
                         $('#supportLink').attr('href', `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help?`);
                         efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
                     }, 'json').fail(function() {
+                        console.log("AJAX failed, hiding turbo-hud");
                         $turboHud.addClass('exiting');
                         setTimeout(() => {
                             $turboHud.removeClass('active exiting');
@@ -466,7 +440,7 @@
                             efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
                         }, 500);
                     });
-                }, 1000);
+                }, 2000);
             });
         });
 

@@ -1,13 +1,24 @@
 from flask import Flask, request, jsonify, send_from_directory, render_template
 import os
 import json
+import logging
 
 app = Flask(__name__)
 
-# Load error codes
-with open('error_codesV1.json', 'r') as f:
-    error_codes = json.load(f)
+# Load error codes with UTF-8 encoding and error handling
+try:
+    with open('error_codesV1.json', 'r', encoding='utf-8') as f:
+        error_codes = json.load(f)
+    print("Loaded error_codesV1.json successfully")
+    print(f"Files for $0333: {error_codes.get('$0333', {}).get('files', 'Not found')}")
+except json.JSONDecodeError as e:
+    print(f"JSON Error: {e}")
+    error_codes = {}
+except FileNotFoundError:
+    print("Error: error_codesV1.json not found")
+    error_codes = {}
 
+# Rest of your Flask app (routes remain unchanged)
 @app.route('/')
 def index():
     return render_template('indexV1.1.html')
@@ -29,12 +40,10 @@ def submit():
 @app.route('/download/Files/<path:filename>')
 def download_file(filename):
     try:
-        import logging
         logging.basicConfig(level=logging.INFO)
         logger = logging.getLogger(__name__)
 
         logger.info(f"Requested filename (raw): {filename}")
-        # Decode URL-encoded filename
         from urllib.parse import unquote
         decoded_filename = unquote(filename)
         logger.info(f"Decoded filename: {decoded_filename}")
