@@ -315,6 +315,89 @@
                 </div>
             </div>
         </div>
+        <div class="additional-info" id="ezlynkInfo">
+            <h3 onclick="toggleSection('ezlynkInfo', 'ezlynkContent')">EZLYNK HELP</h3>
+            <div class="additional-content" id="ezlynkContent">
+                <div class="additional-resources" id="ezlynkWifiIssue">
+                    <h4 onclick="toggleSection('ezlynkWifiIssue', 'ezlynkWifiIssueContent')">EZLYNK WiFi Not Broadcasting</h4>
+                    <div class="resources-content" id="ezlynkWifiIssueContent">
+                        <p><strong>Issue:</strong> The EZLYNK device isn’t broadcasting a WiFi signal (e.g., "EZLYNK_XX"), so you can’t connect via the app.</p>
+                        <p><strong>Suggestions:</strong></p>
+                        <ul>
+                            <li>Unplug the EZLYNK device from the OBD-II port, wait 60 seconds, then plug it back in.</li>
+                            <li>Check for a blue light on the device—if it’s not lit, the device may be faulty.</li>
+                            <li>Inspect the OBD-II port for bent pins or debris that might prevent a proper connection.</li>
+                            <li>If the issue persists, contact EZLYNK support for a potential firmware update or device replacement.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="additional-resources" id="ezlynkConnectionIssue">
+                    <h4 onclick="toggleSection('ezlynkConnectionIssue', 'ezlynkConnectionIssueContent')">Unable to Connect to EZLYNK Network</h4>
+                    <div class="resources-content" id="ezlynkConnectionIssueContent">
+                        <p><strong>Issue:</strong> You see the "EZLYNK_XX" network but can’t connect, or it says "Unable to connect."</p>
+                        <p><strong>Suggestions:</strong></p>
+                        <ul>
+                            <li>Ignore the "No Internet Connection" message on your phone—it’s normal since the EZLYNK network connects to the vehicle, not the internet.</li>
+                            <li>Restart your phone and the EZLYNK device (unplug and replug into the OBD-II port).</li>
+                            <li>Ensure you’re within WiFi range (close to the vehicle) and there’s no interference from other networks.</li>
+                            <li>If the issue persists, update the EZLYNK app to the latest version and retry.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="additional-resources" id="ezlynkEcmBoot">
+                    <h4 onclick="toggleSection('ezlynkEcmBoot', 'ezlynkEcmBootContent')">Cannot Communicate with ECM</h4>
+                    <div class="resources-content" id="ezlynkEcmBootContent">
+                        <p><strong>Issue:</strong> The EZLYNK app shows "Unable to communicate with your vehicle" when trying to stream data or tune.</p>
+                        <p><strong>Suggestions:</strong></p>
+                        <ul>
+                            <li>Turn the vehicle’s key to the "Run" position (without starting the engine) to boot the ECM before connecting the EZLYNK device.</li>
+                            <li>Ensure the EZLYNK device is securely plugged into the OBD-II port.</li>
+                            <li>Check for any loose connections or damaged cables between the device and the port.</li>
+                            <li>If the issue continues, verify the ECM is not locked (e.g., similar to `$0333`) and contact your technician.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="additional-resources" id="ezlynkFirmwareUpdate">
+                    <h4 onclick="toggleSection('ezlynkFirmwareUpdate', 'ezlynkFirmwareUpdateContent')">Firmware Update Failure</h4>
+                    <div class="resources-content" id="ezlynkFirmwareUpdateContent">
+                        <p><strong>Issue:</strong> The EZLYNK device disconnects during a firmware update, leaving it in an unstable state.</p>
+                        <p><strong>Suggestions:</strong></p>
+                        <ul>
+                            <li>Unplug the EZLYNK device from the OBD-II port, wait 30 seconds, then plug it back in.</li>
+                            <li>Connect to the EZLYNK app and check the firmware version under the "About" page in the "Settings" tab.</li>
+                            <li>If the firmware didn’t update, ensure a stable internet connection and retry the update.</li>
+                            <li>Contact EZLYNK support if the device remains unresponsive.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="additional-resources" id="ezlynkTuneInstall">
+                    <h4 onclick="toggleSection('ezlynkTuneInstall', 'ezlynkTuneInstallContent')">Tune Installation Stalls at 0%</h4>
+                    <div class="resources-content" id="ezlynkTuneInstallContent">
+                        <p><strong>Issue:</strong> When installing a tune via the EZLYNK app, the progress bar stalls at 0%.</p>
+                        <p><strong>Suggestions:</strong></p>
+                        <ul>
+                            <li>This often happens due to incomplete data downloads over cell data or unstable networks.</li>
+                            <li>Unplug the EZLYNK device, connect your phone to a stable WiFi network, and fetch the tune profile again via the "Cloud" button in the app.</li>
+                            <li>Plug the device back in and retry the installation.</li>
+                            <li>Ensure your vehicle’s battery is charged or connected to a charger, as low voltage can interrupt the process.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="additional-resources" id="ezlynkTechnicianLink">
+                    <h4 onclick="toggleSection('ezlynkTechnicianLink', 'ezlynkTechnicianLinkContent')">Unable to Link with Technician</h4>
+                    <div class="resources-content" id="ezlynkTechnicianLinkContent">
+                        <p><strong>Issue:</strong> The EZLYNK app fails to link your vehicle with a technician for tune updates or diagnostics.</p>
+                        <p><strong>Suggestions:</strong></p>
+                        <ul>
+                            <li>Ensure you’re connected to the internet or mobile data.</li>
+                            <li>In the EZLYNK app, go to the "Vehicle" tab, select your vehicle, tap "Technicians," and choose "Lynk."</li>
+                            <li>Enter the technician’s email address (provided by your dealer) and describe any vehicle modifications.</li>
+                            <li>If you don’t have the technician’s email, contact your EZLYNK dealer for assistance.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="truck-box" id="truckBox">
             <h2 onclick="toggleSection('truckBox', 'truckInfo')">WHAT TRUCK DO I HAVE?</h2>
             <div class="truck-info" id="truckInfo">
@@ -413,7 +496,7 @@
                                 ? '<ul>' + data.result.files.map(file => 
                                     file.startsWith('http') 
                                         ? `<li><a href="${file}" target="_blank">${fileDisplayNames[file] || 'YouTube Tutorial'}</a></li>` 
-                                        : `<li><a href="/download/Files/${file}" target="_blank" title="${file}">${fileDisplayNames[file] || file}</a></li>`
+                                        : `<li><a href="/download/Files/${file}" title="${file}">${fileDisplayNames[file] || file}</a></li>`
                                 ).join('') + '</ul>' 
                                 : 'None';
                             resultDiv.html(`
