@@ -29,6 +29,12 @@
         "action": "Confirm the truck's compatibility with the requested sub-function using the vehicle manual or PPEI's compatibility list. Update the scan tool firmware to ensure all functions are unlocked. If still blocked, perform a factory reset on the scan tool (if supported) and retry, or reach out to support for a workaround.",
         "files": []
     },
+    "$0331": {
+        "description": "The controller rejects the request because it doesn’t support the specific OBD mode or parameter EFI Live is trying to use. Contact EFI Live support if this keeps happening.",
+        "cause": "The vehicle’s controller may not recognize the command, possibly due to an unsupported model, a security block (like a Gateway Module), outdated EFI Live software/firmware, or a connection issue during the process.",
+        "action": "Verify your vehicle is supported on EFI Live’s website. Update your software and firmware via [Check Firmware] in V8 Scan and Tune. For 2018+ Cummins, ensure a bypass cable is used—swap OBD pins if needed. Check all cables are secure. If unresolved, contact PPEI support with vehicle and process details.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
     "$0333": {
         "description": "Security is tight—ECM access is shut down, preventing tuning or diagnostics.",
         "cause": "The ECM is locked down, likely due to a security protocol, an expired license, or a VIN mismatch restricting permissions.",

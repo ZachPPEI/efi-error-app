@@ -1,0 +1,20 @@
+Please follow the steps below to record a few logs for us to review. We'd like to see a minute or so at idle (at operating temperature), part throttle acceleration, cruising for minute or so with cruise control set, and heavy acceleration (100% throttle) as well as any other conditions that best capture the issue/concern at hand.
+
+Attached to this email is a "PIDs Channel" document that will setup your VCM Scanner with the appropriate PIDs we need to see when recording the data log. Download this file and “save as” to the desktop of your computer. Ensure the file is saved to open with VCM Scanner and no other app on the computer. 
+
+Once saved to the desktop, proceed with the following steps:
+
+1. Open the VCM Scanner BETA software by double clicking the icon on the desktop or searching for it. 
+2. In the top left hand corner of the window, you'll see a file/folder icon with a gear symbol on it. Click that to open file finder. 
+3. Once the file finder has opened, select the "desktop" to find and double click the PIDS Channels document saved earlier.
+4. Once you double click the channel list, then you are ready to log. As you may know, recording the log will require having the laptop in the vehicle with you, connected to the MPVi2/3 device in the OBD port. So, once in position to operate the vehicle and have the laptop in the vehicle ready to go as well, proceed to step 5. 
+
+5. At the top of the VCM Scanner window you will see a small blue vehicle/car icon. Click the vehicle icon to connect the VCM software to your truck once you have the key on/engine running. 
+6. Once connected, at the top of the screen on the taskbar, you'll find a small red circle icon. This will start the recording. 
+7. Once you have begun recording, operate the vehicle as we described above, ensuring to record and capture the issue at hand. 
+8. Select the blue square symbol when you are ready to STOP the recording. 
+9. Once finished recording, save the log by clicking the save icon with the lightning bolt symbol (not the save icon with the gear symbol). 
+
+Now, attach the recently saved log to your email when replying. Let us know any additional/necessary details about the logs. 
+
+Once received, we will take a look and report back ASAP with what we find as well as any necessary tune revisions!
