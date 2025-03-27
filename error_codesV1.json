@@ -80,7 +80,7 @@
     "$0505": {
         "description": "Tune file is absent—the controller has no tune loaded, rendering it inoperable.",
         "cause": "No tune file has been uploaded to the controller, possibly due to a skipped step or file deletion.",
-        "action": "Load the tune file using [F3: Tune] in V8. Verify the file path points to the correct tune and retry the upload. If the file is missing, download it from PPEI's support site using your license details.",
+        "action": "Load the tune file using [F3: Tune] in V8. Verify the file path points to the correct tune and retry the upload. If the file is missing, download greaterit from PPEI's support site using your license details.",
         "files": []
     },
     "$050B": {
@@ -102,10 +102,10 @@
         "files": []
     },
     "$0527": {
-        "description": "Checksum has failed the flash won't run due to data corruption in the tune file.",
-        "cause": "The tune file's checksum doesn't match, indicating corrupted data from a bad download or transfer.",
-        "action": "Redownload the tune file from the original source. Verify its integrity using Scan and Tune's checksum tool, then retry the flash process. Ensure a stable connection during the transfer.",
-        "files": []
+        "description": "Tune file contains a bad controller checksum—the tune can’t be flashed because EFILive flagged it as corrupted.",
+        "cause": "The tune file’s checksum failed, likely due to a corrupted download, outdated V8 software, or a transfer error.",
+        "action": "Redownload the latest EFI Live V8 Scan and Tune software from www.efilive.com/download-efilive to ensure compatibility and file integrity. Install it, then reload your tune file. Use the BBX file below to reprogram the controller via [F5: BBX]->[Program]. Follow the 'program autocal step by step.pdf' guide and watch the video tutorial for detailed steps. If the issue persists, contact PPEI support with your tune file details.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
     },
     "$0530": {
         "description": "License conflict the tune is tied to another device or VIN, blocking this controller.",
@@ -255,6 +255,12 @@
         "description": "PIDs are missing—no log output due to absent parameters.",
         "cause": "The Options.txt file lacks PIDs for the selected controller, stopping data logging.",
         "action": "Add the necessary PIDs in [F5: BBX] using V8. Use the config file below if needed, consult the 'program autocal step by step.pdf' guide, and review the video tutorial for setup.",
+        "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$0A05": {
+        "description": "No controllers are set up for reading—your device can’t pull data from the truck’s ECM.",
+        "cause": "The AutoCal doesn’t have any controllers configured to read data, likely because the setup file is missing or wasn’t loaded properly.",
+        "action": "Reconfigure your AutoCal to recognize the truck’s ECM. First, reinstall the EFI Live V8 software from www.efilive.com/download-efilive. After installing, open EFI Live Scan and Tune, click the ‘Check Firmware’ option at the top, and hit ‘Update’ to refresh the firmware. Then, use the BBX file below to set up the controller via [F5: BBX]->[Program]. Follow the ‘program autocal step by step.pdf’ guide and watch the video tutorial for a simple walkthrough.",
         "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
     }
 }
