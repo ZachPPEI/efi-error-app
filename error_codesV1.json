@@ -20,14 +20,32 @@
     "$0311": {
         "description": "OBD mode is locked diagnostic mode won't activate, restricting access to vehicle data.",
         "cause": "The truck's OBD system might be restricted due to a security lockout, misconfigured settings, or an incompatible scan tool profile.",
-        "action": "Check the truck's OBD settings via the owner's manual or dealership to ensure no diagnostic mode is disabled. Verify the scan tool's configuration matches the truck's ECM (e.g., correct protocol). If locked, update the scan tool firmware to the latest version and retry. Contact PPEI support if a VIN-specific lock is suspected.",
-        "files": []
+        "action": "Verify the scan tool's configuration matches the truck's ECM (e.g., correct protocol). If locked, update the scan tool firmware to the latest version via [Check Firmware] in V8 Scan and Tune and retry. For 2001-2010 Duramax trucks encountering this code when reading the transmission file, disconnect the fuses listed in the 'lb7 and lly's.docx' guide and attempt the read again. For 2018+ Cummins trucks, verify that the unlock cable is installed per the '18-21 Cummins Bypass Install Instructions.pdf' guide. Contact PPEI support if a VIN-specific lock is suspected or if the issue persists.",
+        "files": [
+            "lb7 and lly's.docx",
+            "18-21 Cummins Bypass Install Instructions.pdf",
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ]
     },
     "$0312": {
         "description": "Sub-function is blocked—OBD refuses to perform a specific diagnostic task.",
         "cause": "This sub-function may be locked by the truck's ECM due to a security feature, or it might not be supported by the vehicle's OBD system.",
         "action": "Confirm the truck's compatibility with the requested sub-function using the vehicle manual or PPEI's compatibility list. Update the scan tool firmware to ensure all functions are unlocked. If still blocked, perform a factory reset on the scan tool (if supported) and retry, or reach out to support for a workaround.",
         "files": []
+    },
+    "$0322": {
+        "description": "Controller request failed due to incorrect conditions or sequence, blocking the read or flash operation.",
+        "cause": "The ECM isn’t ready to process the request, possibly due to a wrong security key for 2017+ GM controllers, incorrect scan tool settings, or module interference in older Duramax models.",
+        "action": "For 2001-2010 Duramax trucks encountering this code when reading the transmission file, disconnect the fuses listed in the 'lb7 and lly's.docx' guide and attempt the read again. For 2018+ Cummins trucks, verify that the unlock cable is installed per the '18-21 Cummins Bypass Install Instructions.pdf' guide, update the EFI Live software from www.efilive.com/download-efilive, and update the scan tool firmware via [Check Firmware] in V8 Scan and Tune, then retry the operation. If issues persist, contact PPEI support.",
+        "files": [
+            "lb7 and lly's.docx",
+            "18-21 Cummins Bypass Install Instructions.pdf",
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ]
     },
     "$0331": {
         "description": "The controller rejects the request because it doesn’t support the specific OBD mode or parameter EFI Live is trying to use. Contact EFI Live support if this keeps happening.",
@@ -88,6 +106,16 @@
         "cause": "The device's firmware version is too old to support the current script's specifications.",
         "action": "Reinstall V8 to ensure a clean base. Update the BBX firmware via [F5: BBX]->[Program] with the latest version. Use the file below, review the 'program autocal step by step.pdf' guide, and watch the video tutorial for update instructions.",
         "files": ["PPEI_BBX.bbx", "program autocal step by step.pdf", "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"]
+    },
+    "$0524": {
+        "description": "Tune file contents can’t be verified, preventing the file from being used for flashing.",
+        "cause": "The tune file is likely corrupted or wasn’t saved correctly, making its data unreadable by the scan tool.",
+        "action": "Save the tune file from the email to your desktop, then drag and drop it into EFI Live Explorer to ensure it’s intact. Check that the target file system (e.g., AutoCal or PC drive) is properly formatted and not corrupted. If the error persists, contact your tuner to verify the file isn’t corrupt and request a resend. If the issue continues, discard the tune file and contact PPEI support for a replacement.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ]
     },
     "$0525": {
         "description": "Tune file is unrecognized—the system can't process the tune due to an incompatible firmware.",
@@ -204,10 +232,15 @@
         "files": []
     },
     "$0544": {
-        "description": "Serial is garbled—repeated failures due to corrupt data.",
-        "cause": "The device's serial number data is unreadable, likely from a hardware or update error.",
-        "action": "Reset the device to factory settings in V8 (if available) and recheck the serial. If still garbled, contact PPEI support for a device check or replacement.",
-        "files": []
+        "description": "Device serial number is corrupted, causing repeated failures.",
+        "cause": "The scan tool’s serial number data is unreadable, likely due to a hardware issue or failed firmware update.",
+        "action": "For 2001-05 Duramax trucks reading the transmission tune, disconnect the fuses listed in the 'lb7 and lly's.docx' guide and retry the read. Before attempting, ensure the EFI Live software is updated from www.efilive.com/download-efilive and the scan tool firmware is updated via [Check Firmware] in V8 Scan and Tune.",
+        "files": [
+            "lb7 and lly's.docx",
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ]
     },
     "$0548": {
         "description": "Flash checksum is bad—data is trashed, preventing a valid flash.",
