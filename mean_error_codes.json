@@ -1,0 +1,325 @@
+{
+    "$0101": {
+        "description": "Oh, look at this shit, $0101—your data link’s completely fucked, and I bet you didn’t even check the obvious, did you?",
+        "cause": "You couldn’t take two seconds to look at your USB cable, huh? It’s probably loose, fried, or the PC port’s a total shit-show—oh, and your truck’s OBD might just be a steaming pile of garbage.",
+        "action": "Pull your head out and get to work: check that damn USB cable for damage and plug it in right for once, use a USB 2.0 port since you can’t handle anything better, swap it with one that actually works if it’s still fucked, reboot your PC and tool before you make things worse, and if it’s still broken, look at the truck’s OBD port for bent pins or whatever mess you left in there. Don’t come whining to me when you screw it up again.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0280": {
+        "description": "Seriously, $0280—your OBD’s offline because you fucked this up so bad it’s almost impressive.",
+        "cause": "You didn’t power the OBD port right—probably blew a fuse, yanked the harness like a complete idiot, or let your truck’s battery die because you can’t be bothered to check the basics.",
+        "action": "Listen up and don’t fuck this up again: turn the ignition fully on—not that half-assed accessory mode you thought was good enough—check the OBD-II fuse in the box and replace it if it’s toast, test with another cable since yours is probably shit, and if it’s still dead, grab a multimeter and check pin 16 for 12V. You’d better not make me say it twice.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0281": {
+        "description": "Unbelievable, $0281—your truck’s ECM’s silent, and I’m betting you’re the one who dropped the damn ball on this one.",
+        "cause": "You likely botched the cable setup, trashed the OBD port, or let the ECM die because you can’t keep shit running for more than five minutes.",
+        "action": "Get your act together and stop wasting my time: check every cable connection and make sure they’re tight, crank the engine or at least turn it ‘on’ since you can’t seem to figure that out, restart the Scan and Tune software and try again, and if it’s still dead, test the ECM power with a multimeter—pin 16 for juice, 4/5 for ground—or drag it to a mechanic who actually knows what they’re doing. Don’t come back with excuses.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0311": {
+        "description": "Pathetic, $0311—your OBD’s locked up tighter than a vault, and you’re the one who made a complete shit-show of this.",
+        "cause": "You’ve got a security lockout or settings so fucked they’re wrecking your truck—nice going.",
+        "action": "Get your head in the game before I lose my patience: make sure your scan tool’s setup isn’t a total disaster (match the ECM protocol). Update the firmware via [Check Firmware] in V8 Scan and Tune since you’re clearly behind. For 2001-2010 Duramax, pull the fuses from the ‘lb7 and lly’s.docx’ guide and try again. For 2018+ Cummins, use that unlock cable per the ‘18-21 Cummins Bypass Install Instructions.pdf’. If it’s still fucked, go cry to PPEI support—they’re probably sick of hearing from you by now.",
+        "files": [
+            "lb7 and lly's.docx",
+            "18-21 Cummins Bypass Install Instructions.pdf",
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0312": {
+        "description": "Oh, great, $0312—your OBD’s sub-function is blocked because you didn’t think this shit through at all.",
+        "cause": "You let the ECM lock this or picked a truck too damn old to even handle it—smooth move.",
+        "action": "Step it up before I lose my shit: check if your truck even supports this in the manual or PPEI’s list, update the scan tool firmware since you’re lagging behind, reset the tool to factory settings if it has that option, and if it’s still broken, go beg support for a workaround. Don’t waste their time with your sob story.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0322": {
+        "description": "Fantastic, $0322—your controller’s a mess because you can’t set shit up to save your life.",
+        "cause": "You didn’t configure it properly—probably used a bad key or let a module fuck you over because you weren’t paying attention.",
+        "action": "Get your act together before I blow a gasket: for 2001-2010 Duramax, yank the fuses from the ‘lb7 and lly’s.docx’ guide and retry the read. For 2018+ Cummins, use that unlock cable per the ‘18-21 Cummins Bypass Install Instructions.pdf’, update the EFI Live software from www.efilive.com/download-efilive, and hit [Check Firmware] in V8 Scan and Tune since you didn’t bother earlier. If it’s still fucked, PPEI support’s waiting for your whining—they’re used to it by now.",
+        "files": [
+            "lb7 and lly's.docx",
+            "18-21 Cummins Bypass Install Instructions.pdf",
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0331": {
+        "description": "Oh, nice one, $0331—your controller’s rejecting this because you didn’t plan a damn thing ahead.",
+        "cause": "You picked a truck that’s not supported, or a security block like a Gateway Module is fucking up your day—way to go.",
+        "action": "Get your head out of the sand before I lose my patience: check if your truck’s on EFI Live’s list, update your software and firmware via [Check Firmware] in V8 Scan and Tune since you’re behind, use a bypass cable for 2018+ Cummins and swap OBD pins if it’s still fucked, make sure cables are secure, and if it’s still not working, go cry to PPEI support with your truck’s details—they’re tired of your excuses.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0333": {
+        "description": "Brilliant, $0333—your ECM’s locked up because you didn’t think this shit through one bit.",
+        "cause": "You let security protocols or an expired license fuck you over—real smart.",
+        "action": "Get it together before I snap: this is usually 2018+ Cummins, so use an unlock cable per the ‘18-21 Cummins Bypass Install Instructions.pdf’ and don’t fuck it up this time. I’m not here to hold your hand.",
+        "files": ["18-21 Cummins Bypass Install Instructions.pdf"],
+        "asshole_mode": true
+    },
+    "$0340": {
+        "description": "Oh, perfect, $0340—your download’s stalled because you didn’t get your shit together.",
+        "cause": "You didn’t update the EFI Live software or forgot the bypass cable for 2018+ Cummins—shocker.",
+        "action": "Step up before I lose my shit: redownload the EFI Live software and hit [Check Firmware] in Scan and Tune to update the firmware since you’re behind, use an unlock cable for 2018+ Cummins per the ‘18-21 Cummins Bypass Install Instructions.pdf’, check it’s installed right, and try again. Don’t fuck it up this time.",
+        "files": ["18-21 Cummins Bypass Install Instructions.pdf"],
+        "asshole_mode": true
+    },
+    "$0380": {
+        "description": "Unreal, $0380—your diagnostic service crashed because you can’t handle the simplest shit.",
+        "cause": "You broke the Scan and Tune software or fucked up the scan tool hardware—nice going.",
+        "action": "Get your head in the game before I lose my temper: close and restart the Scan and Tune software since you can’t keep it running, update it from PPEI’s site since you’re behind, and if it’s still fucked, test the tool on another PC or cable to sort out your hardware mess. Don’t make me repeat myself.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0482": {
+        "description": "Oh, great, $0482—your *.pmm file’s mismatched because you didn’t bother checking a damn thing.",
+        "cause": "You didn’t match the *.pmm file to the tune or controller, did you? Of course not.",
+        "action": "Pay attention before I lose my shit: open the tune in V8 and make sure the *.pmm matches the version and controller, reload the right *.pmm from the tune package and apply it with [F3: Tune], and if you can’t figure it out, grab the latest *.pmm from PPEI’s support page. Don’t fuck it up again—I’m not here to babysit you.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0502": {
+        "description": "Nice going, $0502—you’ve turned your AutoCal into a useless piece of shit, haven’t you, slacker?",
+        "cause": "Your *.obj file’s gone because you can’t install shit right—shocking.",
+        "action": "Get your act together before I lose my patience: dig into V8 and check the BBX config like you should’ve already, reinstall the software since you fucked it up, reprogram with [F5: BBX]->[Program], grab the fix file below, follow the ‘program autocal step by step.pdf’ like it’s your damn job, and watch the video tutorial since you clearly need the help. Do better this time—I’m not here to hold your hand.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0503": {
+        "description": "Oh, fantastic, $0503—your AutoCal’s a complete shit-show because you didn’t take care of business.",
+        "cause": "You let your *.obj file get corrupted—probably from a bad download or storage because you can’t handle the basics.",
+        "action": "Step up before I snap: redownload the EFI Live software from www.efilive.com/download-efilive, hit [Check Firmware] in V8 to update it since you’re behind, use the clean file below, follow the ‘program autocal step by step.pdf’ like you should, and watch the video tutorial since you need the damn guidance. Don’t fuck it up again—I’m not here for your excuses.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0504": {
+        "description": "Well, isn’t this just fucking great, $0504—your bootloader’s gone because you can’t set shit up right.",
+        "cause": "You lost the *.bix file—probably because you’re terrible at configuring the AutoCal.",
+        "action": "Get your head in the game before I lose my temper: fix the BBX setup by reinstalling V8 since you fucked it up, use the file below, follow the ‘program autocal step by step.pdf’ like you should, and watch the tutorial video since you can’t figure it out alone. Do better—I’m not here to clean up your messes.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0505": {
+        "description": "Oh, perfect, $0505—your controller’s got no tune because you didn’t do your damn job.",
+        "cause": "You didn’t upload a tune file—probably skipped it or deleted it like a rookie who can’t follow instructions.",
+        "action": "Pay attention before I lose my shit: load the tune file with [F3: Tune] in V8, check the file path isn’t broken, and retry it. If it’s gone, download it from PPEI’s support site with your license details since you can’t keep shit organized. Don’t make me repeat myself.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$050B": {
+        "description": "Unreal, $050B—your script’s ahead because you can’t keep up with the basic shit.",
+        "cause": "Your firmware’s too old for the script since you’re behind on updates—shocker.",
+        "action": "Get to work before I lose my patience: reinstall V8 to clean up your mess, update the BBX firmware with [F5: BBX]->[Program] since you didn’t do it, use the file below, follow the ‘program autocal step by step.pdf’ like you should, and watch the video tutorial since you need the help. Don’t fuck it up again.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0524": {
+        "description": "Oh, nice one, $0524—you’ve turned your tune file into a steaming pile of shit.",
+        "cause": "You can’t save a file right—it’s corrupt because you’re too careless to do it properly.",
+        "action": "Get your act together before I snap: save the tune file from your email to your desktop, then drag it into EFI Live Explorer like you should’ve done. Check that your AutoCal or PC drive isn’t fucked. If it’s still messed up, tell your tuner to resend it. If that doesn’t work, toss it and complain to PPEI support—they’re tired of your whining by now.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0525": {
+        "description": "Brilliant, $0525—your tune file’s unrecognizable because you didn’t check a damn thing.",
+        "cause": "You didn’t match the tune file’s format or version to the controller—real smart move there.",
+        "action": "Get moving before I lose my temper: reload the right tune file and update the firmware in EFI Live Scan and Tune if it’s still fucked, since you’re behind. If it doesn’t work, go cry to support with the file details—I’m not here to fix your messes.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0526": {
+        "description": "Oh, fantastic, $0526—your tune layout’s unreadable because you made a fucking mess of it.",
+        "cause": "You corrupted the tune file or used something incompatible—way to go.",
+        "action": "Pay attention before I snap: reinstall the tune file from a fresh download since you fucked it up, check it with V8’s file validator tool if it’s there, and update the software to the latest version since you’re behind. Don’t make me repeat myself.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0527": {
+        "description": "Unreal, $0527—your tune’s checksum is garbage because you didn’t transfer it right.",
+        "cause": "You didn’t download properly—corrupted it or let old V8 software fuck you over because you can’t keep up.",
+        "action": "Get to work before I lose my patience: redownload the latest EFI Live V8 Scan and Tune from www.efilive.com/download-efilive since you’re behind, install it, reload your tune file, use the BBX file below to reprogram with [F5: BBX]->[Program], follow the ‘program autocal step by step.pdf’ like you should, and watch the video tutorial since you need the help. If it’s still fucked, go cry to PPEI support with your tune details—they’re used to your whining.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0530": {
+        "description": "Oh, perfect, $0530—your license is conflicted because you didn’t sort shit out ahead of time.",
+        "cause": "Your tune’s tied to another device or VIN because you couldn’t be bothered to check.",
+        "action": "Get your act together before I lose my shit: check your license with PPEI and unregister the old device since you fucked it up, make sure the VIN matches, and retry the flash. If it’s still broken, go ask support to reassign it—I’m not here to fix your sloppy work.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0531": {
+        "description": "Nice one, $0531—your serial’s off because you didn’t double-check a damn thing.",
+        "cause": "You didn’t match the tune file’s serial to the device—real smooth.",
+        "action": "Get moving before I lose my temper: check the device serial in V8 under settings, reload the tune with the right serial, and if it’s still fucked, demand a new tune from PPEI with the correct serial since you can’t keep shit straight. Don’t waste my time.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0532": {
+        "description": "Oh, great, $0532—your controller’s unlicensed because you didn’t plan ahead at all.",
+        "cause": "You didn’t get a license for this tune—shocker.",
+        "action": "Pay attention before I lose my temper: buy a license from PPEI for the controller and tune, check the VIN and serial match, and retry the flash. Do it right this time—I’m not here to babysit you.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0533": {
+        "description": "Brilliant, $0533—your VIN slots are full because you didn’t manage shit worth a damn.",
+        "cause": "You maxed out your VIN slots—nice planning.",
+        "action": "Get to work before I snap: buy a new VIN license since you didn’t think ahead. Don’t make me repeat myself.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0534": {
+        "description": "Unreal, $0534—your serial’s corrupt because you didn’t handle it right.",
+        "cause": "You fucked up the update or broke the hardware—way to go.",
+        "action": "Get moving before I lose my shit: reset the device to factory settings in V8 if it has that option, check the serial again, and if it’s still fucked, go cry to PPEI support with the device details for a replacement or repair—I’m not here to fix your messes.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0535": {
+        "description": "Oh, perfect, $0535—your AutoCal’s unlinked because you couldn’t set shit up properly.",
+        "cause": "You didn’t pair the AutoCal with FlashScan—real smart move there.",
+        "action": "Get your act together before I lose my patience: link AutoCal to FlashScan with the pairing wizard in V8 under [F5: BBX], check cables and settings, and retry it since you didn’t do it right the first time. Don’t waste my time with excuses.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0536": {
+        "description": "Nice one, $0536—this AutoCal isn’t licensed to PPEI because you didn’t check a damn thing.",
+        "cause": "The tune’s not for this AutoCal—obviously.",
+        "action": "Pay attention before I snap: contact the tuner this AutoCal’s linked to and demand an unlink code, then bug PPEI for a linking code since you can’t keep shit organized. I’m not here to clean up your messes.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0537": {
+        "description": "Oh, fantastic, $0537—your 01-04 Duramax is a fucking mess because you didn’t prepare worth a damn.",
+        "cause": "You let modules mess up your tune flash—forget that custom key nonsense, it’s just these old ECMs.",
+        "action": "Get to work before I lose my temper: charge the truck for 2 hours since you didn’t keep it juiced, yank the fuses under the hood from the ‘lb7 and lly’s.docx’ guide—it’s crucial. Leave the key in ‘run’ for 5 minutes before a full flash, or try pass-thru flashing with the AutoCal plugged into the truck and laptop at once. If it’s still fucked, rip the ECM out and send it for a bench flash—I’m not here to hold your hand.",
+        "files": ["lb7 and lly's.docx"],
+        "asshole_mode": true
+    },
+    "$0538": {
+        "description": "Unreal, $0538—this ECM’s a locked-up mess because you didn’t think ahead at all.",
+        "cause": "The DSP OS blocks reads—flash-only mode, genius.",
+        "action": "Listen up before I snap: you don’t need to read this unless your tuner says so, just flash the ECM and double-check with them since you can’t figure shit out alone. Don’t waste my time with excuses.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0539": {
+        "description": "Oh, perfect, $0539—your tune demands a full flash because you didn’t read the damn specs.",
+        "cause": "You tried partial flashes—this tune doesn’t allow that, obviously.",
+        "action": "Get moving before I lose my patience: do a full flash with [F5: BBX]->[Program] in V8, check the tune specs to confirm it’s full-flash only, and keep the power stable since you can’t manage shit otherwise. I’m not here to fix your sloppy work.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$053A": {
+        "description": "Brilliant, $053A—your license is unsupported because you didn’t check compatibility at all.",
+        "cause": "Your license doesn’t match this tune—nice planning.",
+        "action": "Get your act together before I snap: update your license through PPEI’s portal with your VIN and controller details since you fucked it up, check it works, and retry the flash. If it’s still broken, go cry to support—I’m not here to clean up your messes.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$053B": {
+        "description": "Oh, great, $053B—your tune’s serial is off because you didn’t verify a damn thing.",
+        "cause": "You didn’t match the tune’s serial to the device—real smooth.",
+        "action": "Get moving before I lose my temper: compare the device serial in V8 with the tune’s, reload the right tune, and if it’s still fucked, demand a new one from PPEI with the correct serial since you can’t keep shit straight. Don’t waste my time.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$053C": {
+        "description": "Unreal, $053C—you can’t CAL flash this controller because you didn’t read the damn rules.",
+        "cause": "The tune blocks calibration updates—obviously.",
+        "action": "Pay attention before I snap: try a full flash instead since you can’t do CAL. I’m not here to hold your hand through this shit.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$053E": {
+        "description": "Oh, nice one, $053E—your VIN’s mismatched because you didn’t double-check a damn thing.",
+        "cause": "You didn’t sync the tune’s VIN with the ECM—real smart move.",
+        "action": "Get moving before I lose my shit: check the truck’s VIN on the dash or door against the tune file, reload the right tune, or reflash with the proper VIN since you can’t match things up. Don’t make me repeat myself.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0540": {
+        "description": "Oh, perfect, $0540—your OS is clashing because you didn’t sync shit worth a damn.",
+        "cause": "The tune’s OS doesn’t match the controller’s—nice planning.",
+        "action": "Get your act together before I snap: update the controller’s OS with V8’s [Check Firmware] tool to match the tune, reload it, and retry the flash since you can’t keep things synced. I’m not here to fix your sloppy work.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0542": {
+        "description": "Brilliant, $0542—your E35 tune’s got no OS because you didn’t install it right.",
+        "cause": "You didn’t install the OS this E35 tune needs—shocker.",
+        "action": "Get to work before I lose my temper: install the required OS for E35 controllers via V8, then do a full flash. Download it from PPEI’s support site if you lost it—I’m not here to clean up your messes.",
+        "files": [],
+        "asshole_mode": true
+    },
+    "$0544": {
+        "description": "Oh, fantastic, $0544—your device’s serial is a mess because you didn’t handle it right.",
+        "cause": "You fucked up the update or broke the hardware—way to go.",
+        "action": "Get moving before I snap: for 2001-05 Duramax reading the transmission tune, yank the fuses from the ‘lb7 and lly’s.docx’ guide and retry it. Update the EFI Live software from www.efilive.com/download-efilive and hit [Check Firmware] in V8 Scan and Tune first since you’re behind. Do it right this time—I’m not here to fix your sloppy work.",
+        "files": [
+            "lb7 and lly's.docx",
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    },
+    "$0548": {
+        "description": "Unreal, $0548—your flash checksum’s garbage because you didn’t transfer it right.",
+        "cause": "You didn’t download properly—corrupted it or let old V8 software fuck you over because you can’t keep up.",
+        "action": "Get to work before I lose my patience: redownload the latest EFI Live V8 Scan and Tune from www.efilive.com/download-efilive since you’re behind, install it, reload your tune file, use the BBX file below to reprogram with [F5: BBX]->[Program], follow the ‘program autocal step by step.pdf’ like you should, and watch the video tutorial since you need the help. If it’s still fucked, go cry to PPEI support with your tune details—they’re used to your whining.",
+        "files": [
+            "PPEI_BBX.bbx",
+            "program autocal step by step.pdf",
+            "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o"
+        ],
+        "asshole_mode": true
+    }
+}

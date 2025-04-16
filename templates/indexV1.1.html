@@ -3,241 +3,17 @@
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-P3YKE5RLB4"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-B8P8JF9HZX');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-B8P8JF9HZX');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPEI ERROR CODE FINDER</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Open+Sans:wght@400;600&display=swap');
-        :root { --bg-dark: #1a1a1a; --bg-container: rgba(28, 28, 28, 0.9); --bg-section: rgba(45, 45, 45, 0.85); --bg-card: rgba(51, 51, 51, 0.9); --text-primary: #fff; --accent-color: #00cc66; --accent-hover: #00b359; --border-color: #00cc66; --shadow-color: rgba(0, 204, 102, 0.5); --glow-color: rgba(0, 204, 102, 0.3); }
-        html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow-x: hidden; }
-        body { 
-            font-family: 'Open Sans', Arial, sans-serif; 
-            font-size: 16px; 
-            background: var(--bg-dark) url('/static/microchip.svg') repeat; 
-            color: var(--text-primary); 
-            position: relative; 
-            animation: circuitPulse 60s infinite linear; 
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-dark);
-            animation: circuitGlow 5s infinite alternate;
-            pointer-events: none;
-            z-index: -1;
-        }
-        @keyframes circuitPulse { 
-            0% { background-position: 0 0; } 
-            100% { background-position: 100px 100px; } 
-        }
-        @keyframes circuitGlow { 
-            0% { opacity: 0.08; } 
-            100% { opacity: 0.10; } 
-        }
-        .container { max-width: 900px; margin: 20px auto; background: var(--bg-container); padding: 30px; border-radius: 8px; box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--glow-color); backdrop-filter: blur(5px); min-height: calc(100vh - 40px); box-sizing: border-box; position: relative; overflow: hidden; }
-        .header { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px; padding: 20px; background: linear-gradient(to right, rgba(28, 28, 28, 0.95), rgba(45, 45, 45, 0.85)); border-radius: 8px; border: 2px solid var(--glow-color); box-shadow: 0 0 15px var(--shadow-color), inset 0 0 10px var(--glow-color); min-height: 100px; position: sticky; top: 0; z-index: 1000; }
-        .header-buttons { display: flex; flex-direction: row; gap: 15px; align-items: center; margin-bottom: 15px; }
-        .home-button a, .feedback-button a { padding: 8px 16px; font-size: 14px; background: var(--accent-color); color: #0a0a0a; border: 2px solid var(--accent-color); border-radius: 6px; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; transition: all 0.3s; box-shadow: 0 0 10px var(--glow-color); }
-        .home-button a:hover, .feedback-button a:hover { background: var(--accent-hover); transform: scale(1.05); box-shadow: 0 0 15px var(--shadow-color), inset 0 0 5px var(--accent-color); }
-        .header-content { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-        .header-gif { width: 180px; margin-left: 20px; border: 2px solid var(--accent-color); border-radius: 4px; box-shadow: 0 0 15px var(--glow-color); overflow: hidden; }
-        .header-gif img { width: 100%; height: auto; animation: turboPulse 2s infinite ease-in-out; }
-        @keyframes turboPulse { 0%, 100% { box-shadow: 0 0 15px var(--glow-color); } 50% { box-shadow: 0 0 25px var(--shadow-color); } }
-        h1 { text-align: left; color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 10px var(--shadow-color); }
-        .description { text-align: center; color: var(--text-primary); font-size: 16px; margin-bottom: 20px; padding: 15px; background: var(--bg-section); border-radius: 4px; line-height: 1.5; border: 1px solid var(--glow-color); box-shadow: inset 0 0 5px var(--glow-color); }
-        .efi-error-codes, .additional-info, .truck-box { margin-top: 30px; padding: 20px; background: var(--bg-section); border-left: 5px solid var(--border-color); border-radius: 4px; position: relative; transition: box-shadow 0.3s; }
-        .efi-error-codes:hover, .additional-info:hover, .truck-box:hover { box-shadow: 0 0 15px var(--glow-color); }
-        .efi-error-codes h3, .additional-info h3, .truck-box h2 { color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 24px; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 8px var(--shadow-color); cursor: pointer; transition: color 0.3s; position: relative; }
-        .efi-error-codes h3:hover, .additional-info h3:hover, .truck-box h2:hover { color: #e6e6e6; }
-        .efi-error-codes h3::before, .additional-info h3::before, .truck-box h2::before { content: "▶ "; display: inline-block; transition: transform 0.5s ease; color: var(--accent-color); }
-        .efi-error-codes h3.expanded::before, .additional-info h3.expanded::before, .truck-box h2.expanded::before { transform: rotate(90deg); }
-        .efi-content, .additional-content, .truck-info { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
-        .efi-content.expanded, .additional-content.expanded, .truck-info.expanded { max-height: none; }
-        form { text-align: center; margin-bottom: 20px; position: relative; background: var(--bg-card); padding: 15px; border-radius: 8px; box-shadow: 0 0 10px var(--glow-color); }
-        label { font-weight: 600; margin-right: 15px; color: var(--text-primary); font-size: 16px; text-shadow: 0 0 5px var(--glow-color); }
-        input[type="text"] { padding: 10px; font-size: 16px; width: 250px; border: 2px solid var(--border-color); border-radius: 4px; background: var(--bg-section); color: var(--text-primary); outline: none; text-transform: uppercase; transition: box-shadow 0.3s, border-color 0.3s; box-shadow: 0 0 5px var(--glow-color); position: relative; }
-        input[type="text"]:focus { border-color: var(--accent-hover); box-shadow: 0 0 15px var(--shadow-color); animation: scanline 1.5s infinite linear; }
-        @keyframes scanline { 0% { box-shadow: 0 0 15px var(--shadow-color); } 50% { box-shadow: 0 0 20px var(--accent-color), inset 0 0 5px var(--glow-color); } 100% { box-shadow: 0 0 15px var(--shadow-color); } }
-        input[type="text"]::placeholder { color: #ccc; font-style: italic; }
-        button { 
-            padding: 10px 20px; 
-            font-size: 16px; 
-            background: var(--accent-color); 
-            color: #0a0a0a; 
-            border: 2px solid var(--accent-color); 
-            border-radius: 6px; 
-            cursor: pointer; 
-            transition: all 0.3s; 
-            box-shadow: 0 0 10px var(--glow-color); 
-            position: relative; 
-            overflow: hidden; 
-            margin-left: 10px; 
-            font-family: 'Orbitron', sans-serif; 
-            text-transform: uppercase; 
-        }
-        button:hover { 
-            background: var(--accent-hover); 
-            transform: scale(1.05); 
-            box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--accent-color); 
-        }
-        button:active { transform: scale(0.98); }
-        button::after { 
-            content: ''; 
-            position: absolute; 
-            top: 50%; 
-            left: -100%; 
-            width: 200%; 
-            height: 100%; 
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent); 
-            transform: translateY(-50%); 
-            transition: left 0.5s; 
-        }
-        button:hover::after { 
-            left: 100%; 
-        }
-        .turbo-hud { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(0, 0, 0, 0.9); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 2000; 
-            opacity: 0; 
-            visibility: hidden; 
-            transition: opacity 0.3s ease, transform 0.5s ease; 
-        }
-        .turbo-hud::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 204, 102, 0.3), rgba(0, 0, 0, 0));
-            opacity: 0;
-        }
-        .turbo-hud.active { 
-            opacity: 1; 
-            visibility: visible; 
-        }
-        .turbo-hud.active::before { 
-            animation: nebulaPulse 2s ease-in-out; 
-        }
-        .turbo-hud.exiting { transform: scale(1.5); opacity: 0; }
-        .turbo-container { position: relative; width: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .turbo-logo { width: 100%; height: auto; max-width: 300px; display: block; }
-        .turbo-logo.spinning { animation: zoomInOut 2s infinite ease-in-out, spin 2s linear; }
-        @keyframes zoomInOut {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes nebulaPulse { 
-            0% { opacity: 0; } 
-            50% { opacity: 1; } 
-            100% { opacity: 0; } 
-        }
-        .turbo-text { margin-top: 20px; font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--accent-color); text-transform: uppercase; text-shadow: 0 0 10px var(--glow-color); animation: glitchText 0.1s infinite; }
-        @keyframes glitchText { 0% { transform: translate(0, 0); opacity: 1; } 20% { transform: translate(-2px, 2px); opacity: 0.8; } 40% { transform: translate(2px, -2px); opacity: 0.9; } 60% { transform: translate(-2px, 0); opacity: 0.7; } 80% { transform: translate(2px, 2px); opacity: 0.9; } 100% { transform: translate(0, 0); opacity: 1; } }
-        .result { margin-top: 20px; padding: 20px 30px; background: rgba(42, 42, 42, 0.9); border-left: 6px solid var(--accent-color); border-radius: 8px; max-width: 100%; overflow-wrap: break-word; position: relative; box-shadow: 0 0 15px var(--glow-color); animation: hudBoot 0.5s ease; }
-        @keyframes hudBoot { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
-        .result::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 204, 102, 0.2) 10px, rgba(0, 204, 102, 0.2) 20px); opacity: 0.3; pointer-events: none; }
-        .result h2 { font-family: 'Orbitron', sans-serif; font-size: 22px; margin-bottom: 15px; text-shadow: 0 0 5px var(--glow-color); }
-        .result p { margin: 15px 0; color: var(--text-primary); word-wrap: break-word; max-width: 100%; line-height: 1.6; }
-        .result a { color: var(--accent-color); text-decoration: underline; padding: 4px 8px; display: inline-block; max-width: 100%; font-size: 18px; line-height: 1.5; white-space: normal; transition: text-shadow 0.3s; }
-        .result a:hover { text-shadow: 0 0 5px var(--shadow-color); }
-        .result ul { margin: 10px 0; padding-left: 25px; list-style-type: disc; max-width: 100%; }
-        .result li { margin-bottom: 15px; word-break: break-all; overflow-wrap: break-word; white-space: normal; max-width: 100%; }
-        .result em { color: #e6e6e6; font-style: italic; text-shadow: 0 0 3px var(--glow-color); }
-        .support-link { text-align: center; margin-top: 20px; }
-        .support-link a { color: var(--text-primary); text-decoration: none; font-size: 14px; font-weight: 600; transition: text-shadow 0.3s; }
-        .support-link a:hover { text-decoration: underline; text-shadow: 0 0 5px var(--shadow-color); }
-        .additional-resources { margin-top: 20px; padding: 15px; background: var(--bg-section); border-left: 5px solid var(--border-color); border-radius: 4px; box-shadow: 0 0 10px var(--glow-color); }
-        .additional-resources h4 { color: var(--text-primary); font-family: 'Orbitron', sans-serif; font-size: 20px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 8px var(--shadow-color); cursor: pointer; transition: color 0.3s; }
-        .additional-resources h4:hover { color: #e6e6e6; }
-        .additional-resources h4::before { content: "▶ "; display: inline-block; transition: transform 0.3s ease; color: var(--accent-color); }
-        .additional-resources h4.expanded::before { transform: rotate(90deg); }
-        .resources-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-        .resources-content.expanded { max-height: none; }
-        .resources-content ul { list-style-type: disc; padding-left: 25px; margin: 0; }
-        .resources-content li { color: var(--text-primary); margin-bottom: 10px; line-height: 1.4; }
-        .resources-content a { color: var(--accent-color); text-decoration: underline; transition: text-shadow 0.3s; }
-        .resources-content a:hover { text-shadow: 0 0 5px var(--shadow-color); }
-        .truck-column { float: left; width: 100%; padding: 0 10px; }
-        .truck-row { display: flex; justify-content: space-between; }
-        .truck-section { width: 30%; margin-right: 10px; }
-        .truck-section:last-child { margin-right: 0; }
-        .truck-section h3 { color: var(--text-primary); font-size: 18px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px var(--glow-color); }
-        .truck-section p { color: var(--text-primary); font-size: 14px; margin: 5px 0; line-height: 1.4; }
-        .pids-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
-        .pids-section { width: 30%; text-align: center; }
-        .pids-section h4 { color: var(--text-primary); font-size: 16px; margin-bottom: 10px; font-weight: bold; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 5px var(--glow-color); }
-        .pids-section a { color: var(--text-primary); text-decoration: none; font-weight: 600; display: block; margin-bottom: 5px; transition: text-shadow 0.3s; }
-        .pids-section a:hover { text-decoration: underline; text-shadow: 0 0 5px var(--shadow-color); }
-        .l5p-instructions { width: 100%; text-align: left; margin-top: 10px; }
-        .read-file-instructions { list-style-type: none; }
-        .loader { text-align: center; color: var(--accent-color); font-size: 18px; font-style: italic; text-shadow: 0 0 5px var(--glow-color); }
-        .grok-signature { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-primary); text-shadow: 0 0 5px var(--glow-color); animation: glitch 2s infinite step-end; }
-        @keyframes glitch { 0%, 100% { opacity: 1; } 10%, 30%, 50%, 70%, 90% { opacity: 0.8; } 20%, 40%, 60%, 80% { opacity: 0.9; } }
-        @media (max-width: 600px) {
-            .container { width: 100%; margin: 0; padding: 15px; border-radius: 0; min-height: 100vh; }
-            .header { padding: 10px; min-height: auto; position: relative; border: 1px solid var(--glow-color); }
-            .header-buttons { flex-direction: column; gap: 8px; margin-bottom: 10px; width: 100%; }
-            .home-button a, .feedback-button a { padding: 10px 20px; font-size: 14px; width: 100%; text-align: center; box-sizing: border-box; }
-            .header-content { flex-direction: column; gap: 10px; align-items: center; }
-            .header-gif { width: 100px; margin: 0 auto; }
-            .header-gif img { max-width: 100%; }
-            h1 { font-size: 20px; text-align: center; letter-spacing: 2px; }
-            .description { font-size: 14px; padding: 10px; line-height: 1.5; }
-            form { padding: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
-            label { font-size: 14px; margin-right: 0; margin-bottom: 5px; text-align: center; }
-            input[type="text"] { width: 100%; max-width: 300px; font-size: 16px; padding: 12px; box-sizing: border-box; }
-            button { width: 100%; max-width: 300px; padding: 12px 20px; font-size: 16px; margin-left: 0; margin-top: 10px; font-family: 'Orbitron', sans-serif; }
-            .efi-error-codes, .additional-info, .truck-box { margin-top: 15px; padding: 15px; }
-            .efi-error-codes h3, .additional-info h3, .truck-box h2 { font-size: 18px; letter-spacing: 1px; }
-            .result { padding: 15px; font-size: 14px; }
-            .result h2 { font-size: 18px; }
-            .result p { line-height: 1.5; }
-            .result a { font-size: 16px; word-break: break-word; }
-            .support-link a { font-size: 14px; }
-            .additional-resources { padding: 10px; }
-            .additional-resources h4 { font-size: 16px; }
-            .resources-content li { font-size: 14px; line-height: 1.5; }
-            .truck-row, .pids-row { flex-direction: column; gap: 15px; }
-            .truck-section, .pids-section { шири width: 100%; margin-right: 0; margin-bottom: 15px; text-align: left; }
-            .truck-section h3, .pids-section h4 { font-size: 16px; }
-            .truck-section p { font-size: 14px; line-height: 1.5; }
-            .l5p-instructions { text-align: center; }
-            .turbo-container { width: 200px; }
-            .turbo-logo { max-width: 200px; }
-            .turbo-hud { background: rgba(0, 0, 0, 0.9); }
-            .turbo-hud::before { background: radial-gradient(circle, rgba(0, 204, 102, 0.3), rgba(0, 0, 0, 0)); }
-            .turbo-hud.active::before { animation: nebulaPulse 2s ease-in-out; }
-            .turbo-text { font-size: 16px; margin-top: 10px; }
-            .grok-signature { font-size: 12px; }
-            body { animation: none; }
-            body::before { animation: none; }
-            .header-gif img { animation: turboPulse 3s infinite ease-in-out; }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
     <div class="container">
@@ -251,11 +27,9 @@
                 <div class="header-gif"><img src="{{ url_for('static', filename='PPEI_TURBO_HEAD_GIF.gif') }}" alt="PPEI Performance GIF"></div>
             </div>
         </div>
-        <div class="description">
-            Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.
-        </div>
+        <div class="description">Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.</div>
         <div class="efi-error-codes" id="efiErrorCodes">
-            <h3 onclick="toggleSection('efiErrorCodes', 'efiContent')">EFI ERROR CODES</h3>
+            <h3>EFI ERROR CODES</h3>
             <div class="efi-content" id="efiContent">
                 <form id="errorForm">
                     <label for="error_code">Enter Error Code (e.g., 0502 or $0502):</label>
@@ -263,11 +37,9 @@
                     <button type="submit">Ask PPEI</button>
                 </form>
                 <div id="resultContainer"></div>
-                <div class="support-link">
-                    <a href="mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(%20INSERT_CODE_HERE).%20Can%20you%20help?" id="supportLink">Not seeing your code? Contact the PPEI team!</a>
-                </div>
+                <div class="support-link"><a href="mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(%20INSERT_CODE_HERE).%20Can%20you%20help?" id="supportLink">Not seeing your code? Contact the PPEI team!</a></div>
                 <div class="additional-resources" id="additionalResourcesEFI">
-                    <h4 onclick="toggleSection('additionalResourcesEFI', 'resourcesContentEFI')">Additional Resources</h4>
+                    <h4>Additional Resources</h4>
                     <div class="resources-content" id="resourcesContentEFI">
                         <ul>
                             <li><a href="https://ppei.com/pages/contact" target="_blank">PPEI Support Page</a> - Official support and documentation.</li>
@@ -281,7 +53,7 @@
             </div>
         </div>
         <div class="additional-info" id="additionalInfo">
-            <h3 onclick="toggleSection('additionalInfo', 'additionalContent')">HP TUNERS HELP</h3>
+            <h3>HP TUNERS HELP</h3>
             <div class="additional-content" id="additionalContent">
                 <div class="pids-row">
                     <div class="pids-section">
@@ -301,7 +73,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="additionalResourcesHP">
-                    <h4 onclick="toggleSection('additionalResourcesHP', 'resourcesContentHP')">Additional Resources</h4>
+                    <h4>Additional Resources</h4>
                     <div class="resources-content" id="resourcesContentHP">
                         <ul>
                             <li><a href="{{ url_for('download_file', filename='T87A-T93-Installation-Steps.pdf') }}">L5P TCM Tuning Guide</a> - Instructions for L5P TCM tuning.</li>
@@ -317,10 +89,10 @@
             </div>
         </div>
         <div class="additional-info" id="ezlynkInfo">
-            <h3 onclick="toggleSection('ezlynkInfo', 'ezlynkContent')">EZLYNK HELP</h3>
+            <h3>EZLYNK HELP</h3>
             <div class="additional-content" id="ezlynkContent">
                 <div class="additional-resources" id="ezlynkWifiIssue">
-                    <h4 onclick="toggleSection('ezlynkWifiIssue', 'ezlynkWifiIssueContent')">EZLYNK WiFi Not Broadcasting</h4>
+                    <h4>EZLYNK WiFi Not Broadcasting</h4>
                     <div class="resources-content" id="ezlynkWifiIssueContent">
                         <p><strong>Issue:</strong> The EZLYNK device isn’t broadcasting a WiFi signal (e.g., "EZLYNK_XX"), so you can’t connect via the app.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -333,7 +105,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkConnectionIssue">
-                    <h4 onclick="toggleSection('ezlynkConnectionIssue', 'ezlynkConnectionIssueContent')">Unable to Connect to EZLYNK Network</h4>
+                    <h4>Unable to Connect to EZLYNK Network</h4>
                     <div class="resources-content" id="ezlynkConnectionIssueContent">
                         <p><strong>Issue:</strong> You see the "EZLYNK_XX" network but can’t connect, or it says "Unable to connect."</p>
                         <p><strong>Suggestions:</strong></p>
@@ -346,7 +118,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkEcmBoot">
-                    <h4 onclick="toggleSection('ezlynkEcmBoot', 'ezlynkEcmBootContent')">Cannot Communicate with ECM</h4>
+                    <h4>Cannot Communicate with ECM</h4>
                     <div class="resources-content" id="ezlynkEcmBootContent">
                         <p><strong>Issue:</strong> The EZLYNK app shows "Unable to communicate with your vehicle" when trying to stream data or tune.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -359,7 +131,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkFirmwareUpdate">
-                    <h4 onclick="toggleSection('ezlynkFirmwareUpdate', 'ezlynkFirmwareUpdateContent')">Firmware Update Failure</h4>
+                    <h4>Firmware Update Failure</h4>
                     <div class="resources-content" id="ezlynkFirmwareUpdateContent">
                         <p><strong>Issue:</strong> The EZLYNK device disconnects during a firmware update, leaving it in an unstable state.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -372,7 +144,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkTuneInstall">
-                    <h4 onclick="toggleSection('ezlynkTuneInstall', 'ezlynkTuneInstallContent')">Tune Installation Stalls at 0%</h4>
+                    <h4>Tune Installation Stalls at 0%</h4>
                     <div class="resources-content" id="ezlynkTuneInstallContent">
                         <p><strong>Issue:</strong> When installing a tune via the EZLYNK app, the progress bar stalls at 0%.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -385,7 +157,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkTechnicianLink">
-                    <h4 onclick="toggleSection('ezlynkTechnicianLink', 'ezlynkTechnicianLinkContent')">Unable to Link with Technician</h4>
+                    <h4>Unable to Link with Technician</h4>
                     <div class="resources-content" id="ezlynkTechnicianLinkContent">
                         <p><strong>Issue:</strong> The EZLYNK app fails to link your vehicle with a technician for tune updates or diagnostics.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -400,7 +172,7 @@
             </div>
         </div>
         <div class="truck-box" id="truckBox">
-            <h2 onclick="toggleSection('truckBox', 'truckInfo')">WHAT TRUCK DO I HAVE?</h2>
+            <h2>WHAT TRUCK DO I HAVE?</h2>
             <div class="truck-info" id="truckInfo">
                 <div class="truck-column">
                     <div class="truck-row">
@@ -432,140 +204,11 @@
         </div>
         <div class="grok-signature">Powered by Grok, xAI</div>
     </div>
-
     <div class="turbo-hud" id="turboHud">
         <div class="turbo-container">
             <img src="{{ url_for('static', filename='PPEI logo.png') }}" alt="PPEI Loading Logo" class="turbo-logo" onerror="this.src='https://via.placeholder.com/200x200.png?text=PPEI+Logo'; console.log('Failed to load PPEI logo.png');">
             <div class="turbo-text">Decoding Performance...</div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            $('#errorForm').submit(function(event) {
-                event.preventDefault();
-                const code = $('#error_code').val().trim();
-                const efiSection = $('#efiErrorCodes');
-                const efiContent = $('#efiContent');
-                const resultContainer = $('#resultContainer');
-                const $turboHud = $('#turboHud');
-                const $turboLogo = $('.turbo-logo');
-
-                const humorText = [
-                    "Analyzing ECM... Smarter Than Your Buddy’s ‘Tuner’!",
-                    "Decoding Issues... Like a Mechanic With a Cheat Code!",
-                    "Processing ECM... Your Scan Tool’s Got Nothing on This!",
-                    "Scanning Errors... Faster Than a Boost Leak Fix!"
-                ];
-
-                const randomPhrase = humorText[Math.floor(Math.random() * humorText.length)];
-                $('.turbo-text').text(randomPhrase);
-
-                console.log("Form submitted, showing turbo-hud");
-                $turboHud.addClass('active');
-
-                if (!efiSection.hasClass('expanded')) {
-                    efiSection.addClass('expanded');
-                    efiContent.addClass('expanded');
-                    efiSection.find('h3').attr('aria-expanded', 'true');
-                    efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
-                }
-
-                $turboLogo.addClass('spinning');
-                console.log("Animation started");
-
-                setTimeout(() => {
-                    console.log("Spin animation completed, triggering AJAX");
-                    $turboLogo.removeClass('spinning');
-                    $.post('/submit', { error_code: code }, function(data) {
-                        console.log("AJAX success, hiding turbo-hud");
-                        $('#error_code').val(data.error_code.replace('$', ''));
-                        resultContainer.empty();
-                        $turboHud.addClass('exiting');
-                        setTimeout(() => $turboHud.removeClass('active exiting'), 500);
-
-                        if (data.result) {
-                            const resultDiv = $('<div class="result"></div>');
-                            const fileDisplayNames = {
-                                "18-21 Cummins Bypass Install Instructions.pdf": "Bypass cable instructions",
-                                "PPEI_BBX.bbx": "PPEI BBX File",
-                                "program autocal step by step.pdf": "Program AutoCal Guide",
-                                "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o": "YouTube Tutorial",
-                                "lb7 and lly's.docx": "LB7/LLY Fuse Guide"
-                            };
-                            const filesHtml = data.result.files && data.result.files.length 
-                                ? '<ul>' + data.result.files.map(file => 
-                                    file.startsWith('http') 
-                                        ? `<li><a href="${file}" target="_blank">${fileDisplayNames[file] || 'YouTube Tutorial'}</a></li>` 
-                                        : `<li><a href="/download/Files/${file}" title="${file}">${fileDisplayNames[file] || file}</a></li>`
-                                ).join('') + '</ul>' 
-                                : 'None';
-                            resultDiv.html(`
-                                <h2>Error: ${data.error_code}</h2>
-                                <p><strong>Description:</strong> ${data.result.description}</p>
-                                <p><strong>Cause:</strong> ${data.result.cause}</p>
-                                <p><strong>Action:</strong> ${data.result.action.replace(/\n/g, '<br>')}</p>
-                                <p><strong>Files:</strong> ${filesHtml}</p>
-                                ${data.result.grok_note ? `<p><em>${data.result.grok_note}</em></p>` : ''}
-                            `);
-                            resultContainer.append(resultDiv);
-                        } else {
-                            resultContainer.html('<p>No result found for this code.</p>');
-                        }
-
-                        $('#supportLink').attr('href', `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help?`);
-                        efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
-                    }, 'json').fail(function() {
-                        console.log("AJAX failed, hiding turbo-hud");
-                        $turboHud.addClass('exiting');
-                        setTimeout(() => {
-                            $turboHud.removeClass('active exiting');
-                            resultContainer.html('<p>Error loading result. Try again, gearhead!</p>');
-                            efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
-                        }, 500);
-                    });
-                }, 2000);
-            });
-        });
-
-        function toggleSection(sectionId, contentId) {
-            const section = $('#' + sectionId);
-            const content = $('#' + contentId);
-            const isExpanded = section.hasClass('expanded');
-            const header = section.find('h3, h4, h2').first();
-            const parentContent = content.closest('.efi-content, .additional-content, .truck-info');
-
-            if (isExpanded) {
-                content.removeClass('expanded');
-                section.removeClass('expanded');
-                header.attr('aria-expanded', 'false');
-                content.css('max-height', '0');
-                if (parentContent.length && parentContent.hasClass('expanded')) {
-                    parentContent.css('max-height', parentContent[0].scrollHeight - content[0].scrollHeight + 'px');
-                }
-            } else {
-                const contentHeight = content[0].scrollHeight;
-                const parentHeight = parentContent.length ? parentContent[0].scrollHeight : 0;
-                section.addClass('expanded');
-                content.addClass('expanded');
-                header.attr('aria-expanded', 'true');
-                content.css('max-height', contentHeight + 'px');
-                if (parentContent.length && parentContent.hasClass('expanded')) {
-                    parentContent.css('max-height', (parentHeight + contentHeight) + 'px');
-                }
-            }
-        }
-
-        window.onload = function() {
-            if ($('.result').length) {
-                const efiSection = $('#efiErrorCodes');
-                const efiContent = $('#efiContent');
-                efiSection.addClass('expanded');
-                efiContent.addClass('expanded');
-                efiSection.find('h3').attr('aria-expanded', 'true');
-                efiContent.css('max-height', efiContent[0].scrollHeight + 'px');
-            }
-        };
-    </script>
 </body>
 </html>
