@@ -20,7 +20,7 @@
         <div class="header">
             <div class="header-buttons">
                 <div class="home-button"><a href="/">HOME</a></div>
-                <div class="feedback-button"><a href="mailto:zach@ppei.com?subject=PPEI%20Code%20Killer%20Feedback&body=Hi%20PPEI%20team,%20I%20have%20some%20suggestions%20to%20improve%20the%20PPEI%20Code%20Killer%20app:%0D%0A%0D%0A[Your%20suggestions%20here]">FEEDBACK</a></div>
+                <div class="feedback-button"><a href="/cdn-cgi/l/email-protection#d4aeb5b7bc94a4a4b1bdfab7bbb9eba7a1b6beb1b7a0e98484919df1e6e497bbb0b1f1e6e49fbdb8b8b1a6f1e6e492b1b1b0b6b5b7bff2b6bbb0ade99cbdf1e6e48484919df1e6e4a0b1b5b9f8f1e6e49df1e6e4bcb5a2b1f1e6e4a7bbb9b1f1e6e4a7a1b3b3b1a7a0bdbbbaa7f1e6e4a0bbf1e6e4bdb9a4a6bba2b1f1e6e4a0bcb1f1e6e48484919df1e6e497bbb0b1f1e6e49fbdb8b8b1a6f1e6e4b5a4a4eef1e490f1e495f1e490f1e4958f8dbba1a6f1e6e4a7a1b3b3b1a7a0bdbbbaa7f1e6e4bcb1a6b189">FEEDBACK</a></div>
             </div>
             <div class="header-content">
                 <h1>PPEI ERROR CODE FINDER</h1>
@@ -29,7 +29,7 @@
         </div>
         <div class="description">Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.</div>
         <div class="efi-error-codes" id="efiErrorCodes">
-            <h3>EFI ERROR CODES</h3>
+            <h3>EFI LIVE HELP</h3>
             <div class="efi-content" id="efiContent">
                 <form id="errorForm">
                     <label for="error_code">Enter Error Code (e.g., 0502 or $0502):</label>
@@ -37,7 +37,7 @@
                     <button type="submit">Ask PPEI</button>
                 </form>
                 <div id="resultContainer"></div>
-                <div class="support-link"><a href="mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(%20INSERT_CODE_HERE).%20Can%20you%20help?" id="supportLink">Not seeing your code? Contact the PPEI team!</a></div>
+                <div class="support-link"><a href="/cdn-cgi/l/email-protection#9de7fcfef5ddededf8f4b3fef2f0a2eee8fff7f8fee9a0cdcdd8d4b8afadd8efeff2efb8afaddef2f9f8b8afadd5f8f1edbbfff2f9e4a0d5f4b8afadcdcdd8d4b8afade9f8fcf0b1b8afadd4b8afadfefcf37f1d04e9b8afadfbf4f3f9b8afadf0e4b8afadf8efeff2efb8afadfef2f9f8b8afadb5b8afadd4d3ced8cfc9c2ded2d9d8c2d5d8cfd8b4b3b8afaddefcf3b8afade4f2e8b8afadf5f8f1eda2" id="supportLink">Not seeing your code? Contact the PPEI team!</a></div>
                 <div class="additional-resources" id="additionalResourcesEFI">
                     <h4>Additional Resources</h4>
                     <div class="resources-content" id="resourcesContentEFI">
@@ -47,7 +47,23 @@
                             <li><a href="{{ url_for('download_file', filename='TCM Stock File Instructions - 01-10.pdf') }}">2001 - 2010 Duramax TCM read file instructions</a> - Instructions for TCM read files.</li>
                             <li><a href="{{ url_for('download_file', filename='Aisin Transmission Tuning Install Instructions - EFILive.pdf') }}">Aisin TCM tuning instructions</a> - Guide for Aisin TCM tuning.</li>
                             <li><a href="{{ url_for('download_file', filename='EFILive Autocal V3 Datalogging.pdf') }}">V3 autocal datalogging instructions</a> - Instructions for V3 autocal datalogging.</li>
+                            <li><a href="{{ url_for('download_file', filename='Autocal Flashing Procedure.docx') }}">Autocal flashing procedure</a> - Guide for flashing AutoCal devices.</li>
+                            <li><a href="{{ url_for('download_file', filename='PPEI_BBX.bbx') }}">PPEI BBX File</a> - Configuration file for AutoCal BBX setup.</li>
+                            <li><a href="{{ url_for('download_file', filename='program autocal step by step.pdf') }}">Configuring BBX steps</a> - Step-by-step guide for configuring BBX on AutoCal.</li>
+                            <li><a href="{{ url_for('download_file', filename='Reconfig and Tune Loading Short Instructions.docx') }}">Loading tune files to autocal</a> - Instructions for loading tune files onto AutoCal.</li>
                         </ul>
+                        <div class="additional-resources" id="youtubeTutorials">
+                            <h4>YOUTUBE TUTORIALS</h4>
+                            <div class="resources-content" id="youtubeTutorialsContent">
+                                <ul>
+                                    <li><a href="https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o" target="_blank">EFILive: Loading tunes, updating bbx, 0502 efilive error fix</a></li>
+                                    <li><a href="https://youtu.be/HCq-L6Xb5p8?si=PFzgKD68NUn-orOx" target="_blank">EFILive: How to Datalog on EFILive AutoCal / FlashScan</a></li>
+                                    <li><a href="https://youtu.be/X_BRiqa4U3s?si=QyUayaEiTn7RRmZf" target="_blank">EFILive: Authentication Code, Serial Number, License Number</a></li>
+                                    <li><a href="https://youtu.be/Asva48U5Fw8?si=FpKAWQPLgPjHvZur" target="_blank">EFILive: How to "Read" Engine or Transmission controller</a></li>
+                                    <li><a href="https://youtu.be/hvziU3NtcKE?si=WBFYJL7llkuRM6X_" target="_blank">EFIlive: How to Pass-Through Flash with EFILive FlashScan / AutoCal</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -196,7 +212,7 @@
                             <h4>FAQs</h4>
                             <p><strong>Q: How do I find my truck’s ECM type?</strong><br>A: Check the service parts identification sticker in your glovebox or use a scan tool like EFILive to read the ECM ID.</p>
                             <p><strong>Q: Can I tune a locked ECM?</strong><br>A: Some locked ECMs require a bench flash—see error $0333 for steps or contact PPEI support.</p>
-                            <p><strong>Q: What if my truck isn’t listed?</strong><br>A: Email <a href="mailto:zach@ppei.com">zach@ppei.com</a> with your VIN for compatibility info.</p>
+                            <p><strong>Q: What if my truck isn’t listed?</strong><br>A: Email <a href="/cdn-cgi/l/email-protection#b7cdd6d4dff7c7c7d2de99d4d8da"><span class="__cf_email__" data-cfemail="512833313a112121343b7c313d3f">[email protected]</span></a> with your VIN for compatibility info.</p>
                         </div>
                     </div>
                 </div>
@@ -210,5 +226,5 @@
             <div class="turbo-text">Decoding Performance...</div>
         </div>
     </div>
-</body>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'933d8592bd2653be',t:'MTc0NTI0NTIyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

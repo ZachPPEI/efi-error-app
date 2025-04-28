@@ -1,3 +1,7 @@
+// Define originalDescription in global scope
+let originalDescription;
+
+// Initialize on document ready
 $(document).ready(function() {
     // Store original EZLYNK help content on page load
     const ezlynkSections = [
@@ -9,9 +13,9 @@ $(document).ready(function() {
         originalEzlynkContent[section] = $(`#${section}`).html();
     });
 
-    // Store the original description text, with a fallback
-    const originalDescription = $('.description').length ? $('.description').html() : "Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.";
-    console.log("Original description:", originalDescription);
+    // Set the original description text, with a fallback
+    originalDescription = $('.description').length ? $('.description').html() : "Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.";
+    console.log("Original description initialized:", originalDescription);
 
     // Start in normal mode
     $('body').removeClass('asshole-mode');
@@ -24,6 +28,7 @@ $(document).ready(function() {
         { parent: 'truckBox', header: '#truckBox > h2', content: 'truckInfo' },
         { parent: 'additionalResourcesEFI', header: '#additionalResourcesEFI > h4', content: 'resourcesContentEFI' },
         { parent: 'additionalResourcesHP', header: '#additionalResourcesHP > h4', content: 'resourcesContentHP' },
+        { parent: 'youtubeTutorials', header: '#youtubeTutorials > h4', content: 'youtubeTutorialsContent' },
         { parent: 'ezlynkWifiIssue', header: '#ezlynkWifiIssue > h4', content: 'ezlynkWifiIssueContent' },
         { parent: 'ezlynkConnectionIssue', header: '#ezlynkConnectionIssue > h4', content: 'ezlynkConnectionIssueContent' },
         { parent: 'ezlynkEcmBoot', header: '#ezlynkEcmBoot > h4', content: 'ezlynkEcmBootContent' },
@@ -32,12 +37,28 @@ $(document).ready(function() {
         { parent: 'ezlynkTechnicianLink', header: '#ezlynkTechnicianLink > h4', content: 'ezlynkTechnicianLinkContent' }
     ];
 
-    // Bind click events to specific headers
+    // Bind click events to specific headers and track section expansion
     expandableSections.forEach(({ parent, header, content }) => {
         $(header).off('click'); // Remove existing handlers
         $(header).click((event) => {
             event.stopPropagation(); // Prevent bubbling
+            const isExpanding = !$(`#${parent}`).hasClass('expanded');
+            gtag('event', 'section_toggle', {
+                'event_category': 'Navigation',
+                'event_label': parent,
+                'value': isExpanding ? 'expand' : 'collapse'
+            });
             toggleSection(parent, content);
+        });
+    });
+
+    // Track resource downloads and YouTube link clicks
+    $('#resourcesContentEFI a, #youtubeTutorialsContent a, .result a').click(function() {
+        const href = $(this).attr('href');
+        const isYouTube = href.includes('youtu.be');
+        gtag('event', isYouTube ? 'youtube_click' : 'file_download', {
+            'event_category': 'Resource',
+            'event_label': href
         });
     });
 
@@ -49,6 +70,12 @@ $(document).ready(function() {
         const $resultContainer = $('#resultContainer');
         const $turboHud = $('#turboHud');
         const $turboLogo = $('.turbo-logo');
+
+        // Track search event
+        gtag('event', 'search_error_code', {
+            'event_category': 'ErrorCode',
+            'event_label': code
+        });
 
         // Set loading text based on mode
         const humorText = $('body').hasClass('asshole-mode') ? [
@@ -64,7 +91,7 @@ $(document).ready(function() {
         ];
         $('.turbo-text').text(humorText[Math.floor(Math.random() * humorText.length)]);
 
-        console.log("Form submitted, showing turbo-hud");
+        console.log("Form submitted with code:", code, "showing turbo-hud");
         $turboHud.addClass('active');
 
         if (!$efiSection.hasClass('expanded')) {
@@ -78,12 +105,19 @@ $(document).ready(function() {
             console.log("Spin animation completed, triggering AJAX");
             $turboLogo.removeClass('spinning');
             $.post('/submit', { error_code: code }, function(data) {
-                console.log("AJAX success, hiding turbo-hud");
-                console.log("Response:", data);
+                console.log("AJAX success, hiding turbo-hud, response:", data);
                 $('#error_code').val(data.error_code.replace('$', ''));
                 $resultContainer.empty();
                 $turboHud.addClass('exiting');
                 setTimeout(() => $turboHud.removeClass('active exiting'), 500);
+
+                // Track mode toggle
+                if (data.asshole_mode !== $('body').hasClass('asshole-mode')) {
+                    gtag('event', 'toggle_mode', {
+                        'event_category': 'Mode',
+                        'event_label': data.asshole_mode ? 'Asshole' : 'Normal'
+                    });
+                }
 
                 // Toggle mode based on response
                 if (data.asshole_mode) {
@@ -94,7 +128,7 @@ $(document).ready(function() {
                     $('body').removeClass('asshole-mode');
                 }
 
-                // Always render the result or error message, even if updateEzlynkHelp fails
+                // Always render the result or error message
                 if (data.result) {
                     console.log("Rendering result:", data.result);
                     const fileDisplayNames = $('body').hasClass('asshole-mode') ? {
@@ -140,11 +174,12 @@ $(document).ready(function() {
 
                 $('#supportLink').attr('href', `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help${$('body').hasClass('asshole-mode') ? ', assholes?' : '?'}`);
 
-                // Update EZLYNK help and description, with error handling
+                // Update app mode, with detailed logging
                 try {
-                    updateEzlynkHelp(data.asshole_mode);
+                    updateAppMode(data.asshole_mode);
+                    console.log("Description after update:", $('.description').html());
                 } catch (e) {
-                    console.error("Error in updateEzlynkHelp:", e);
+                    console.error("Error in updateAppMode:", e);
                 }
 
                 preserveExpandedStates();
@@ -187,11 +222,15 @@ function preserveExpandedStates() {
         .css('max-height', '10000px');
 }
 
-// Update EZLYNK help content and description based on mode (asshole or normal)
-function updateEzlynkHelp(isAssholeMode) {
-    console.log(isAssholeMode ? "Rewriting EZLYNK help to asshole mode" : "Restoring EZLYNK help to normal mode");
+// Update app mode (EZLYNK help content and description) based on mode (asshole or normal)
+function updateAppMode(isAssholeMode) {
+    console.log("Updating app mode, mode:", isAssholeMode ? "asshole" : "normal");
     const ezlynkContent = $('#ezlynkContent');
     const description = $('.description');
+    const currentDescription = description.html();
+    console.log("Current description before update:", currentDescription);
+    console.log("Original description value:", originalDescription);
+
     const updates = isAssholeMode ? {
         '#ezlynkWifiIssueContent': `
             <p><strong>Issue:</strong> Your shitty EZLYNK isn’t broadcasting WiFi—big fucking surprise.</p>
@@ -317,13 +356,19 @@ function updateEzlynkHelp(isAssholeMode) {
     };
 
     // Update EZLYNK content
-    Object.entries(updates).forEach(([selector, html]) => ezlynkContent.find(selector).html(html));
+    Object.entries(updates).forEach(([selector, html]) => {
+        ezlynkContent.find(selector).html(html);
+        console.log(`Updated ${selector} content`);
+    });
 
     // Update description based on mode
     if (isAssholeMode) {
         description.html("Get your pathetic EFILive errors sorted, dipshit—just shove your dumbass code in, snag PPEI’s top-notch fixes, and download what you need to keep your shitty truck from totally fucking up. PPEI’s elite pros built this, because we’re the best—unlike your sorry ass.");
+        console.log("Set description to asshole mode text");
     } else {
-        description.html(originalDescription);
+        const normalDescription = originalDescription || "Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.";
+        description.html(normalDescription);
+        console.log("Restored description to:", normalDescription);
     }
 }
 
