@@ -211,13 +211,13 @@ h1 {
 .efi-content, .additional-content, .truck-info, .resources-content {
     max-height: 0;
     overflow: hidden;
-    opacity: 0; /* Start with opacity 0 for fade effect */
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out; /* Polished transition with custom easing and opacity */
+    opacity: 0;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
 }
 
 .efi-content.expanded, .additional-content.expanded, .truck-info.expanded, .resources-content.expanded {
     max-height: 10000px;
-    opacity: 1; /* Fade in to opacity 1 */
+    opacity: 1;
 }
 
 form {
@@ -684,6 +684,400 @@ button:hover::after {
     20%, 40%, 60%, 80% { opacity: 0.9; }
 }
 
+.unlink-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.form-row label {
+    font-size: 1.1em;
+    color: var(--text-primary);
+    text-shadow: 0 0 3px var(--glow-color);
+    text-align: center;
+    width: 100%;
+}
+
+.form-row input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    background: var(--bg-section);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    outline: none;
+    transition: box-shadow 0.3s, border-color 0.3s;
+    box-shadow: 0 0 5px var(--glow-color);
+}
+
+.form-row button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background: var(--accent-color);
+    color: #0a0a0a;
+    border: 2px solid var(--accent-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px var(--glow-color);
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    width: 100%;
+    max-width: 150px;
+}
+
+.form-row button:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--accent-color);
+}
+
+.unlink-form .result {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.unlink-form .success {
+    color: var(--accent-color);
+    text-shadow: 0 0 3px var(--glow-color);
+}
+
+.unlink-form .error {
+    color: #ff6666;
+    text-shadow: 0 0 3px var(--glow-color);
+}
+
+.chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 600px;
+    background: var(--bg-container);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--glow-color);
+    display: flex;
+    flex-direction: column;
+    z-index: 3000;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: absolute;
+    user-select: none;
+}
+
+.chatbox-header {
+    background: var(--bg-section);
+    border-bottom: 2px solid var(--border-color);
+    cursor: move;
+}
+
+.title-bar {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.header-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatbot-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+.header-text {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-primary);
+    text-shadow: 0 0 5px var(--shadow-color);
+}
+
+.chatbox-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.chatbox-controls button {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s, transform 0.1s;
+    box-shadow: none;
+    margin: 0;
+}
+
+.chatbox-controls button:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+.chatbox-controls button:active {
+    color: var(--accent-hover);
+}
+
+.chatbox-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: var(--bg-dark);
+    scroll-behavior: smooth;
+}
+
+#chatbox-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.message {
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 0 5px var(--glow-color);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-message {
+    background: var(--accent-color);
+    color: #0a0a0a;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background: var(--bg-section);
+    color: var(--text-primary);
+    align-self: flex-start;
+}
+
+.bot-message a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.bot-message a:hover {
+    text-decoration: underline;
+}
+
+.typing-bubble {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 14px;
+    background: var(--bg-section);
+    border-radius: 12px;
+    max-width: 80%;
+    align-self: flex-start;
+    box-shadow: 0 0 5px var(--glow-color);
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+.typing-bubble .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    animation: typingDot 1.2s infinite;
+}
+
+.typing-bubble .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-bubble .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingDot {
+    0%, 20% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60%, 100% { transform: translateY(0); }
+}
+
+.chatbox-footer {
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    background: var(--bg-section);
+    border-top: 2px solid var(--border-color);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+#chatbox-input {
+    flex: 1;
+    padding: 10px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    box-shadow: 0 0 5px var(--glow-color);
+    outline: none;
+}
+
+#chatbox-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px var(--shadow-color);
+}
+
+#send-btn {
+    padding: 10px 15px;
+    background: var(--accent-color);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    color: #0a0a0a;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s;
+    box-shadow: 0 0 5px var(--glow-color);
+}
+
+#send-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px var(--shadow-color);
+}
+
+#send-btn:active {
+    background: var(--accent-color);
+}
+
+.chatbox-minimized {
+    width: 120px !important;
+    height: 50px !important;
+    min-width: 120px !important;
+    min-height: 50px !important;
+    max-width: 120px !important;
+    max-height: 50px !important;
+    border-radius: 8px !important;
+    border: 2px solid var(--border-color) !important;
+    box-shadow: 0 0 10px var(--shadow-color) !important;
+    background: var(--bg-section) !important;
+    transition: all 0.3s ease;
+    overflow: hidden !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbox-minimized:hover {
+    box-shadow: 0 0 15px var(--shadow-color);
+}
+
+.chatbox-minimized .chatbox-body,
+.chatbox-minimized .chatbox-footer {
+    display: none;
+}
+
+.chatbox-minimized .title-bar {
+    padding: 0;
+    border-bottom: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.chatbox-minimized .header-text {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.chatbox-minimized .header-icon,
+.chatbox-minimized .chatbox-controls {
+    display: none;
+}
+
+.asshole-mode .chatbox {
+    background: rgba(42, 0, 0, 0.9);
+    border-color: var(--asshole-accent);
+    box-shadow: 0 0 20px var(--asshole-shadow), inset 0 0 5px var(--asshole-glow);
+}
+
+.asshole-mode .chatbox-header {
+    background: rgba(42, 0, 0, 0.9);
+    border-bottom-color: var(--asshole-accent);
+}
+
+.asshole-mode #chatbox-input {
+    background: #2b0000;
+    border-color: var(--asshole-accent);
+    color: #ff6666;
+}
+
+.asshole-mode #send-btn {
+    background: var(--asshole-accent);
+    border-color: var(--asshole-accent);
+}
+
+.asshole-mode .user-message {
+    background: var(--asshole-accent);
+}
+
+.asshole-mode .bot-message {
+    background: rgba(42, 0, 0, 0.9);
+    color: #ff6666;
+}
+
+.asshole-mode .typing-bubble .dot {
+    background: var(--asshole-accent);
+}
+
+.asshole-mode .chatbox-minimized {
+    background: rgba(42, 0, 0, 0.9);
+    border-color: var(--asshole-accent);
+    box-shadow: 0 0 10px var(--asshole-shadow);
+}
+
 @media (max-width: 600px) {
     .container {
         width: 100%;
@@ -692,18 +1086,21 @@ button:hover::after {
         border-radius: 0;
         min-height: 100vh;
     }
+
     .header {
         padding: 10px;
         min-height: auto;
         position: relative;
         border: 1px solid var(--glow-color);
     }
+
     .header-buttons {
         flex-direction: column;
         gap: 8px;
         margin-bottom: 10px;
         width: 100%;
     }
+
     .home-button a, .feedback-button a {
         padding: 10px 20px;
         font-size: 14px;
@@ -711,28 +1108,34 @@ button:hover::after {
         text-align: center;
         box-sizing: border-box;
     }
+
     .header-content {
         flex-direction: column;
         gap: 10px;
         align-items: center;
     }
+
     .header-gif {
         width: 100px;
         margin: 0 auto;
     }
+
     .header-gif img {
         max-width: 100%;
     }
+
     h1 {
         font-size: 20px;
         text-align: center;
         letter-spacing: 2px;
     }
+
     .description {
         font-size: 14px;
         padding: 10px;
         line-height: 1.5;
     }
+
     form {
         padding: 10px;
         display: flex;
@@ -740,12 +1143,14 @@ button:hover::after {
         gap: 10px;
         align-items: center;
     }
+
     label {
         font-size: 14px;
         margin-right: 0;
         margin-bottom: 5px;
         text-align: center;
     }
+
     input[type="text"] {
         width: 100%;
         max-width: 300px;
@@ -753,6 +1158,7 @@ button:hover::after {
         padding: 12px;
         box-sizing: border-box;
     }
+
     button {
         width: 100%;
         max-width: 300px;
@@ -762,81 +1168,127 @@ button:hover::after {
         margin-top: 10px;
         font-family: 'Orbitron', sans-serif;
     }
+
     .efi-error-codes, .additional-info, .truck-box {
         margin-top: 15px;
         padding: 15px;
     }
+
     .efi-error-codes h3, .additional-info h3, .truck-box h2 {
         font-size: 18px;
         letter-spacing: 1px;
     }
+
     .result {
         padding: 15px;
         font-size: 14px;
     }
+
     .result h2 {
         font-size: 18px;
     }
+
     .result p {
         line-height: 1.5;
     }
+
     .result a {
         font-size: 16px;
         word-break: break-word;
     }
+
     .support-link a {
         font-size: 14px;
     }
+
     .additional-resources {
         padding: 10px;
     }
-    .additional-resources hICH4 {
+
+    .additional-resources h4 {
         font-size: 16px;
     }
+
     .resources-content li {
         font-size: 14px;
         line-height: 1.5;
     }
+
     .truck-row, .pids-row {
         flex-direction: column;
         gap: 15px;
     }
+
     .truck-section, .pids-section {
         width: 100%;
         margin-right: 0;
         margin-bottom: 15px;
         text-align: left;
     }
+
     .truck-section h3, .pids-section h4 {
         font-size: 16px;
     }
+
     .truck-section p {
         font-size: 14px;
         line-height: 1.5;
     }
+
     .l5p-instructions {
         text-align: center;
     }
+
     .turbo-container {
         width: 200px;
     }
+
     .turbo-logo {
         max-width: 200px;
     }
+
     .turbo-hud {
         background: rgba(0, 0, 0, 0.9);
     }
+
     .turbo-text {
         font-size: 16px;
         margin-top: 10px;
     }
+
     .grok-signature {
         font-size: 12px;
     }
+
     body, body::before {
         animation: none;
     }
+
     .header-gif img {
         animation: turboPulse 3s infinite ease-in-out;
+    }
+
+    .chatbox {
+        width: 90%;
+        height: 70vh;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .chatbox-footer {
+        gap: 5px;
+    }
+
+    #send-btn {
+        padding: 8px 10px;
+    }
+
+    .chatbox-minimized {
+        width: 100px !important;
+        height: 40px !important;
+        min-width: 100px !important;
+        min-height: 40px !important;
+        max-width: 100px !important;
+        max-height: 40px !important;
     }
 }

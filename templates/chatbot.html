@@ -1,0 +1,22 @@
+<div class="chatbox" id="chatbox">
+    <div class="chatbox-header" id="chatbox-header">
+        <div class="title-bar">
+            <div class="header-left">
+                <span class="header-icon">
+                    <img src="{{ url_for('static', filename='PPEI logo.png') }}" alt="PPAI Chatbot Icon" class="chatbot-icon" onerror="this.src='https://via.placeholder.com/20x20.png?text=Icon';">
+                </span>
+                <span class="header-text">PPAI</span>
+            </div>
+            <div class="chatbox-controls">
+                <button id="minimize-btn" title="Minimize" aria-label="Minimize chat">−</button>
+            </div>
+        </div>
+    </div>
+    <div class="chatbox-body">
+        <div id="chatbox-messages"></div>
+    </div>
+    <div class="chatbox-footer">
+        <input type="text" id="chatbox-input" placeholder="Type your message..." aria-label="Chat input">
+        <button id="send-btn" aria-label="Send message">Send</button>
+    </div>
+</div>

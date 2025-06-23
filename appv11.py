@@ -2,129 +2,299 @@ from flask import Flask, request, jsonify, send_from_directory, render_template,
 import os
 import json
 import logging
+import pickle
+import re
+import threading
+import datetime
+import time
+import string
+from dotenv import load_dotenv
+from urllib.parse import unquote
+from jinja2.exceptions import TemplateNotFound
+import requests
+import csv
+from fuzzywuzzy import fuzz
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Required for session management
+load_dotenv()
+app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24).hex())
 
-# Load both error code JSONs
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 try:
     with open('error_codesV1.json', 'r', encoding='utf-8') as f:
         error_codes = json.load(f)
     with open('mean_error_codes.json', 'r', encoding='utf-8') as f:
         mean_error_codes = json.load(f)
-    print("Loaded both JSONs successfully")
-    print(f"Files for $0333 (normal): {error_codes.get('$0333', {}).get('files', 'Not found')}")
-    print(f"Files for $0333 (mean): {mean_error_codes.get('$0333', {}).get('files', 'Not found')}")
-except json.JSONDecodeError as e:
-    print(f"JSON Error: {e}")
+    logger.info("Loaded both JSONs successfully")
+except (json.JSONDecodeError, FileNotFoundError) as e:
+    logger.error(f"JSON Error: {e}")
     error_codes = {}
     mean_error_codes = {}
-except FileNotFoundError as e:
-    print(f"File Error: {e}")
-    error_codes = {}
-    mean_error_codes = {}
+
+ticket_data = []
+try:
+    with open('tickets.csv', 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        ticket_data = [row for row in reader]
+    unique_ticket_ids = set(ticket['Ticket ID'] for ticket in ticket_data)
+    logger.info(f"Loaded {len(ticket_data)} tickets from tickets.csv ({len(unique_ticket_ids)} unique Ticket IDs)")
+    if len(ticket_data) > len(unique_ticket_ids):
+        logger.warning(f"Found {len(ticket_data) - len(unique_ticket_ids)} duplicate Ticket IDs")
+except (FileNotFoundError, Exception) as e:
+    logger.error(f"Error loading tickets.csv: {e}")
+
+COUNTER_FILE = 'email_counter.pkl'
+
+def load_counter():
+    try:
+        with open(COUNTER_FILE, 'rb') as f:
+            return pickle.load(f)
+    except (FileNotFoundError, pickle.PickleError):
+        return 0
+
+def save_counter(counter):
+    try:
+        with open(COUNTER_FILE, 'wb') as f:
+            pickle.dump(counter, f)
+    except Exception as e:
+        logger.error(f"Failed to save counter: {str(e)}")
+
+def validate_error_code(code):
+    pattern = r'^\$?[0-9A-Fa-f]{4}$'
+    return bool(re.match(pattern, code.upper()))
+
+def validate_license_number(license):
+    pattern = r'^[A-Za-z0-9]{1,12}$'
+    return bool(re.match(pattern, license))
+
+VALID_FILES = set()
+for codes in [error_codes, mean_error_codes]:
+    for code_data in codes.values():
+        for file in code_data.get('files', []):
+            VALID_FILES.add(file)
+additional_files = {
+    '2001 – 2010 Duramax EFILive V3 AutoCal ECM Flash Install Instructions.pdf',
+    'TCM Stock File Instructions - 01-10.pdf',
+    'Aisin Transmission Tuning Install Instructions - EFILive.pdf',
+    'EFILive Autocal V3 Datalogging.pdf',
+    'Autocal Flashing Procedure.docx',
+    'Reconfig and Tune Loading Short Instructions.docx',
+    'L5P PIDS.Channels.xml',
+    'lml channels hpt.Channels.xml',
+    '2019-2022 Ram 2500-5500 6.7L Cummins_DMRs_General_Derates_SOTF Slot.Channels.xml',
+    'early 5.9 channels.Channels.xml',
+    'Early6.7Channels1.Channels.xml',
+    '6.7 ford channels2.Channels.Channels (1).xml',
+    'T87A-T93-Installation-Steps.pdf',
+    'MPVI3 Read and Infolog Instructions.pdf',
+    'HP Tuners Installing a PPEI calibration.pdf',
+    'HP Tuners SOTF Instructions.pdf',
+    'HPTuners_CUMMINS_SOTF_UserGuide_2022v1.7.pdf',
+    '22+ RAM Read File  Infolog.pdf',
+    'HP tuners datalogging instructions.txt'
+}
+VALID_FILES.update(additional_files)
+logger.info(f"Valid files: {VALID_FILES}")
+
+log_lock = threading.Lock()
+
+def normalize_text(text):
+    """Normalize text by lowercasing and removing punctuation."""
+    text = text.lower()
+    text = text.translate(str.maketrans('', '', string.punctuation))
+    return text
+
+def save_chat_log(query, response, pdf_path, source, unanswered):
+    log_entry = {
+        'timestamp': datetime.datetime.now().isoformat(),
+        'session_id': session.get('session_id', 'anonymous'),
+        'query': query,
+        'response': response,
+        'pdf_path': pdf_path,
+        'source': source,
+        'unanswered': unanswered
+    }
+    log_file = 'chat_logs.json'
+    try:
+        with log_lock:
+            try:
+                with open(log_file, 'r', encoding='utf-8') as f:
+                    logs = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                logs = []
+            logs.append(log_entry)
+            with open(log_file, 'w', encoding='utf-8') as f:
+                json.dump(logs, f, indent=2)
+        logger.info(f"Saved chat log for query: {query}")
+    except Exception as e:
+        logger.error(f"Failed to save chat log: {str(e)}")
+
+    if unanswered:
+        unanswered_file = 'unanswered_queries.json'
+        try:
+            with log_lock:
+                try:
+                    with open(unanswered_file, 'r', encoding='utf-8') as f:
+                        unanswered_logs = json.load(f)
+                except (FileNotFoundError, json.JSONDecodeError):
+                    unanswered_logs = []
+                unanswered_logs.append(log_entry)
+                with open(unanswered_file, 'w', encoding='utf-8') as f:
+                    json.dump(unanswered_logs, f, indent=2)
+            logger.info(f"Saved unanswered query: {query}")
+        except Exception as e:
+            logger.error(f"Failed to save unanswered query: {str(e)}")
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+    return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
 
 @app.route('/')
 def index():
-    # Reset asshole mode on page load/refresh by clearing the session
-    session.pop('asshole_mode_enabled', None)
-    return render_template('indexV1.1.html')
+    try:
+        session.pop('asshole_mode_enabled', None)
+        session['session_id'] = os.urandom(16).hex()
+        logger.info("Serving index page, asshole mode reset")
+        return render_template('indexV1.1.html')
+    except TemplateNotFound as e:
+        logger.error(f"Template not found: {e.name}")
+        return jsonify({'error': f"Template {e.name} not found"}), 400
+    except Exception as e:
+        logger.error(f"Error rendering index: {str(e)}", exc_info=True)
+        raise e
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    error_code = request.form.get('error_code', '').strip().upper()
-    if not error_code:
-        return jsonify({
-            'error_code': '',
-            'result': None,
-            'message': 'Please enter an error code, dumbass',
-            'asshole_mode': session.get('asshole_mode_enabled', False)
-        }), 400
-    
-    # Check if "fuck you" is entered to enable asshole mode
-    if error_code.lower() == "fuck you":
-        session['asshole_mode_enabled'] = True
-        print("Asshole mode enabled for this session")
+    try:
+        error_code = request.form.get('error_code', '').strip()
+        logger.info(f"Received error code: {error_code}")
+        if not error_code:
+            return jsonify({
+                'error_code': '',
+                'result': None,
+                'message': 'Please enter an error code.',
+                'asshole_mode': session.get('asshole_mode_enabled', False)
+            }), 400
+        
+        if error_code.lower() == "fuck you":
+            session['asshole_mode_enabled'] = True
+            logger.info("Asshole mode enabled for this session")
+            return jsonify({
+                'error_code': error_code,
+                'result': {
+                    "description": "Well, you’ve activated asshole mode.",
+                    "cause": "You typed the magic words.",
+                    "action": "Now search a real code.",
+                    "files": [],
+                    "asshole_mode": True
+                },
+                'asshole_mode': True
+            })
+        
+        if error_code.lower() == "sorry":
+            session['asshole_mode_enabled'] = False
+            logger.info("Asshole mode disabled for a session")
+            return jsonify({
+                'error_code': error_code,
+                'result': {
+                    "description": "Fine, you’ve stopped being an asshole—for now.",
+                    "cause": "You said the magic word to turn it off.",
+                    "action": "Search another code.",
+                    "files": [],
+                    "asshole_mode": False
+                },
+                'asshole_mode': False
+            })
+        
+        if not validate_error_code(error_code):
+            return jsonify({
+                'error_code': error_code,
+                'result': None,
+                'message': session.get('asshole_mode_enabled', False) and 'Invalid error code format. Use XXXX (numbers or A-F), idiot!' or 'Invalid error code format. Use XXXX (numbers or A-F).',
+                'asshole_mode': session.get('asshole_mode_enabled', False)
+            }), 400
+
+        asshole_mode_enabled = session.get('asshole_mode_enabled', False)
+        code = error_code if error_code.startswith('$') else '$' + error_code.upper()
+        source = mean_error_codes if asshole_mode_enabled else error_codes
+        result = source.get(code, None)
+        
+        if result is None:
+            return jsonify({
+                'error_code': error_code,
+                'result': None,
+                'message': asshole_mode_enabled and f'No data for {error_code}, you clueless bastard!' or f'No data found for {error_code}.',
+                'asshole_mode': asshole_mode_enabled
+            }), 404
+        
+        result = result.copy()
+        result["asshole_mode"] = asshole_mode_enabled
+        
         return jsonify({
             'error_code': error_code,
-            'result': {
-                "description": "Well, fuck me—you’ve activated asshole mode, you prick.",
-                "cause": "You typed the magic words, dumbass.",
-                "action": "Now search a real code, or get lost.",
-                "files": [],
-                "asshole_mode": True
-            },
-            'asshole_mode': True
-        })
-    
-    # Check if "sorry" is entered to disable asshole mode
-    if error_code.lower() == "sorry":
-        session['asshole_mode_enabled'] = False
-        print("Asshole mode disabled for this session")
-        return jsonify({
-            'error_code': error_code,
-            'result': {
-                "description": "Fine, I’ll stop being an asshole—for now.",
-                "cause": "You said the magic word to turn off asshole mode.",
-                "action": "Search another code, but don’t expect me to be nice forever.",
-                "files": [],
-                "asshole_mode": False
-            },
-            'asshole_mode': False
-        })
-    
-    # Use session to determine asshole mode state
-    asshole_mode_enabled = session.get('asshole_mode_enabled', False)
-    
-    code = error_code if error_code.startswith('$') else '$' + error_code
-    source = mean_error_codes if asshole_mode_enabled else error_codes
-    result = source.get(code, None)
-    
-    if result is None:
-        return jsonify({
-            'error_code': error_code,
-            'result': None,
-            'message': f'No data for {error_code}, you clueless bastard',
+            'result': result,
             'asshole_mode': asshole_mode_enabled
-        }), 404
-    
-    result = result.copy()
-    result["asshole_mode"] = asshole_mode_enabled
-    
-    return jsonify({
-        'error_code': error_code,
-        'result': result,
-        'asshole_mode': asshole_mode_enabled
-    })
+        })
+    except Exception as e:
+        logger.error(f"Error in submit: {str(e)}", exc_info=True)
+        raise e
 
 @app.route('/download/Files/<path:filename>')
 def download_file(filename):
     try:
-        logging.basicConfig(level=logging.INFO)
-        logger = logging.getLogger(__name__)
-
-        logger.info(f"Requested filename (raw): {filename}")
-        from urllib.parse import unquote
         decoded_filename = unquote(filename)
-        logger.info(f"Decoded filename: {decoded_filename}")
-        static_path = app.static_folder
-        files_dir = os.path.join(static_path, 'Files')
+        logger.info(f"Requested filename: {decoded_filename}")
+
+        if decoded_filename not in VALID_FILES:
+            logger.warning(f"Invalid file requested: {decoded_filename}. Valid files: {VALID_FILES}")
+            return jsonify({'error': 'Invalid file', 'filename': decoded_filename}), 403
+
+        files_dir = os.path.join(app.static_folder, 'Files')
         files_path = os.path.join(files_dir, decoded_filename)
         logger.info(f"Checking file at: {files_path}")
-        dir_contents = os.listdir(files_dir)
-        logger.info(f"Directory contents of static/Files/: {dir_contents}")
+
         if os.path.exists(files_path):
             logger.info(f"File found at: {files_path}")
             return send_from_directory(files_dir, decoded_filename, as_attachment=True)
         else:
-            logger.info(f"File not found at: {files_path}")
+            logger.error(f"File not found at: {files_path}")
             return jsonify({'error': 'File not found', 'filename': decoded_filename}), 404
-    except FileNotFoundError:
-        logger.info(f"FileNotFoundError for: {filename}")
-        return jsonify({'error': 'File not found', 'filename': filename}), 404
     except Exception as e:
-        logger.info(f"Error downloading file {filename}: {str(e)}")
-        return jsonify({'error': f"Error downloading file: {str(e)}"}), 500
+        logger.error(f"Error downloading file {filename}: {str(e)}", exc_info=True)
+        raise e
+
+@app.route('/unlink_request', methods=['POST'])
+def unlink_request():
+    try:
+        logger.info("AutoCal link/unlink is disabled, returning default message")
+        return jsonify({
+            'success': False,
+            'message': 'COMING SOON!'
+        })
+    except Exception as e:
+        logger.error(f"Error in unlink_request: {str(e)}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'message': 'COMING SOON!'
+        }), 500
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    try:
+        logger.info("Chatbot is disabled, returning default message")
+        return jsonify({
+            'response': 'we are working on the coolest chat bot ever. Please be patient no features available yet.',
+            'pdf_path': None
+        })
+    except Exception as e:
+        logger.error(f"Error in chat: {str(e)}", exc_info=True)
+        return jsonify({
+            'response': 'we are working on the coolest chat bot ever. Please be patient no features available yet.',
+            'pdf_path': None
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

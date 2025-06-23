@@ -1,0 +1,110 @@
+[
+  {
+    "timestamp": "2025-06-04T16:16:46.267226",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "hello",
+    "response": "Hey there! I\u2019m happy to help fix whatever\u2019s on your mind. Could you give me a bit more detail about the issue? Let\u2019s tackle it together\u2014drop me a quick note, and we\u2019ll get it sorted in no time! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:17:14.769256",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "Are you able to write tuningfor my 2010 duramax?",
+    "response": "Hey there! I\u2019d love to help with tuning your 2010 Duramax, but I\u2019m not equipped to write custom tunes. I recommend reaching out to a trusted tuning company like PPEI or DuramaxTuner for expert, safe, and reliable tuning solutions. Let me know if you need help finding resources! Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:17:35.041543",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "How much does a PPEI tune cost for the this truck?",
+    "response": "Hey there! PPEI tuning costs can vary based on the truck model and specific tune. Generally, they range from $400 to $800. For an exact quote tailored to your truck, I\u2019d recommend reaching out to PPEI directly or checking their website. Let me know if you need help! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:18:06.129391",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "My truck is running sluggish after tuning",
+    "response": "Hey, sorry to hear your truck\u2019s feeling sluggish post-tuning! First, check if the air filter is clean and the fuel system isn\u2019t clogged. If that\u2019s good, recheck the tune settings\u2014might need a tweak. Let me know if you need help with the details! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:18:42.955482",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "air filter and fuel system is clean, whats next?",
+    "response": "Hey, glad the air filter and fuel system are clean! Next, check the spark plugs\u2014worn or dirty plugs can cause issues. Replace them if needed. Also, inspect the ignition system for any faults. Let me know how it goes, happy to help further! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:18:57.859211",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "how do i datalog my truck?",
+    "response": "Hey, happy to help! To datalog your truck, grab an OBD-II scanner or adapter, plug it into the port under your dashboard, and connect it to a compatible app or software on your phone or laptop. It\u2019ll track performance data like speed and RPMs. Easy peasy! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:19:08.689250",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "im logging with EFI lve",
+    "response": "Hey, no worries! If you're having trouble logging with EFI Live, double-check your credentials and ensure your software is updated. Restart the app or device, and if it still doesn\u2019t work, reach out to EFI Live support for help. We\u2019ll get this sorted! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:19:27.589480",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "what app?",
+    "response": "Hey there! Could you clarify which app you\u2019re having trouble with? I\u2019d love to help fix the issue\u2014 just let me know the app name and what\u2019s going wrong, and I\u2019ll do my best to get it sorted for you! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:19:59.693226",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "you just told me above in the last message to reload the app",
+    "response": "Hey, no worries! If reloading the app didn\u2019t work, try clearing the cache in your app settings. If the issue persists, uninstall and reinstall the app. That usually does the trick! Let me know if you need help with anything else. \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:20:06.070244",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "What app?",
+    "response": "Hey, no worries! Could you tell me which app you\u2019re having trouble with? I\u2019d be happy to help troubleshoot or suggest a fix once I know more. Let me know, and we\u2019ll get it sorted together! \ud83d\ude0a Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "grok",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-04T16:36:15.065660",
+    "session_id": "ef7b678667f8806ec13a1734e53697d2",
+    "query": "How do I datalog my 2010 Duramax with EFI Live AutoCal without a computer?",
+    "response": "PPEI addressed Robert\u2019s inquiry regarding the cable needed to connect his tuning device to a laptop. On October 6, 2022, Zach Lejeune confirmed that a printer cable would suffice for connecting an EFI Live Autocal to a laptop for updates. The conversation does not include further details from Robert confirming whether he obtained the printer cable, successfully connected the Autocal, or completed the updates. Additional follow-up may be required to verify that the cable resolved the connection issue and that the updates were successfully performed. Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "ticket_265650000085912031",
+    "unanswered": false
+  },
+  {
+    "timestamp": "2025-06-23T14:59:30.445207",
+    "session_id": "793f156371554b34b6d91da3222b17b3",
+    "query": "i need help with diesel tuning",
+    "response": "PPEI addressed both the tuning requirements and the Autocal error. On December 2, 2019, Jake Fryer provided a revised tune file (CSP5_T_170_v1.2_2.ctz) to accommodate the non-VGT turbo and 2nd gen manifold swap, along with a PDF guide for loading tunes. For the Autocal error code 0502, Zac Fontenot offered remote assistance via TeamViewer on December 12, 2019, and requested Dagan\u2019s contact information to facilitate troubleshooting. On June 17, 2024, Zach Lejeune supplied the stock file (3C6UD5CLXCG122557_STOCK.ctz) and detailed instructions to resolve potential software or firmware issues, advising Dagan to reinstall the EFI Live software from EFIlive.com, update the Autocal firmware, flash the stock file, and then apply the tune. Additional resources, including configuration instructions and a BBX file, were provided to ensure proper setup. No explicit confirmation of resolution (e.g., successful tune application or error code resolution) was included in the conversation, suggesting that further customer follow-up or verification may be required. Any diesel tuning trouble I can tackle for ya?",
+    "pdf_path": null,
+    "source": "ticket_265650000035565473",
+    "unanswered": false
+  }
+]
