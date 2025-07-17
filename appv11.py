@@ -6,33 +6,67 @@ import pickle
 import re
 import threading
 import datetime
-import time
 import string
 from dotenv import load_dotenv
 from urllib.parse import unquote
 from jinja2.exceptions import TemplateNotFound
-import requests
 import csv
-from fuzzywuzzy import fuzz
+import warnings
+
+# Suppress fuzzywuzzy warning if python-Levenshtein is not installed
+warnings.filterwarnings("ignore", category=UserWarning, module="fuzzywuzzy.fuzz")
 
 app = Flask(__name__)
 load_dotenv()
 app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24).hex())
 
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Valid files list (updated with new filenames)
+VALID_FILES = {
+    '2001 – 2010 Duramax EFILive V3 AutoCal ECM Flash Install Instructions.pdf',
+    'TCM Stock File Instructions - 01-10.pdf',
+    'Aisin Transmission Tuning Install Instructions - EFILive.pdf',
+    'EFILive Autocal V3 Datalogging.pdf',
+    'Autocal Flashing Procedure.docx',
+    'PPEI_BBX.bbx',
+    'program autocal step by step.pdf',
+    'Reconfig and Tune Loading Short Instructions.docx',
+    'L5P PIDS.Channels.xml',
+    'lml channels hpt.Channels.xml',
+    '2019-2022 Ram 2500-5500 6.7L Cummins_DMRs_General_Derates_SOTF Slot.Channels.xml',
+    'early 5.9 channels.Channels.xml',
+    'Early6.7Channels1.Channels.xml',
+    '6.7 ford channels2.Channels.Channels (1).xml',
+    'T87A-T93-Installation-Steps.pdf',
+    'MPVI3 Read and Infolog Instructions_Rev_1.pdf',  # Updated filename
+    'HP Tuners Installing a PPEI calibration.pdf',
+    'HP Tuners SOTF Instructions.pdf',
+    'HPTuners_CUMMINS_SOTF_UserGuide_2022v1.7.pdf',
+    '22+ RAM Read File  Infolog.pdf',
+    'lb7 and lly\'s.docx',
+    '18-21 Cummins Bypass Install Instructions.pdf',
+    'HPTuners Datalogging Instructions.pdf',  # Updated filename
+    'https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o'
+}
+
+# Load error code JSONs
 try:
     with open('error_codesV1.json', 'r', encoding='utf-8') as f:
         error_codes = json.load(f)
     with open('mean_error_codes.json', 'r', encoding='utf-8') as f:
         mean_error_codes = json.load(f)
     logger.info("Loaded both JSONs successfully")
+    logger.info(f"Files for $0333 (normal): {error_codes.get('$0333', {}).get('files', 'Not found')}")
+    logger.info(f"Files for $0333 (mean): {mean_error_codes.get('$0333', {}).get('files', 'Not found')}")
 except (json.JSONDecodeError, FileNotFoundError) as e:
     logger.error(f"JSON Error: {e}")
     error_codes = {}
     mean_error_codes = {}
 
+# Load tickets
 ticket_data = []
 try:
     with open('tickets.csv', 'r', encoding='utf-8') as f:
@@ -44,6 +78,14 @@ try:
         logger.warning(f"Found {len(ticket_data) - len(unique_ticket_ids)} duplicate Ticket IDs")
 except (FileNotFoundError, Exception) as e:
     logger.error(f"Error loading tickets.csv: {e}")
+    ticket_data = []
+
+# Populate VALID_FILES from error code JSONs
+for codes in [error_codes, mean_error_codes]:
+    for code_data in codes.values():
+        for file in code_data.get('files', []):
+            VALID_FILES.add(file)
+logger.info(f"Valid files: {VALID_FILES}")
 
 COUNTER_FILE = 'email_counter.pkl'
 
@@ -68,35 +110,6 @@ def validate_error_code(code):
 def validate_license_number(license):
     pattern = r'^[A-Za-z0-9]{1,12}$'
     return bool(re.match(pattern, license))
-
-VALID_FILES = set()
-for codes in [error_codes, mean_error_codes]:
-    for code_data in codes.values():
-        for file in code_data.get('files', []):
-            VALID_FILES.add(file)
-additional_files = {
-    '2001 – 2010 Duramax EFILive V3 AutoCal ECM Flash Install Instructions.pdf',
-    'TCM Stock File Instructions - 01-10.pdf',
-    'Aisin Transmission Tuning Install Instructions - EFILive.pdf',
-    'EFILive Autocal V3 Datalogging.pdf',
-    'Autocal Flashing Procedure.docx',
-    'Reconfig and Tune Loading Short Instructions.docx',
-    'L5P PIDS.Channels.xml',
-    'lml channels hpt.Channels.xml',
-    '2019-2022 Ram 2500-5500 6.7L Cummins_DMRs_General_Derates_SOTF Slot.Channels.xml',
-    'early 5.9 channels.Channels.xml',
-    'Early6.7Channels1.Channels.xml',
-    '6.7 ford channels2.Channels.Channels (1).xml',
-    'T87A-T93-Installation-Steps.pdf',
-    'MPVI3 Read and Infolog Instructions.pdf',
-    'HP Tuners Installing a PPEI calibration.pdf',
-    'HP Tuners SOTF Instructions.pdf',
-    'HPTuners_CUMMINS_SOTF_UserGuide_2022v1.7.pdf',
-    '22+ RAM Read File  Infolog.pdf',
-    'HP tuners datalogging instructions.txt'
-}
-VALID_FILES.update(additional_files)
-logger.info(f"Valid files: {VALID_FILES}")
 
 log_lock = threading.Lock()
 
@@ -166,6 +179,14 @@ def index():
         logger.error(f"Error rendering index: {str(e)}", exc_info=True)
         raise e
 
+@app.route('/favicon.ico')
+def favicon():
+    # Serve favicon.ico if present, otherwise return 204 to avoid 404 errors
+    favicon_path = os.path.join(app.static_folder, 'favicon.ico')
+    if os.path.exists(favicon_path):
+        return send_from_directory(app.static_folder, 'favicon.ico')
+    return '', 204
+
 @app.route('/submit', methods=['POST'])
 def submit():
     try:
@@ -185,9 +206,9 @@ def submit():
             return jsonify({
                 'error_code': error_code,
                 'result': {
-                    "description": "Well, you’ve activated asshole mode.",
-                    "cause": "You typed the magic words.",
-                    "action": "Now search a real code.",
+                    "description": "Asshole mode activated successfully.",
+                    "cause": "You entered the trigger phrase to enable asshole mode.",
+                    "action": "Now enter a valid error code to proceed.",
                     "files": [],
                     "asshole_mode": True
                 },
@@ -196,13 +217,13 @@ def submit():
         
         if error_code.lower() == "sorry":
             session['asshole_mode_enabled'] = False
-            logger.info("Asshole mode disabled for a session")
+            logger.info("Asshole mode disabled for this session")
             return jsonify({
                 'error_code': error_code,
                 'result': {
-                    "description": "Fine, you’ve stopped being an asshole—for now.",
-                    "cause": "You said the magic word to turn it off.",
-                    "action": "Search another code.",
+                    "description": "Asshole mode deactivated.",
+                    "cause": "You entered the trigger phrase to disable asshole mode.",
+                    "action": "Enter another error code to continue.",
                     "files": [],
                     "asshole_mode": False
                 },
@@ -213,7 +234,7 @@ def submit():
             return jsonify({
                 'error_code': error_code,
                 'result': None,
-                'message': session.get('asshole_mode_enabled', False) and 'Invalid error code format. Use XXXX (numbers or A-F), idiot!' or 'Invalid error code format. Use XXXX (numbers or A-F).',
+                'message': session.get('asshole_mode_enabled', False) and 'Invalid error code format. Use XXXX (numbers or A-F)!' or 'Invalid error code format. Use XXXX (numbers or A-F).',
                 'asshole_mode': session.get('asshole_mode_enabled', False)
             }), 400
 
@@ -223,10 +244,11 @@ def submit():
         result = source.get(code, None)
         
         if result is None:
+            logger.warning(f"No data found for error code: {error_code}")
             return jsonify({
                 'error_code': error_code,
                 'result': None,
-                'message': asshole_mode_enabled and f'No data for {error_code}, you clueless bastard!' or f'No data found for {error_code}.',
+                'message': asshole_mode_enabled and f'No data for {error_code}.' or f'No data found for {error_code}.',
                 'asshole_mode': asshole_mode_enabled
             }), 404
         
@@ -286,13 +308,13 @@ def chat():
     try:
         logger.info("Chatbot is disabled, returning default message")
         return jsonify({
-            'response': 'we are working on the coolest chat bot ever. Please be patient no features available yet.',
+            'response': 'We are working on the coolest chatbot ever. Please be patient, no features available yet.',
             'pdf_path': None
         })
     except Exception as e:
         logger.error(f"Error in chat: {str(e)}", exc_info=True)
         return jsonify({
-            'response': 'we are working on the coolest chat bot ever. Please be patient no features available yet.',
+            'response': 'We are working on the coolest chatbot ever. Please be patient, no features available yet.',
             'pdf_path': None
         }), 500
 
