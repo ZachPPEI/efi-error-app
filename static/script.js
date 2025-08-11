@@ -1,6 +1,5 @@
 /* Initialize global variables */
 let originalDescription;
-
 $(document).ready(function() {
     /* Store original EZLYNK content for dynamic mode switching */
     const ezlynkSections = [
@@ -11,14 +10,11 @@ $(document).ready(function() {
     ezlynkSections.forEach(section => {
         originalEzlynkContent[section] = $(`#${section}`).html();
     });
-
     /* Set original description for mode restoration */
     originalDescription = $('.description').length ? $('.description').html() : "Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.";
     console.log("Original description initialized:", originalDescription);
-
     /* Initialize normal mode */
     $('body').removeClass('asshole-mode');
-
     /* Define expandable sections for toggling */
     const expandableSections = [
         { parent: 'efiErrorCodes', header: '#efiErrorCodes > h3', content: 'efiContent' },
@@ -33,7 +29,8 @@ $(document).ready(function() {
         { parent: 'ezlynkFirmwareUpdate', header: '#ezlynkFirmwareUpdate > h4', content: 'ezlynkFirmwareUpdateContent' },
         { parent: 'ezlynkTuneInstall', header: '#ezlynkTuneInstall > h4', content: 'ezlynkTuneInstallContent' },
         { parent: 'ezlynkTechnicianLink', header: '#ezlynkTechnicianLink > h4', content: 'ezlynkTechnicianLinkContent' },
-        { parent: 'youtubeTutorials', header: '#youtubeTutorials > h4', content: 'youtubeTutorialsContent' }
+        { parent: 'powervisionTuning', header: '#powervisionTuning > h4', content: 'tuningContentPV3' },
+        { parent: 'powervisionAdditional', header: '#powervisionAdditional > h4', content: 'dynoGraphsPV3' }
     ];
 
     /* Bind click events for expandable sections */
@@ -42,156 +39,128 @@ $(document).ready(function() {
         $(header).click((event) => {
             event.stopPropagation();
             toggleSection(parent, content);
-            $(header).attr('aria-expanded', $(`#${parent}`).hasClass('expanded'));
+            $(header).attr('aria-expanded', $(`#${content}`).hasClass('expanded'));
+            console.log(`Clicked ${header} for ${parent}`);
+        });
+        // Prevent link clicks from closing the dropdown
+        $(`#${content} a`).click((event) => {
+            event.stopPropagation();
+            console.log(`Link clicked in ${content}, preventing dropdown close`);
         });
     });
 
     /* Validate error code format (4 hex digits) */
     const validateErrorCode = (code) => /^[0-9A-Fa-f]{4}$/.test(code.trim().toUpperCase());
-
     /* Validate license number (alphanumeric, 1-12 chars) */
     const validateLicenseNumber = (license) => /^[A-Za-z0-9]{1,12}$/.test(license.trim());
-
     /* Error code form submission */
-    $('#errorForm').submit(function(event) {
-        event.preventDefault();
-        const code = $('#error_code').val().trim();
-        const $efiSection = $('#efiErrorCodes');
-        const $resultContainer = $('#resultContainer');
-        const $turboHud = $('#turboHud');
-        const $turboLogo = $('.turbo-logo');
+$('#errorForm').submit(function(event) {
+    event.preventDefault();
+    const code = $('#error_code').val().trim();
+    const $efiSection = $('#efiErrorCodes');
+    const $resultContainer = $('#resultContainer');
 
-        // Allow "fuck you" or "sorry" without hex validation
-        if (code.toLowerCase() === 'fuck you' || code.toLowerCase() === 'sorry') {
-            // Proceed with submission
-        } else if (!validateErrorCode(code)) {
-            $resultContainer.html('<p class="error">Invalid error code. Use 4 hexadecimal digits (0-9, A-F).</p>');
-            return;
-        }
-
-        const humorText = $('body').hasClass('asshole-mode') ? [
-            "Analyzing your bullshit... Hold on!",
-            "Decoding your fuckup... This’ll take a sec!",
-            "Processing your crap... Lucky I’m here!",
-            "Scanning your mess... What a disaster!"
-        ] : [
-            "Analyzing ECM... Smarter Than Your Buddy’s ‘Tuner’!",
-            "Decoding Issues... Like a Mechanic With a Cheat Code!",
-            "Processing ECM... Your Scan Tool’s Got Nothing on This!",
-            "Scanning Errors... Faster Than a Boost Leak Fix!"
-        ];
-        $('.turbo-text').text(humorText[Math.floor(Math.random() * humorText.length)]);
-
-        console.log("Form submitted with code:", code, "showing turbo-hud");
-        $turboHud.addClass('active');
-
-        if (!$efiSection.hasClass('expanded')) {
+    if (code.toLowerCase() === 'fuck you' || code.toLowerCase() === 'sorry') {
+        // Proceed without validation
+    } else if (!/^[0-9A-Fa-f]{4}$/.test(code.trim().toUpperCase())) {
+        $resultContainer.html('<p class="error">Invalid error code. Use 4 hexadecimal digits (0-9, A-F).</p>');
+        if (!$efiSection.find('.efi-content').hasClass('expanded')) {
             toggleSection('efiErrorCodes', 'efiContent');
             $('#efiErrorCodesHeading').attr('aria-expanded', true);
         }
+        return;
+    }
 
-        $turboLogo.addClass('spinning');
-        console.log("Animation started");
+    console.log("Form submitted with code:", code);
 
-        setTimeout(() => {
-            console.log("Spin animation completed, triggering AJAX");
-            $turboLogo.removeClass('spinning');
-            $.post('/submit', { error_code: code }, function(data) {
-                console.log("AJAX success, hiding turbo-hud, response:", data);
-                $('#error_code').val(data.error_code.replace('$', ''));
-                $resultContainer.empty();
-                $turboHud.addClass('exiting');
-                setTimeout(() => $turboHud.removeClass('active exiting'), 500);
+    if (!$efiSection.find('.efi-content').hasClass('expanded')) {
+        toggleSection('efiErrorCodes', 'efiContent');
+        $('#efiErrorCodesHeading').attr('aria-expanded', true);
+    }
 
-                if (data.asshole_mode) {
-                    console.log("Switching to or maintaining asshole mode");
-                    $('body').addClass('asshole-mode');
-                } else {
-                    console.log("Switching to normal mode");
-                    $('body').removeClass('asshole-mode');
-                }
-
-                if (data.result) {
-                    console.log("Rendering result:", data.result);
-                    const fileDisplayNames = $('body').hasClass('asshole-mode') ? {
-                        "18-21 Cummins Bypass Install Instructions.pdf": "Bypass cable crap",
-                        "PPEI_BBX.bbx": "PPEI BBX Shit",
-                        "program autocal step by step.pdf": "AutoCal Fix Guide",
-                        "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o": "Watch This, Idiot!",
-                        "lb7 and lly's.docx": "LB7/LLY Fuse Bullshit"
-                    } : {
-                        "18-21 Cummins Bypass Install Instructions.pdf": "Bypass cable instructions",
-                        "PPEI_BBX.bbx": "PPEI BBX File",
-                        "program autocal step by step.pdf": "Program AutoCal Guide",
-                        "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o": "YouTube Tutorial",
-                        "lb7 and lly's.docx": "LB7/LLY Fuse Guide"
-                    };
-                    const filesHtml = data.result.files && data.result.files.length 
-                        ? '<ul>' + data.result.files.map(file => 
-                            file.startsWith('http') 
-                                ? `<li><a href="${file}" target="_blank" rel="noopener">${fileDisplayNames[file] || 'YouTube Tutorial'}</a></li>` 
-                                : `<li><a href="/download/Files/${file}" title="${file}">${fileDisplayNames[file] || file}</a></li>`
-                          ).join('') + '</ul>' 
-                        : $('body').hasClass('asshole-mode') ? 'None, you’re screwed' : 'None';
-                    $resultContainer.html(`
-                        <div class="result">
-                            <h2>Error: ${data.error_code}</h2>
-                            <p><strong>Description:</strong> ${data.result.description}</p>
-                            <p><strong>Cause:</strong> ${data.result.cause}</p>
-                            <p><strong>Action:</strong> ${data.result.action.replace(/\n/g, '<br>')}</p>
-                            <p><strong>Files:</strong> ${filesHtml}</p>
-                            ${data.result.grok_note ? `<p><em>${data.result.grok_note}</em></p>` : ''}
-                        </div>
-                    `);
-                } else {
-                    console.log("No result found, displaying message:", data.message);
-                    const errorMessage = data.message || 'Error: Something went wrong. Try again, genius.';
-                    $resultContainer.html(`
-                        <div class="result">
-                            <p class="error">${errorMessage}</p>
-                        </div>
-                    `);
-                }
-
-                $('#supportLink').attr('href', `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help${$('body').hasClass('asshole-mode') ? ', assholes?' : '?'}`);
-
-                try {
-                    updateAppMode(data.asshole_mode);
-                    console.log("Description after update:", $('.description').html());
-                } catch (e) {
-                    console.error("Error in updateAppMode:", e);
-                }
-
-                preserveExpandedStates();
-            }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
-                console.log("AJAX failed, hiding turbo-hud");
-                console.log("Error:", textStatus, errorThrown);
-                $turboHud.addClass('exiting');
-                setTimeout(() => {
-                    $turboHud.removeClass('active exiting');
-                    $resultContainer.html($('body').hasClass('asshole-mode') ? '<p class="error">Error loading result, you incompetent!</p>' : '<p class="error">Error loading result. Try again!</p>');
-                    preserveExpandedStates();
-                }, 500);
-            });
-        }, 1000);
+    $.post('/submit', { error_code: code }, function(data) {
+        console.log("AJAX success, response:", data);
+        $('#error_code').val(data.error_code.replace('$', ''));
+        $resultContainer.empty();
+        if (data.asshole_mode) {
+            console.log("Switching to or maintaining asshole mode");
+            $('body').addClass('asshole-mode');
+        } else {
+            console.log("Switching to normal mode");
+            $('body').removeClass('asshole-mode');
+        }
+        if (data.result) {
+            console.log("Rendering result:", data.result);
+            const fileDisplayNames = $('body').hasClass('asshole-mode') ? {
+                "18-21 Cummins Bypass Install Instructions.pdf": "Bypass cable crap",
+                "PPEI_BBX.bbx": "PPEI BBX Shit",
+                "program autocal step by step.pdf": "AutoCal Fix Guide",
+                "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o": "Watch This, Idiot!",
+                "lb7 and lly's.docx": "LB7/LLY Fuse Bullshit"
+            } : {
+                "18-21 Cummins Bypass Install Instructions.pdf": "Bypass cable instructions",
+                "PPEI_BBX.bbx": "PPEI BBX File",
+                "program autocal step by step.pdf": "Program AutoCal Guide",
+                "https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o": "YouTube Tutorial",
+                "lb7 and lly's.docx": "LB7/LLY Fuse Guide"
+            };
+            const filesHtml = data.result.files && data.result.files.length
+                ? '<ul>' + data.result.files.map(file =>
+                    file.startsWith('http')
+                        ? `<li><a href="${file}" target="_blank" rel="noopener">${fileDisplayNames[file] || 'YouTube Tutorial'}</a></li>`
+                        : `<li><a href="/download/Files/${file}" title="${file}">${fileDisplayNames[file] || file}</a></li>`
+                  ).join('') + '</ul>'
+                : $('body').hasClass('asshole-mode') ? 'None, you’re screwed' : 'None';
+            $resultContainer.html(`
+                <div class="result">
+                    <h2>Error: ${data.error_code}</h2>
+                    <p><strong>Description:</strong> ${data.result.description}</p>
+                    <p><strong>Cause:</strong> ${data.result.cause}</p>
+                    <p><strong>Action:</strong> ${data.result.action.replace(/\n/g, '<br>')}</p>
+                    <p><strong>Files:</strong> ${filesHtml}</p>
+                    ${data.result.grok_note ? `<p><em>${data.result.grok_note}</em></p>` : ''}
+                </div>
+            `);
+        } else {
+            console.log("No result found, displaying message:", data.message);
+            const errorMessage = data.message || 'Error: Something went wrong. Try again, genius.';
+            $resultContainer.html(`
+                <div class="result">
+                    <p class="error">${errorMessage}</p>
+                </div>
+            `);
+        }
+        $('#supportLink').attr('href', `mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20(${data.error_code}).%20Can%20you%20help${$('body').hasClass('asshole-mode') ? ', assholes?' : '?'}`);
+        try {
+            updateAppMode(data.asshole_mode);
+            console.log("Description after update:", $('.description').html());
+        } catch (e) {
+            console.error("Error in updateAppMode:", e);
+        }
+        preserveExpandedStates();
+    }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
+        console.log("AJAX failed, error:", textStatus, errorThrown);
+        $resultContainer.html($('body').hasClass('asshole-mode') ? '<p class="error">Error loading result, you incompetent!</p>' : '<p class="error">Error loading result. Try again!</p>');
+        if (!$efiSection.find('.efi-content').hasClass('expanded')) {
+            toggleSection('efiErrorCodes', 'efiContent');
+            $('#efiErrorCodesHeading').attr('aria-expanded', true);
+        }
+        preserveExpandedStates();
     });
-
+});
     /* Unlink form submission */
     $('#unlinkForm').submit(function(event) {
         event.preventDefault();
         const licenseNumber = $('#license_number').val().trim();
         const unknownTunerLicense = $('#unknown_tuner_license').val().trim();
         const $resultContainer = $('#unlinkResult');
-        const $turboHud = $('#turboHud');
-        const $turboLogo = $('.turbo-logo');
-
+        const $loadingOverlay = $('#loadingOverlay');
         if (!validateLicenseNumber(licenseNumber) || (unknownTunerLicense && !validateLicenseNumber(unknownTunerLicense))) {
-            $resultContainer.html($('body').hasClass('asshole-mode') ? 
-                '<p class="error">Invalid license number, alphanumeric up to 12 chars, dumbass!</p>' : 
+            $resultContainer.html($('body').hasClass('asshole-mode') ?
+                '<p class="error">Invalid license number, alphanumeric up to 12 chars, dumbass!</p>' :
                 '<p class="error">Invalid license number. Use alphanumeric characters, max 12.</p>');
             return;
         }
-
         const humorText = $('body').hasClass('asshole-mode') ? [
             "Processing your shitty request... Hold on!",
             "Sorting your mess... This’ll take a sec!",
@@ -201,35 +170,38 @@ $(document).ready(function() {
             "Sending to PPEI... Almost there!",
             "Handling your AutoCal... Hang tight!"
         ];
-        $('.turbo-text').text(humorText[Math.floor(Math.random() * humorText.length)]);
-        $turboHud.addClass('active');
-        $turboLogo.addClass('spinning');
-
+        $('.loading-text').text(humorText[Math.floor(Math.random() * humorText.length)]);
+        $loadingOverlay.addClass('active');
+        let dotCount = 0;
+        const dotInterval = setInterval(() => {
+            dotCount = (dotCount + 1) % 4;
+            $('.loading-text').text(humorText[Math.floor(Math.random() * humorText.length)] + '.'.repeat(dotCount));
+        }, 1000);
         setTimeout(() => {
-            $turboLogo.removeClass('spinning');
+            clearInterval(dotInterval);
             $.post('/unlink_request', {
                 license_number: licenseNumber,
                 unknown_tuner_license: unknownTunerLicense
             }, function(data) {
-                $turboHud.addClass('exiting');
-                setTimeout(() => $turboHud.removeClass('active exiting'), 500);
-                $resultContainer.empty();
-
-                if (data.success) {
-                    $resultContainer.html(`<p class="success">${data.message}</p>`);
-                } else {
-                    $resultContainer.html(`<p class="error">${data.message}</p>`);
-                }
-            }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
-                $turboHud.addClass('exiting');
+                $loadingOverlay.addClass('exiting');
                 setTimeout(() => {
-                    $turboHud.removeClass('active exiting');
+                    $loadingOverlay.removeClass('active exiting');
+                    $resultContainer.empty();
+                    if (data.success) {
+                        $resultContainer.html(`<p class="success">${data.message}</p>`);
+                    } else {
+                        $resultContainer.html(`<p class="error">${data.message}</p>`);
+                    }
+                }, 500);
+            }, 'json').fail(function(jqXHR, textStatus, errorThrown) {
+                $loadingOverlay.addClass('exiting');
+                setTimeout(() => {
+                    $loadingOverlay.removeClass('active exiting');
                     $resultContainer.html($('body').hasClass('asshole-mode') ? '<p class="error">Request failed, you incompetent!</p>' : '<p class="error">Request failed. Try again!</p>');
                 }, 500);
             });
-        }, 1000);
+        }, 3000);
     });
-
     /* Chatbot Functionality */
     const chatbox = document.getElementById('chatbox');
     const chatboxHeader = document.getElementById('chatbox-header');
@@ -237,18 +209,15 @@ $(document).ready(function() {
     const chatboxInput = document.getElementById('chatbox-input');
     const sendBtn = document.getElementById('send-btn');
     const minimizeBtn = document.getElementById('minimize-btn');
-
     /* Display welcome message on load */
     const welcomeMessage = document.createElement('div');
     welcomeMessage.className = 'message bot-message';
-    welcomeMessage.textContent = "Welcome to PPAI’s AI Chatbot (Beta)! I’m here to assist with tuning prices, error codes, diagnostics, and setup guides. As we’re in beta testing, answers may not be 100% accurate. Please bear with us as we enhance my capabilities. How can I help you today?";
+    welcomeMessage.innerHTML = "Chatbot coming soon! Stay tuned for updates.<br>";
     chatboxMessages.appendChild(welcomeMessage);
     chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
-
     let isDragging = false;
     let currentX, currentY;
     let isMinimized = false;
-
     /* Dragging functionality */
     chatboxHeader.addEventListener('mousedown', (e) => {
         if (!isMinimized) {
@@ -260,19 +229,16 @@ $(document).ready(function() {
             e.preventDefault();
         }
     });
-
     document.addEventListener('mousemove', (e) => {
         if (isDragging) {
             chatbox.style.left = (e.clientX - currentX) + 'px';
             chatbox.style.top = (e.clientY - currentY) + 'px';
         }
     });
-
     document.addEventListener('mouseup', () => {
         isDragging = false;
         chatbox.style.transition = 'all 0.3s ease';
     });
-
     /* Minimize/Maximize functionality */
     minimizeBtn.addEventListener('click', (e) => {
         isMinimized = !isMinimized;
@@ -288,7 +254,6 @@ $(document).ready(function() {
         minimizeBtn.setAttribute('aria-label', isMinimized ? 'Maximize chat' : 'Minimize chat');
         e.stopPropagation();
     });
-
     /* Allow clicking header to maximize when minimized */
     chatboxHeader.addEventListener('click', (e) => {
         if (isMinimized) {
@@ -300,34 +265,32 @@ $(document).ready(function() {
             e.preventDefault();
         }
     });
-
-    /* Send message functionality */
+    /* Disable send message functionality */
     sendBtn.addEventListener('click', sendMessage);
     chatboxInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
     });
-
     function sendMessage() {
         const message = chatboxInput.value.trim();
         if (message) {
             const userMessage = document.createElement('div');
             userMessage.className = 'message user-message';
-            userMessage.textContent = message;
+            userMessage.innerHTML = `${message}<br>`;
             chatboxMessages.appendChild(userMessage);
             chatboxInput.value = '';
-
             const typingBubble = document.createElement('div');
             typingBubble.className = 'typing-bubble';
             typingBubble.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
             chatboxMessages.appendChild(typingBubble);
             chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
-
+            console.log("Sending chat request:", message);
             fetch('/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query: message })
+                body: JSON.stringify({ message: message })
             })
             .then(response => {
+                console.log("Chat response status:", response.status);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 return response.json();
             })
@@ -335,15 +298,7 @@ $(document).ready(function() {
                 typingBubble.remove();
                 const botMessage = document.createElement('div');
                 botMessage.className = 'message bot-message';
-                botMessage.textContent = data.response;
-                if (data.pdf_path) {
-                    const pdfLink = document.createElement('a');
-                    pdfLink.href = data.pdf_path;
-                    pdfLink.textContent = `Download: ${data.pdf_path.split('/').pop()}`;
-                    pdfLink.download = '';
-                    botMessage.appendChild(document.createElement('br'));
-                    botMessage.appendChild(pdfLink);
-                }
+                botMessage.innerHTML = `${data.response}<br>`;
                 chatboxMessages.appendChild(botMessage);
                 chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
             })
@@ -352,7 +307,7 @@ $(document).ready(function() {
                 typingBubble.remove();
                 const botMessage = document.createElement('div');
                 botMessage.className = 'message bot-message';
-                botMessage.textContent = 'Sorry, I encountered an error. Please try again or contact support.';
+                botMessage.innerHTML = 'Chatbot coming soon! Stay tuned for updates.<br>';
                 chatboxMessages.appendChild(botMessage);
                 chatboxMessages.scrollTop = chatboxMessages.scrollHeight;
             });
@@ -364,33 +319,30 @@ $(document).ready(function() {
 function toggleSection(sectionId, contentId) {
     const $section = $(`#${sectionId}`);
     const $content = $(`#${contentId}`);
-    const isExpanded = $section.hasClass('expanded');
-
+    const isExpanded = $content.hasClass('expanded');
     if (isExpanded) {
-        $content.removeClass('expanded').css('max-height', '0');
-        $section.removeClass('expanded');
+        $content.removeClass('expanded').css('max-height', '0').css('opacity', '0');
+        $section.find('h3, h4').first().removeClass('expanded');
     } else {
-        $content.addClass('expanded').css('max-height', '10000px');
-        $section.addClass('expanded');
+        $content.addClass('expanded').css('max-height', '10000px').css('opacity', '1');
+        $section.find('h3, h4').first().addClass('expanded');
     }
-    void $content[0].offsetHeight;
+    console.log(`Toggled ${sectionId}, content: ${contentId}, expanded: ${$content.hasClass('expanded')}`);
 }
 
 /* Preserve expanded states */
 function preserveExpandedStates() {
     $('.efi-content.expanded, .additional-content.expanded, .truck-info.expanded, .resources-content.expanded')
-        .css('max-height', '10000px');
+        .css('max-height', '10000px').css('opacity', '1');
 }
 
 /* Update app mode */
 function updateAppMode(isAssholeMode) {
     console.log("Updating app mode, mode:", isAssholeMode ? "asshole" : "normal");
-    const ezlynkContent = $('#ezlynkContent');
     const description = $('.description');
     const currentDescription = description.html();
     console.log("Current description before update:", currentDescription);
     console.log("Original description value:", originalDescription);
-
     const updates = isAssholeMode ? {
         '#ezlynkWifiIssueContent': `
             <p><strong>Issue:</strong> Your shitty EZLYNK isn’t broadcasting WiFi—big surprise.</p>
@@ -514,12 +466,10 @@ function updateAppMode(isAssholeMode) {
             </ul>
         `
     };
-
     Object.entries(updates).forEach(([selector, html]) => {
-        ezlynkContent.find(selector).html(html);
+        $(selector).html(html);
         console.log(`Updated ${selector} content`);
     });
-
     if (isAssholeMode) {
         description.html("Get your pathetic EFILive errors sorted, dipshit—just shove your dumbass code in, snag PPEI’s top-notch fixes, and download what you need to keep your shitty truck from totally fucking up. PPEI’s elite pros built this, because we’re the best—unlike your sorry ass.");
         console.log("Set description to asshole mode text");

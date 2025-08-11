@@ -15,7 +15,6 @@
     <title>PPEI ERROR CODE FINDER</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Orbitron:wght@400;700&display=swap">
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
@@ -31,8 +30,10 @@
             </div>
         </div>
         <div class="description">Resolve EFILive errors efficiently—enter your code, access expert solutions, and download files to maintain peak performance for your truck. Developed by PPEI’s experienced professionals.</div>
+        
+        <!-- EFI Live Help -->
         <div class="efi-error-codes" id="efiErrorCodes">
-            <h3>EFI LIVE HELP</h3>
+            <h3 id="efiErrorCodesHeading" aria-expanded="false">EFI LIVE HELP</h3>
             <div class="efi-content" id="efiContent">
                 <form id="errorForm">
                     <label for="error_code">Enter Error Code (e.g., 0502 or $0502):</label>
@@ -42,10 +43,10 @@
                 <div id="resultContainer"></div>
                 <div class="support-link"><a href="mailto:zach@ppei.com?subject=PPEI%20Error%20Code%20Help&body=Hi%20PPEI%20team,%20I%20can’t%20find%20my%20error%20code%20($0502).%20Can%20you%20help?" id="supportLink">Not seeing your code? Contact the PPEI team!</a></div>
                 <div class="additional-resources" id="additionalResourcesEFI">
-                    <h4>Additional Resources</h4>
+                    <h4 id="additionalResourcesEFIHeading" aria-expanded="false">Additional Resources</h4>
                     <div class="resources-content" id="resourcesContentEFI">
                         <ul>
-                            <li><a href="https://ppei.com/pages/contact" target="_blank">PPEI Support Page</a> - Official support and documentation.</li>
+                            <li><a href="https://ppei.com/pages/contact" target="_blank" rel="noopener">PPEI Support Page</a> - Official support and documentation.</li>
                             <li><a href="{{ url_for('download_file', filename='2001 – 2010 Duramax EFILive V3 AutoCal ECM Flash Install Instructions.pdf') }}">2001 - 2010 Duramax ECM flashing instructions</a> - Guide for ECM flashing.</li>
                             <li><a href="{{ url_for('download_file', filename='TCM Stock File Instructions - 01-10.pdf') }}">2001 - 2010 Duramax TCM read file instructions</a> - Instructions for TCM read files.</li>
                             <li><a href="{{ url_for('download_file', filename='Aisin Transmission Tuning Install Instructions - EFILive.pdf') }}">Aisin TCM tuning instructions</a> - Guide for Aisin TCM tuning.</li>
@@ -56,14 +57,14 @@
                             <li><a href="{{ url_for('download_file', filename='Reconfig and Tune Loading Short Instructions.docx') }}">Loading tune files to autocal</a> - Instructions for loading tune files onto AutoCal.</li>
                         </ul>
                         <div class="additional-resources" id="youtubeTutorials">
-                            <h4>YOUTUBE TUTORIALS</h4>
+                            <h4 id="youtubeTutorialsHeading" aria-expanded="false">YOUTUBE TUTORIALS</h4>
                             <div class="resources-content" id="youtubeTutorialsContent">
                                 <ul>
-                                    <li><a href="https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o" target="_blank">EFILive: Loading tunes, updating bbx, 0502 efilive error fix</a></li>
-                                    <li><a href="https://youtu.be/HCq-L6Xb5p8?si=PFzgKD68NUn-orOx" target="_blank">EFILive: How to Datalog on EFILive AutoCal / FlashScan</a></li>
-                                    <li><a href="https://youtu.be/X_BRiqa4U3s?si=QyUayaEiTn7RRmZf" target="_blank">EFILive: Authentication Code, Serial Number, License Number</a></li>
-                                    <li><a href="https://youtu.be/AsvaJ8u5Fw8?si=FpKAWQPLgPjHvZur" target="_blank">EFILive: How to "Read" Engine or Transmission controller</a></li>
-                                    <li><a href="https://youtu.be/hvziU3NtcKE?si=WBFYJL7llkuRM6X_" target="_blank">EFIlive: How to Pass-Through Flash with EFILive FlashScan / AutoCal</a></li>
+                                    <li><a href="https://youtu.be/1s3yqm-zAgw?si=QlFq8De5Npggs31o" target="_blank" rel="noopener">EFILive: Loading tunes, updating bbx, 0502 efilive error fix</a></li>
+                                    <li><a href="https://youtu.be/HCq-L6Xb5p8?si=PFzgKD68NUn-orOx" target="_blank" rel="noopener">EFILive: How to Datalog on EFILive AutoCal / FlashScan</a></li>
+                                    <li><a href="https://youtu.be/X_BRiqa4U3s?si=QyUayaEiTn7RRmZf" target="_blank" rel="noopener">EFILive: Authentication Code, Serial Number, License Number</a></li>
+                                    <li><a href="https://youtu.be/AsvaJ8u5Fw8?si=FpKAWQPLgPjHvZur" target="_blank" rel="noopener">EFILive: How to "Read" Engine or Transmission controller</a></li>
+                                    <li><a href="https://youtu.be/hvziU3NtcKE?si=WBFYJL7llkuRM6X_" target="_blank" rel="noopener">EFIlive: How to Pass-Through Flash with EFILive FlashScan / AutoCal</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -71,8 +72,10 @@
                 </div>
             </div>
         </div>
+
+        <!-- HP Tuners Help -->
         <div class="additional-info" id="additionalInfo">
-            <h3>HP TUNERS HELP</h3>
+            <h3 id="additionalInfoHeading" aria-expanded="false">HP TUNERS HELP</h3>
             <div class="additional-content" id="additionalContent">
                 <div class="pids-row">
                     <div class="pids-section">
@@ -92,26 +95,28 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="additionalResourcesHP">
-                    <h4>Additional Resources</h4>
+                    <h4 id="additionalResourcesHPHeading" aria-expanded="false">Additional Resources</h4>
                     <div class="resources-content" id="resourcesContentHP">
                         <ul>
                             <li><a href="{{ url_for('download_file', filename='T87A-T93-Installation-Steps.pdf') }}">L5P TCM Tuning Guide</a> - Instructions for L5P TCM tuning.</li>
                             <li><a href="{{ url_for('download_file', filename='MPVI3 Read and Infolog Instructions_Rev_1.pdf') }}">Read File and Infolog</a> - Guide for reading files and logs.</li>
-                            <li><a href="{{ url_for('download_file', filename='HP Tuners Installing a PPEI calibration.pdf') }}">HP tuners file writing instructions</a> - Guide for writing files with HP Tuners.</li>
+                            <li><a href="{{ url_for('download_file', filename='HPTuners Installing Calibration Instructions_Rev_1.pdf') }}">HP tuners file writing instructions</a> - Guide for writing files with HP Tuners.</li>
                             <li><a href="{{ url_for('download_file', filename='HP Tuners SOTF Instructions.pdf') }}">Duramax SOTF instructions</a> - Switch-on-the-fly instructions for Duramax.</li>
                             <li><a href="{{ url_for('download_file', filename='HPTuners_CUMMINS_SOTF_UserGuide_2022v1.7.pdf') }}">Cummins SOTF instructions</a> - Switch-on-the-fly instructions for Cummins.</li>
-                            <li><a href="{{ url_for('download_file', filename='22+ RAM Read File  Infolog.pdf') }}">22+ Ram read and info log instructions</a> - Instructions for reading and logging on 2022+ Ram.</li>
+                            <li><a href="{{ url_for('download_file', filename='22+ RAM Read File Infolog.pdf') }}">22+ Ram read and info log instructions</a> - Instructions for reading and logging on 2022+ Ram.</li>
                             <li><a href="{{ url_for('download_file', filename='HPTuners Datalogging Instructions.pdf') }}">HP Tuners Datalogging Instructions</a> - Guide for setting up and recording datalogs with HP Tuners.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- EZLYNK Help -->
         <div class="additional-info" id="ezlynkInfo">
-            <h3>EZLYNK HELP</h3>
+            <h3 id="ezlynkInfoHeading" aria-expanded="false">EZLYNK HELP</h3>
             <div class="additional-content" id="ezlynkContent">
                 <div class="additional-resources" id="ezlynkWifiIssue">
-                    <h4>EZLYNK WiFi Not Broadcasting</h4>
+                    <h4 id="ezlynkWifiIssueHeading" aria-expanded="false">EZLYNK WiFi Not Broadcasting</h4>
                     <div class="resources-content" id="ezlynkWifiIssueContent">
                         <p><strong>Issue:</strong> The EZLYNK device isn’t broadcasting a WiFi signal (e.g., "EZLYNK_XX"), so you can’t connect via the app.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -124,7 +129,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkConnectionIssue">
-                    <h4>Unable to Connect to EZLYNK Network</h4>
+                    <h4 id="ezlynkConnectionIssueHeading" aria-expanded="false">Unable to Connect to EZLYNK Network</h4>
                     <div class="resources-content" id="ezlynkConnectionIssueContent">
                         <p><strong>Issue:</strong> You see the "EZLYNK_XX" network but can’t connect, or it says "Unable to connect."</p>
                         <p><strong>Suggestions:</strong></p>
@@ -137,7 +142,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkEcmBoot">
-                    <h4>Cannot Communicate with ECM</h4>
+                    <h4 id="ezlynkEcmBootHeading" aria-expanded="false">Cannot Communicate with ECM</h4>
                     <div class="resources-content" id="ezlynkEcmBootContent">
                         <p><strong>Issue:</strong> The EZLYNK app shows "Unable to communicate with your vehicle" when trying to stream data or tune.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -150,7 +155,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkFirmwareUpdate">
-                    <h4>Firmware Update Failure</h4>
+                    <h4 id="ezlynkFirmwareUpdateHeading" aria-expanded="false">Firmware Update Failure</h4>
                     <div class="resources-content" id="ezlynkFirmwareUpdateContent">
                         <p><strong>Issue:</strong> The EZLYNK device disconnects during a firmware update, leaving it in an unstable state.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -163,7 +168,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkTuneInstall">
-                    <h4>Tune Installation Stalls at 0%</h4>
+                    <h4 id="ezlynkTuneInstallHeading" aria-expanded="false">Tune Installation Stalls at 0%</h4>
                     <div class="resources-content" id="ezlynkTuneInstallContent">
                         <p><strong>Issue:</strong> When installing a tune via the EZLYNK app, the progress bar stalls at 0%.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -176,7 +181,7 @@
                     </div>
                 </div>
                 <div class="additional-resources" id="ezlynkTechnicianLink">
-                    <h4>Unable to Link with Technician</h4>
+                    <h4 id="ezlynkTechnicianLinkHeading" aria-expanded="false">Unable to Link with Technician</h4>
                     <div class="resources-content" id="ezlynkTechnicianLinkContent">
                         <p><strong>Issue:</strong> The EZLYNK app fails to link your vehicle with a technician for tune updates or diagnostics.</p>
                         <p><strong>Suggestions:</strong></p>
@@ -190,20 +195,76 @@
                 </div>
             </div>
         </div>
+
+        <!-- Dynojet PV3 Help -->
         <div class="additional-info" id="truckBox">
-            <h3>AUTOCAL LINK/UNLINK REQUEST</h3>
-            <div class="truck-info" id="truckInfo">
-                <p>COMING SOON!</p>
+            <h3 id="truckBoxHeading" aria-expanded="false">DYNOJET PV3 HELP</h3>
+            <div class="additional-content" id="truckInfo">
+                <div class="additional-resources" id="powervisionTuning">
+                    <h4 id="tuningInstructionsHeading" aria-expanded="false">Tuning Instructions</h4>
+                    <div class="resources-content" id="tuningContentPV3">
+                        <p><strong>Guides:</strong> Download the following for Power Vision 3 setup and usage.</p>
+                        <ul>
+                            <li><a href="{{ url_for('download_file', filename='Dynojet PV_INFO Instructions.pdf') }}">Dynojet PV_INFO Instructions</a> - General guide for Power Vision 3 setup and usage.</li>
+                            <li><a href="{{ url_for('download_file', filename='Installation Guide - Power Vision 3 for Can-Am X3.pdf') }}">Installation Guide - Can-Am X3</a> - Instructions for installing Power Vision 3 on Can-Am X3.</li>
+                            <li><a href="{{ url_for('download_file', filename='Installation Guide - Power Vision 3 for Polaris.pdf') }}">Installation Guide - Polaris</a> - Instructions for installing Power Vision 3 on Polaris vehicles.</li>
+                            <li><a href="{{ url_for('download_file', filename='Installation Guide - Power Vision 3 for Honda Talon.pdf') }}">Installation Guide - Honda Talon</a> - Instructions for installing Power Vision 3 on Honda Talon.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="additional-resources" id="powervisionAdditional">
+                    <h4 id="dynoGraphsHeading" aria-expanded="false">DYNO GRAPHS</h4>
+                    <div class="resources-content" id="dynoGraphsPV3">
+                        <p><strong>More Support:</strong> Download dyno graphs below. Additional resources will be added soon!</p>
+                        <div class="dyno-links-row">
+                            <div class="dyno-links-column">
+                                <h5>HONDA TALON</h5>
+                                <ul>
+                                    <li><a href="{{ url_for('download_file', filename='honda_talon_stock_DYNO.png') }}">Stock Talon Dyno Graph</a></li>
+                                    <li><a href="{{ url_for('download_file', filename='talon_exhaust_graph.png') }}">Full Exhaust</a></li>
+                                    <li><a href="{{ url_for('download_file', filename='talon_CAI_exhaust_graph.jpeg') }}">Cold Air Intake and Full Exhaust System</a></li>
+                                    <li><a href="{{ url_for('download_file', filename='talon_alt_fuel_graph.jpeg') }}">Stock Talon with Different Fuel Types</a></li>
+                                    <li><a href="{{ url_for('download_file', filename='Talon_turbo_graph.png') }}">Talon Turbo Tuning</a></li>
+                                </ul>
+                            </div>
+                            <div class="dyno-links-column">
+                                <h5>CAN AM X3</h5>
+                                <ul>
+                                    <li><a href="{{ url_for('download_file', filename='2017_canam_graph.webp') }}">2017 - CAN-AM MAVERICK X3</a></li>
+                                    <li><a href="{{ url_for('download_file', filename='18-21_canam_graph.webp') }}">2018 - 2021 CAN-AM MAVERICK X3</a></li>
+                                    <li><a href="{{ url_for('download_file', filename='21+canam_graph.webp') }}">2021+ CAN-AM MAVERICK X3 TURBO RR</a></li>
+                                </ul>
+                            </div>
+                            <div class="dyno-links-column">
+                                <h5>POLARIS</h5>
+                                <ul>
+                                    <li><a href="{{ url_for('download_file', filename='Polaris_200_graph.jpg') }}">Polaris 200 Graph</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="grok-signature">Powered by Grok, xAI</div>
-    </div>
-    <div class="turbo-hud" id="turboHud">
-        <div class="turbo-container">
-            <img src="{{ url_for('static', filename='PPEI logo.png') }}" alt="PPEI Loading Logo" class="turbo-logo" onerror="this.src='https://via.placeholder.com/200x200.png?text=PPEI+Logo'; console.log('Failed to load PPEI logo.png');">
-            <div class="turbo-text">Decoding Performance...</div>
+        <!-- Chatbot -->
+<div class="chatbox" id="chatbox">
+    <div class="chatbox-header" id="chatbox-header">
+        <div class="title-bar">
+            <div class="header-left">
+                <div class="header-text">PPEI AI Chatbot (Beta)</div>
+            </div>
+            <div class="chatbox-controls">
+                <button id="minimize-btn" aria-label="Minimize chat">-</button>
+            </div>
         </div>
     </div>
-    {% include 'chatbot.html' %}
+    <div class="chatbox-body">
+        <div id="chatbox-messages"></div>
+    </div>
+    <div class="chatbox-footer">
+        <input type="text" id="chatbox-input" placeholder="Type your question...">
+        <button id="send-btn">Send</button>
+    </div>
+</div>
 </body>
 </html>

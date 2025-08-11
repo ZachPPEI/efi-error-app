@@ -57,7 +57,7 @@ body::before {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 20px auto;
     background: var(--bg-container);
     padding: 30px;
@@ -120,10 +120,12 @@ body::before {
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: space-between; /* Spread logo and title */
+    width: 100%; /* Full width for better spacing */
 }
 
 .header-gif {
-    width: 180px;
+    width: 250px; /* Reduced from 400px to make GIF smaller */
     margin-left: 20px;
     border: 2px solid var(--accent-color);
     border-radius: 4px;
@@ -348,99 +350,42 @@ button:hover::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 3000;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.5s ease;
-}
-
-.turbo-hud::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(0, 204, 102, 0.3), rgba(0, 0, 0, 0));
-    opacity: 0;
-}
-
-.asshole-mode .turbo-hud::before {
-    background: radial-gradient(circle, rgba(255, 51, 51, 0.3), rgba(0, 0, 0, 0));
+    transition: opacity 0.5s ease, background 0.5s ease;
+    pointer-events: none;
 }
 
 .turbo-hud.active {
+    background: rgba(0, 0, 0, 1);
     opacity: 1;
     visibility: visible;
-}
-
-.turbo-hud.active::before {
-    animation: nebulaPulse 2s ease-in-out;
+    pointer-events: auto;
 }
 
 .turbo-hud.exiting {
-    transform: scale(1.5);
+    background: rgba(0, 0, 0, 0);
     opacity: 0;
-}
-
-.turbo-container {
-    position: relative;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.turbo-logo {
-    width: 100%;
-    height: auto;
-    max-width: 300px;
-    display: block;
-}
-
-.turbo-logo.spinning {
-    animation: zoomInOut 2s infinite ease-in-out, spin 2s linear;
-}
-
-@keyframes zoomInOut {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes nebulaPulse {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
+    visibility: hidden;
 }
 
 .turbo-text {
-    margin-top: 20px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 24px;
+    font-size: 60px;
     color: var(--accent-color);
     text-transform: uppercase;
-    text-shadow: 0 0 10px var(--glow-color);
-    animation: glitchText 0.1s infinite;
+    letter-spacing: 4px;
+    text-shadow: 0 0 15px var(--shadow-color);
 }
 
-@keyframes glitchText {
-    0% { transform: translate(0, 0); opacity: 1; }
-    20% { transform: translate(-2px, 2px); opacity: 0.8; }
-    40% { transform: translate(2px, -2px); opacity: 0.9; }
-    60% { transform: translate(-2px, 0); opacity: 0.7; }
-    80% { transform: translate(2px, 2px); opacity: 0.9; }
-    100% { transform: translate(0, 0); opacity: 1; }
+.asshole-mode .turbo-text {
+    color: var(--asshole-accent);
+    text-shadow: 0 0 15px var(--asshole-shadow);
 }
 
 .result {
@@ -575,6 +520,54 @@ button:hover::after {
 }
 
 .resources-content a:hover {
+    text-shadow: 0 0 5px var(--shadow-color);
+}
+
+.dyno-links-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 15px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.dyno-links-column {
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.dyno-links-column h5 {
+    color: var(--text-primary);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+.dyno-links-column ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.dyno-links-column li {
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.dyno-links-column a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    transition: text-shadow 0.3s;
+}
+
+.dyno-links-column a:hover {
     text-shadow: 0 0 5px var(--shadow-color);
 }
 
@@ -762,22 +755,7 @@ button:hover::after {
 }
 
 .chatbox {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 320px;
-    height: 600px;
-    background: var(--bg-container);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    box-shadow: 0 0 20px var(--shadow-color), inset 0 0 5px var(--glow-color);
-    display: flex;
-    flex-direction: column;
-    z-index: 3000;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    position: absolute;
-    user-select: none;
+    display: none; /* Hide the chatbot */
 }
 
 .chatbox-header {
@@ -799,19 +777,6 @@ button:hover::after {
     justify-content: center;
     gap: 10px;
     flex-grow: 1;
-}
-
-.header-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.chatbot-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px var(--glow-color);
 }
 
 .header-text {
@@ -1032,11 +997,6 @@ button:hover::after {
     letter-spacing: 1px;
 }
 
-.chatbox-minimized .header-icon,
-.chatbox-minimized .chatbox-controls {
-    display: none;
-}
-
 .asshole-mode .chatbox {
     background: rgba(42, 0, 0, 0.9);
     border-color: var(--asshole-accent);
@@ -1086,21 +1046,18 @@ button:hover::after {
         border-radius: 0;
         min-height: 100vh;
     }
-
     .header {
         padding: 10px;
         min-height: auto;
         position: relative;
         border: 1px solid var(--glow-color);
     }
-
     .header-buttons {
         flex-direction: column;
         gap: 8px;
         margin-bottom: 10px;
         width: 100%;
     }
-
     .home-button a, .feedback-button a {
         padding: 10px 20px;
         font-size: 14px;
@@ -1108,34 +1065,28 @@ button:hover::after {
         text-align: center;
         box-sizing: border-box;
     }
-
     .header-content {
         flex-direction: column;
         gap: 10px;
         align-items: center;
     }
-
     .header-gif {
         width: 100px;
         margin: 0 auto;
     }
-
     .header-gif img {
         max-width: 100%;
     }
-
     h1 {
         font-size: 20px;
         text-align: center;
         letter-spacing: 2px;
     }
-
     .description {
         font-size: 14px;
         padding: 10px;
         line-height: 1.5;
     }
-
     form {
         padding: 10px;
         display: flex;
@@ -1143,14 +1094,12 @@ button:hover::after {
         gap: 10px;
         align-items: center;
     }
-
     label {
         font-size: 14px;
         margin-right: 0;
         margin-bottom: 5px;
         text-align: center;
     }
-
     input[type="text"] {
         width: 100%;
         max-width: 300px;
@@ -1158,7 +1107,6 @@ button:hover::after {
         padding: 12px;
         box-sizing: border-box;
     }
-
     button {
         width: 100%;
         max-width: 300px;
@@ -1168,127 +1116,82 @@ button:hover::after {
         margin-top: 10px;
         font-family: 'Orbitron', sans-serif;
     }
-
     .efi-error-codes, .additional-info, .truck-box {
         margin-top: 15px;
         padding: 15px;
     }
-
     .efi-error-codes h3, .additional-info h3, .truck-box h2 {
         font-size: 18px;
         letter-spacing: 1px;
     }
-
     .result {
         padding: 15px;
         font-size: 14px;
     }
-
     .result h2 {
         font-size: 18px;
     }
-
     .result p {
         line-height: 1.5;
     }
-
     .result a {
         font-size: 16px;
         word-break: break-word;
     }
-
     .support-link a {
         font-size: 14px;
     }
-
     .additional-resources {
         padding: 10px;
     }
-
     .additional-resources h4 {
         font-size: 16px;
     }
-
     .resources-content li {
         font-size: 14px;
         line-height: 1.5;
     }
-
+    .dyno-links-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .dyno-links-column {
+        min-width: 100%;
+        max-width: 100%;
+    }
     .truck-row, .pids-row {
         flex-direction: column;
         gap: 15px;
     }
-
     .truck-section, .pids-section {
         width: 100%;
         margin-right: 0;
         margin-bottom: 15px;
         text-align: left;
     }
-
     .truck-section h3, .pids-section h4 {
         font-size: 16px;
     }
-
     .truck-section p {
         font-size: 14px;
         line-height: 1.5;
     }
-
     .l5p-instructions {
         text-align: center;
     }
-
-    .turbo-container {
-        width: 200px;
-    }
-
-    .turbo-logo {
-        max-width: 200px;
-    }
-
-    .turbo-hud {
-        background: rgba(0, 0, 0, 0.9);
-    }
-
     .turbo-text {
-        font-size: 16px;
-        margin-top: 10px;
+        font-size: 40px;
     }
-
     .grok-signature {
         font-size: 12px;
     }
-
     body, body::before {
         animation: none;
     }
-
     .header-gif img {
         animation: turboPulse 3s infinite ease-in-out;
     }
-
     .chatbox {
-        width: 90%;
-        height: 70vh;
-        bottom: 10px;
-        right: 10px;
-    }
-
-    .chatbox-footer {
-        gap: 5px;
-    }
-
-    #send-btn {
-        padding: 8px 10px;
-    }
-
-    .chatbox-minimized {
-        width: 100px !important;
-        height: 40px !important;
-        min-width: 100px !important;
-        min-height: 40px !important;
-        max-width: 100px !important;
-        max-height: 40px !important;
+        display: none; /* Ensure chatbot stays hidden */
     }
 }

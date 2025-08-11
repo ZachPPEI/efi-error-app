@@ -1,0 +1,19 @@
+# Python virtual environment
+venv/
+.env
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+*.cache
+*.DS_Store
+
+# Dependency directories
+node_modules/
